@@ -10,10 +10,17 @@ import java.util.ArrayList;
 public class ClientMessage {
     
     private String playerID;
-    private ArrayList<String> pressedKeys = new ArrayList<String>();
+    private String keyPressed;
     
-    public clientMessage(){
+    public ClientMessage(String id, String keyPressed){
         playerID = id;
+        this.keyPressed = keyPressed;
+    }
+    public String getID(){
+        return playerID;
+    }
+    public String getPressedKeys(){
+        return keyPressed;
     }
     
     
