@@ -1,5 +1,6 @@
 package mygame;
 
+import SpaceEntities.Ship;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.KeyInput;
@@ -11,7 +12,6 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
 import com.jme3.input.MouseInput;
 
-import Entities.*;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Quaternion;
