@@ -1,5 +1,6 @@
 package mygame;
 
+import SpaceEntities.Ship;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.KeyInput;
@@ -11,10 +12,11 @@ import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
 import com.jme3.input.MouseInput;
 
-import Entities.*;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Quaternion;
+import com.jme3.renderer.Camera;
+import com.jme3.system.AppSettings;
 
 /**
  * Ship test
@@ -28,6 +30,13 @@ public class Main extends SimpleApplication {
     
     public static void main(String[] args) {
         Main app = new Main();
+        
+        // Title and image
+        AppSettings settings = new AppSettings(true);
+        settings.setTitle("Space Game");
+        settings.setSettingsDialogImage("Interface/nave.jpg");
+        app.setSettings(settings);
+        
         app.start();   
     }
 
@@ -35,10 +44,6 @@ public class Main extends SimpleApplication {
     public void simpleInitApp(){
         
         flyCam.setEnabled(false);
-        
-        int d = 3;
-        
-        int x = 0;
         
         assetManager.registerLocator("assets/Models/Ships/", FileLocator.class);
         
@@ -56,6 +61,10 @@ public class Main extends SimpleApplication {
         
         sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
+        
+        // Camera
+        
+        //this.cam.setLocation(new Vector3f(10,10,10));
         
         rootNode.addLight(sun);
         rootNode.addLight(backupLights);
@@ -93,7 +102,9 @@ public class Main extends SimpleApplication {
                 myShip.setDirection(new Vector3f(1,0,0));
             }
             if(name.equals("MouseX")){
-                myShip.setAngle(new Quaternion(MouseInput.AXIS_X, MouseInput.AXIS_Y, 0,0));
+                //myShip.setAngle(new Quaternion(MouseInput.AXIS_X, MouseInput.AXIS_Y, 0,0));
+                //cam.setLocation((int)MouseInput.AXIS_X,(float)MouseInput.AXIS_Y,0);
+                cam.setLocation(new Vector3f(MouseInput.AXIS_X, MouseInput.AXIS_Y,0));
             }
         }
     };
