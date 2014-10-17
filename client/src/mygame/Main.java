@@ -36,7 +36,7 @@ public class Main extends SimpleApplication {
         
         flyCam.setEnabled(false);
         
-        
+        int d = 3;
         
         int x = 0;
         
