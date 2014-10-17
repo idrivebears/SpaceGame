@@ -15,6 +15,7 @@ import com.jme3.input.MouseInput;
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.math.Quaternion;
+import com.jme3.renderer.Camera;
 
 /**
  * Ship test
@@ -35,10 +36,6 @@ public class Main extends SimpleApplication {
     public void simpleInitApp(){
         
         flyCam.setEnabled(false);
-        
-        int d = 3;
-        
-        int x = 0;
         
         assetManager.registerLocator("assets/Models/Ships/", FileLocator.class);
         
