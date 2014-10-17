@@ -56,7 +56,7 @@ public class Main extends SimpleApplication {
         
         // Camera
         
-        this.cam.setLocation(new Vector3f(10,10,10));
+        //this.cam.setLocation(new Vector3f(10,10,10));
         
         rootNode.addLight(sun);
         rootNode.addLight(backupLights);
