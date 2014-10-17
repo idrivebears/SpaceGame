@@ -54,6 +54,10 @@ public class Main extends SimpleApplication {
         sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
         
+        // Camera
+        
+        this.cam.setLocation(new Vector3f(10,10,10));
+        
         rootNode.addLight(sun);
         rootNode.addLight(backupLights);
         
@@ -90,7 +94,9 @@ public class Main extends SimpleApplication {
                 myShip.setDirection(new Vector3f(1,0,0));
             }
             if(name.equals("MouseX")){
-                myShip.setAngle(new Quaternion(MouseInput.AXIS_X, MouseInput.AXIS_Y, 0,0));
+                //myShip.setAngle(new Quaternion(MouseInput.AXIS_X, MouseInput.AXIS_Y, 0,0));
+                //cam.setLocation((int)MouseInput.AXIS_X,(float)MouseInput.AXIS_Y,0);
+                cam.setLocation(new Vector3f(MouseInput.AXIS_X, MouseInput.AXIS_Y,0));
             }
         }
     };
