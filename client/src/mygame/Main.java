@@ -4,10 +4,11 @@ import SpaceEntities.Ship;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.KeyInput;
+import com.jme3.input.MouseInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
+import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.light.DirectionalLight;
-import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
@@ -64,11 +65,8 @@ public class Main extends SimpleApplication {
                 
         // Map
         viewPort.setBackgroundColor(ColorRGBA.Blue);
-                /** Load a model. Uses model and texture from jme3-test-data library! */ 
-        Spatial teapot = assetManager.loadModel("Models/Teapot/Teapot.obj");
-        Material defaultMat = new Material( assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
-        teapot.setMaterial(defaultMat);
-        rootNode.attachChild(teapot);
+        /** How to load a model??????????*/ 
+        
 
         rootNode.addLight(sun);
         rootNode.addLight(backupLights);
@@ -84,8 +82,8 @@ public class Main extends SimpleApplication {
         inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_H));
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_L));
         
-        //inputManager.addMapping("MouseX", new MouseAxisTrigger(MouseInput.BUTTON_LEFT, true));
-        //inputManager.addMapping("MouseY", new MouseAxisTrigger(MouseInput.AXIS_X, true));
+        inputManager.addMapping("MouseX", new MouseAxisTrigger(MouseInput.BUTTON_LEFT, true));
+        inputManager.addMapping("MouseY", new MouseAxisTrigger(MouseInput.AXIS_X, true));
         
         //Adding to action listener
         inputManager.addListener(analogListener, "Up", "Down", "Left", "Right");
@@ -109,6 +107,7 @@ public class Main extends SimpleApplication {
                 //myShip.setAngle(new Quaternion(MouseInput.AXIS_X, MouseInput.AXIS_Y, 0,0));
                 //cam.setLocation((int)MouseInput.AXIS_X,(float)MouseInput.AXIS_Y,0);
                 //cam.setLocation(new Vector3f(MouseInput.AXIS_X, MouseInput.AXIS_Y,0));
+                // Modify myShip direction and position, camera is already set
             }
         }
     };
