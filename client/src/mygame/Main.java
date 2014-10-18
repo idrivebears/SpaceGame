@@ -7,15 +7,11 @@ import com.jme3.input.KeyInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
+import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
-import com.jme3.input.MouseInput;
-
-import com.jme3.input.MouseInput;
-import com.jme3.input.controls.MouseAxisTrigger;
-import com.jme3.math.Quaternion;
-import com.jme3.renderer.Camera;
+import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
 
 /**
@@ -27,7 +23,7 @@ import com.jme3.system.AppSettings;
 public class Main extends SimpleApplication {
     Spatial ship;
     Ship myShip;
-    
+      
     public static void main(String[] args) {
         Main app = new Main();
         
@@ -39,7 +35,7 @@ public class Main extends SimpleApplication {
         
         app.start();   
     }
-
+    
     @Override
     public void simpleInitApp(){
         
@@ -63,9 +59,17 @@ public class Main extends SimpleApplication {
         backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
         
         // Camera
-        
-        //this.cam.setLocation(new Vector3f(10,10,10));
-        
+        cam.setLocation(myShip.getPosition().add(new Vector3f(0,10,-10)));
+        cam.lookAt(myShip.getPosition(), myShip.getPosition());
+                
+        // Map
+        viewPort.setBackgroundColor(ColorRGBA.Blue);
+                /** Load a model. Uses model and texture from jme3-test-data library! */ 
+        Spatial teapot = assetManager.loadModel("Models/Teapot/Teapot.obj");
+        Material defaultMat = new Material( assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
+        teapot.setMaterial(defaultMat);
+        rootNode.attachChild(teapot);
+
         rootNode.addLight(sun);
         rootNode.addLight(backupLights);
         
@@ -80,8 +84,8 @@ public class Main extends SimpleApplication {
         inputManager.addMapping("Left", new KeyTrigger(KeyInput.KEY_H));
         inputManager.addMapping("Right", new KeyTrigger(KeyInput.KEY_L));
         
-        inputManager.addMapping("MouseX", new MouseAxisTrigger(MouseInput.BUTTON_LEFT, true));
-        inputManager.addMapping("MouseY", new MouseAxisTrigger(MouseInput.AXIS_X, true));
+        //inputManager.addMapping("MouseX", new MouseAxisTrigger(MouseInput.BUTTON_LEFT, true));
+        //inputManager.addMapping("MouseY", new MouseAxisTrigger(MouseInput.AXIS_X, true));
         
         //Adding to action listener
         inputManager.addListener(analogListener, "Up", "Down", "Left", "Right");
@@ -104,7 +108,7 @@ public class Main extends SimpleApplication {
             if(name.equals("MouseX")){
                 //myShip.setAngle(new Quaternion(MouseInput.AXIS_X, MouseInput.AXIS_Y, 0,0));
                 //cam.setLocation((int)MouseInput.AXIS_X,(float)MouseInput.AXIS_Y,0);
-                cam.setLocation(new Vector3f(MouseInput.AXIS_X, MouseInput.AXIS_Y,0));
+                //cam.setLocation(new Vector3f(MouseInput.AXIS_X, MouseInput.AXIS_Y,0));
             }
         }
     };
@@ -112,6 +116,10 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf) {
         myShip.update(tpf);
+        
+        // Camera
+        cam.setLocation(myShip.getPosition().add(new Vector3f(0,10,-10)));
+        cam.lookAt(myShip.getPosition(), myShip.getPosition());
     }
 
     @Override
