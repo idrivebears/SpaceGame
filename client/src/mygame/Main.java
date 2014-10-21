@@ -10,20 +10,15 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
-import com.jme3.input.MouseInput;
+import com.jme3.math.ColorRGBA;
+import com.jme3.system.AppSettings;
+//import javax.swing.Box;
+
 
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseAxisTrigger;
-import com.jme3.math.FastMath;
-import com.jme3.math.Plane;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector2f;
 import com.jme3.post.FilterPostProcessor;
-import com.jme3.renderer.queue.RenderQueue;
-import com.jme3.scene.Geometry;
-import com.jme3.scene.shape.Quad;
 import com.jme3.texture.Texture2D;
-import com.jme3.water.SimpleWaterProcessor;
 import com.jme3.water.WaterFilter;
 
 /**
@@ -35,26 +30,38 @@ import com.jme3.water.WaterFilter;
 public class Main extends SimpleApplication {
     Spatial ship;
     Ship myShip;
+
     private Spatial sceneTestTerrain;
     private WaterFilter water;
     private Vector3f lightdir = new Vector3f (-4f,-1f,5f);
     
+    // Velocity of ship [TEST]
+    private float SPEED = 32;
+    private int CAMERA_MOVE_SPEED = 50;
+    
+    
     public static void main(String[] args) {
         Main app = new Main();
-        app.start();   
+        
+        // Title and image
+        AppSettings settings = new AppSettings(true);
+        settings.setTitle("Space Game");
+        settings.setSettingsDialogImage("Interface/nave.jpg");
+        app.setSettings(settings);
+        
+        app.start();  
     }
+    
 
     @Override
     public void simpleInitApp(){
         
         initTestTerrain();  // Carga del Terreno de prueba
-        initTestWater();    // Carga el agua para el terreno 
+        //initTestWater();    // Carga el agua para el terreno 
                             //para desacticarla (Nacho o Walls por el rendimiento) 
                             //solo ponganlo como comentario
-        
-        //flyCam.setEnabled(false);
-        flyCam.setMoveSpeed(100f);
-        
+       
+
         assetManager.registerLocator("assets/Models/Ships/", FileLocator.class);
         
         //Testing ship class
@@ -65,20 +72,9 @@ public class Main extends SimpleApplication {
         myShip.getSpatial().scale(0.01f);
         myShip.attachToNode(rootNode);
         
-        //Light is needed to make the model visible
-        DirectionalLight sun = new DirectionalLight();
-        DirectionalLight backupLights = new DirectionalLight();
-        
-        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
-        backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
-        
-        // Camera
-        
-        //this.cam.setLocation(new Vector3f(10,10,10));
-        
-        rootNode.addLight(sun);
-        rootNode.addLight(backupLights);
-        
+        setUpLight();
+        setCamera();
+                
         this.initKeys();
         
     }
@@ -93,11 +89,49 @@ public class Main extends SimpleApplication {
         inputManager.addMapping("MouseX", new MouseAxisTrigger(MouseInput.BUTTON_LEFT, true));
         inputManager.addMapping("MouseY", new MouseAxisTrigger(MouseInput.AXIS_X, true));
         
+        // New keys, testing rotation
+        inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping("INPUT_Up", new KeyTrigger(KeyInput.KEY_E));
+        inputManager.addMapping("INPUT_Down", new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_C));
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_Z));
+        
+        
         //Adding to action listener
         inputManager.addListener(analogListener, "Up", "Down", "Left", "Right");
+        inputManager.addListener(analogListener,"INPUT_Forward", "INPUT_Backward","INPUT_Up","INPUT_Down",
+                "INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
+    }
+      
+    //Light is needed to make the model visible
+    private void setUpLight(){
+        
+        DirectionalLight sun = new DirectionalLight();
+        DirectionalLight backupLights = new DirectionalLight();
+        
+        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
+        backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
+        
+        viewPort.setBackgroundColor(ColorRGBA.Yellow);
+             
+        rootNode.addLight(sun);
+        rootNode.addLight(backupLights);
+    }
+    
+    private void setCamera(){
+        //flyCam.setEnabled(false);
+        flyCam.setMoveSpeed(CAMERA_MOVE_SPEED);
+        
+        cam.setLocation(myShip.getPosition().add(new Vector3f(0,10,-10)));
+        cam.lookAt(myShip.getPosition(), myShip.getPosition());
     }
     
     private AnalogListener analogListener = new AnalogListener(){
+        // TODO: Combine SPEED with tpf
+        
         public void onAnalog(String name, float value, float tpf){
             if(name.equals("Up")){
                 myShip.setDirection(new Vector3f(0,1,0));
@@ -114,7 +148,39 @@ public class Main extends SimpleApplication {
             if(name.equals("MouseX")){
                 //myShip.setAngle(new Quaternion(MouseInput.AXIS_X, MouseInput.AXIS_Y, 0,0));
                 //cam.setLocation((int)MouseInput.AXIS_X,(float)MouseInput.AXIS_Y,0);
-                cam.setLocation(new Vector3f(MouseInput.AXIS_X, MouseInput.AXIS_Y,0));
+                //cam.setLocation(new Vector3f(MouseInput.AXIS_X, MouseInput.AXIS_Y,0));
+                // Modify myShip direction and position, camera is already set
+            }
+            if(name.equals("INPUT_Forward")){
+                //Vector3f mov = ship.getLocalRotation().getRotationColumn(2).normalize();
+                Vector3f mov = myShip.getLocalRotation().getRotationColumn(2).normalize();
+                myShip.setDirection(mov.mult(SPEED));
+            }
+            if(name.equals("INPUT_Backward")){
+                Vector3f mov = myShip.getLocalRotation().getRotationColumn(2).normalize();
+                myShip.setDirection(mov.mult(-SPEED));
+            }
+            if(name.equals("INPUT_Up")){
+                Vector3f mov = myShip.getLocalRotation().getRotationColumn(1).normalize();
+                myShip.setDirection(mov.mult(SPEED));
+            }
+            if(name.equals("INPUT_Down")){
+                Vector3f mov = myShip.getLocalRotation().getRotationColumn(1).normalize();
+                myShip.setDirection(mov.mult(-SPEED));
+            }
+            if(name.equals("INPUT_Right")){
+                Vector3f mov = myShip.getLocalRotation().getRotationColumn(0).normalize();
+                myShip.setDirection(mov.mult(-SPEED));
+            }
+            if(name.equals("INPUT_Left")){
+                Vector3f mov = myShip.getLocalRotation().getRotationColumn(0).normalize();
+                myShip.setDirection(mov.mult(SPEED));
+            }
+            if(name.equals("INPUT_RollLeft")){
+                //TODO 
+            }
+            if(name.equals("INPUT_RollRight")){
+                //TODO
             }
         }
     };
@@ -122,6 +188,12 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf) {
         myShip.update(tpf);
+        
+        // Camera. Set location and direction
+        cam.setLocation(myShip.getPosition().add(new Vector3f(0,10,-20)));
+        cam.lookAt(myShip.getPosition(), Vector3f.UNIT_Y);
+        cam.update();
+
     }
 
     @Override
