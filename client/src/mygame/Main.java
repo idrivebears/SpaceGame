@@ -14,8 +14,17 @@ import com.jme3.input.MouseInput;
 
 import com.jme3.input.MouseInput;
 import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.math.FastMath;
+import com.jme3.math.Plane;
 import com.jme3.math.Quaternion;
-import com.jme3.renderer.Camera;
+import com.jme3.math.Vector2f;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.shape.Quad;
+import com.jme3.texture.Texture2D;
+import com.jme3.water.SimpleWaterProcessor;
+import com.jme3.water.WaterFilter;
 
 /**
  * Ship test
@@ -26,6 +35,9 @@ import com.jme3.renderer.Camera;
 public class Main extends SimpleApplication {
     Spatial ship;
     Ship myShip;
+    private Spatial sceneTestTerrain;
+    private WaterFilter water;
+    private Vector3f lightdir = new Vector3f (-4f,-1f,5f);
     
     public static void main(String[] args) {
         Main app = new Main();
@@ -35,7 +47,13 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp(){
         
-        flyCam.setEnabled(false);
+        initTestTerrain();  // Carga del Terreno de prueba
+        initTestWater();    // Carga el agua para el terreno 
+                            //para desacticarla (Nacho o Walls por el rendimiento) 
+                            //solo ponganlo como comentario
+        
+        //flyCam.setEnabled(false);
+        flyCam.setMoveSpeed(100f);
         
         assetManager.registerLocator("assets/Models/Ships/", FileLocator.class);
         
@@ -110,4 +128,24 @@ public class Main extends SimpleApplication {
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
+    
+    private void initTestTerrain(){
+        sceneTestTerrain = assetManager.loadModel("Scenes/TestTerrain.j3o");
+        rootNode.attachChild(sceneTestTerrain);
+    }
+    
+    public void initTestWater(){ 
+        FilterPostProcessor fpp = new FilterPostProcessor(assetManager); 
+        water = new WaterFilter(rootNode, lightdir); 
+        water.setCenter(Vector3f.ZERO); 
+        water.setRadius(2600); 
+        water.setWaveScale(0.003f); 
+        water.setMaxAmplitude(2f); 
+        water.setFoamExistence(new Vector3f(1f, 4f, 0.5f)); 
+        water.setFoamTexture((Texture2D) assetManager.loadTexture("Common/MatDefs/Water/Textures/foam2.jpg")); 
+        water.setRefractionStrength(0.2f); 
+        water.setWaterHeight(1f); 
+        fpp.addFilter(water); 
+        viewPort.addProcessor(fpp); }
 }
+    
