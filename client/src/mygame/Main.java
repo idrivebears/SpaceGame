@@ -5,23 +5,29 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.asset.TextureKey;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.KeyInput;
-import com.jme3.input.MouseInput;
 import com.jme3.input.controls.AnalogListener;
 import com.jme3.input.controls.KeyTrigger;
-import com.jme3.input.controls.MouseAxisTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.scene.Spatial;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector2f;
-import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Box;
 import com.jme3.system.AppSettings;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture.WrapMode;
+//import javax.swing.Box;
 
+
+import com.jme3.input.MouseInput;
+import com.jme3.input.controls.MouseAxisTrigger;
+import com.jme3.light.AmbientLight;
+import com.jme3.math.Vector2f;
+import com.jme3.post.FilterPostProcessor;
+import com.jme3.scene.Geometry;
+import com.jme3.texture.Texture2D;
+import com.jme3.water.WaterFilter;
 
 /**
  * Ship test
@@ -32,7 +38,12 @@ import com.jme3.texture.Texture.WrapMode;
 public class Main extends SimpleApplication {
     Spatial ship;
     Ship myShip;
+
       
+    private Spatial sceneTestTerrain;
+    private WaterFilter water;
+    private Vector3f lightdir = new Vector3f (-4f,-1f,5f);
+    
     public static void main(String[] args) {
         Main app = new Main();
         
@@ -42,7 +53,7 @@ public class Main extends SimpleApplication {
         settings.setSettingsDialogImage("Interface/nave.jpg");
         app.setSettings(settings);
         
-        app.start();   
+        app.start();  
     }
     
     // Prepare materials
@@ -58,7 +69,13 @@ public class Main extends SimpleApplication {
     @Override
     public void simpleInitApp(){
         
-        flyCam.setEnabled(false);
+        initTestTerrain();  // Carga del Terreno de prueba
+        //initTestWater();    // Carga el agua para el terreno 
+                            //para desacticarla (Nacho o Walls por el rendimiento) 
+                            //solo ponganlo como comentario
+        
+        //flyCam.setEnabled(false);
+        //flyCam.setMoveSpeed(100f);
         
         assetManager.registerLocator("assets/Models/Ships/", FileLocator.class);
         
@@ -76,13 +93,13 @@ public class Main extends SimpleApplication {
         
         sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
-        
+              
         // Camera
         cam.setLocation(myShip.getPosition().add(new Vector3f(0,10,-10)));
         cam.lookAt(myShip.getPosition(), myShip.getPosition());
                 
         // Test Map
-        viewPort.setBackgroundColor(ColorRGBA.Blue);
+        viewPort.setBackgroundColor(ColorRGBA.Yellow);
         
         // Init materials, scene and space*
         //initMaterials();
@@ -90,6 +107,7 @@ public class Main extends SimpleApplication {
         
         rootNode.addLight(sun);
         rootNode.addLight(backupLights);
+        //rootNode.addLight(sun2);
         
         this.initKeys();
         
@@ -105,8 +123,18 @@ public class Main extends SimpleApplication {
         inputManager.addMapping("MouseX", new MouseAxisTrigger(MouseInput.BUTTON_LEFT, true));
         inputManager.addMapping("MouseY", new MouseAxisTrigger(MouseInput.AXIS_X, true));
         
+        // New keys, testing rotation
+        inputManager.addMapping("INPUT_Up", new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addMapping("INPUT_Down", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_E));
+        
+        
         //Adding to action listener
         inputManager.addListener(analogListener, "Up", "Down", "Left", "Right");
+        inputManager.addListener(analogListener, "INPUT_Up","INPUT_Down","INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
     }
     
     // Initialize materials used in the scene
@@ -119,13 +147,6 @@ public class Main extends SimpleApplication {
         floor_mat.setTexture("ColorMap", tex3);
     }
     
-    // Make a floor and add it to scene
-    public void initFloor(){
-        Geometry floor_geo = new Geometry("Floor", floor);
-        floor_geo.setMaterial(floor_mat);
-        floor_geo.setLocalTranslation(0, -0.1f, 0);
-        this.rootNode.attachChild(floor_geo);
-    }
     
     private AnalogListener analogListener = new AnalogListener(){
         public void onAnalog(String name, float value, float tpf){
@@ -155,7 +176,7 @@ public class Main extends SimpleApplication {
         myShip.update(tpf);
         
         // Camera
-        cam.setLocation(myShip.getPosition().add(new Vector3f(0,10,-10)));
+        cam.setLocation(myShip.getPosition().add(new Vector3f(0,10,-20)));
         cam.lookAt(myShip.getPosition(), myShip.getPosition());
     }
 
@@ -163,4 +184,24 @@ public class Main extends SimpleApplication {
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
+    
+    private void initTestTerrain(){
+        sceneTestTerrain = assetManager.loadModel("Scenes/TestTerrain.j3o");
+        rootNode.attachChild(sceneTestTerrain);
+    }
+    
+    public void initTestWater(){ 
+        FilterPostProcessor fpp = new FilterPostProcessor(assetManager); 
+        water = new WaterFilter(rootNode, lightdir); 
+        water.setCenter(Vector3f.ZERO); 
+        water.setRadius(2600); 
+        water.setWaveScale(0.003f); 
+        water.setMaxAmplitude(2f); 
+        water.setFoamExistence(new Vector3f(1f, 4f, 0.5f)); 
+        water.setFoamTexture((Texture2D) assetManager.loadTexture("Common/MatDefs/Water/Textures/foam2.jpg")); 
+        water.setRefractionStrength(0.2f); 
+        water.setWaterHeight(1f); 
+        fpp.addFilter(water); 
+        viewPort.addProcessor(fpp); }
 }
+    
