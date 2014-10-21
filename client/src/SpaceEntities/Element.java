@@ -95,4 +95,12 @@ public abstract class Element implements Collidable{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    public Quaternion getLocalRotation(){
+        return spatial.getLocalRotation();
+    }
+    
+    public void setLocalRotation(Quaternion currentAngle){
+        spatial.setLocalRotation(currentAngle);
+    }
+    
 }
