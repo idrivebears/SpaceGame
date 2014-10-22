@@ -23,7 +23,6 @@ public abstract class Element implements Collidable{
     protected Material mat;
     protected Vector3f position;
     protected Vector3f direction;
-    protected float speed;    //speed should be a float value from 0 - 1
     protected Node currentNode;
     
     //Direction get and set
@@ -40,14 +39,6 @@ public abstract class Element implements Collidable{
     }
     public void setPosition(Vector3f position){
         this.position = position;
-    }
-    
-    //Speed get and set
-    public float getSpeed(){
-        return speed;
-    }
-    public void setSpeed(float speed){
-        this.speed = Math.min(1, speed);
     }
     
     //Spatial get and set
