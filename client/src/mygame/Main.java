@@ -69,8 +69,7 @@ public class Main extends SimpleApplication {
         player.setDirection(new Vector3f(0,0,0));
         player.setSpeed(32f);
         player.getSpatial().scale(0.08f);
-        terrain.add(player.getNode());
-        //player.attachToNode(terrain.getNode()); //attaching the player to the terrain's node
+        terrain.add(player.getNode()); //attaching the player to the terrain's node
         
         inputHandler = new InputHandler(player); //Loads a new InputHandler instance with instanced player
         
