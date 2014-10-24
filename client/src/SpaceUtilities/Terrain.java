@@ -13,11 +13,11 @@ import com.jme3.scene.Spatial;
  * @author gwAwr
  */
 public class Terrain {
-    private Spatial terrain = null;
+    private Spatial terrain;
     Node node = new Node();
     
     public Terrain(Spatial terrain){
-        this.terrain = terrain;
+        setTerrain(terrain);
     }
     
     public void setTerrain(Spatial terrain){
@@ -26,12 +26,7 @@ public class Terrain {
     }
     
     public void loadTerrainTo(Node node){
-        if(terrain != null){
-            node.attachChild(this.node);
-        }
-        else{
-            System.out.println("Error(Terrain):No Terrain assigned.");
-        }
+        node.attachChild(this.node); 
     }
     
     //returns the terrains node

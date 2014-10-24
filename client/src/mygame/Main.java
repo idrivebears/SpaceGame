@@ -62,6 +62,7 @@ public class Main extends SimpleApplication {
         //Loading terrain to rootNode
         terrain = new Terrain(assetManager.loadModel("Scenes/TestTerrain.j3o"));
         terrain.loadTerrainTo(rootNode);
+        
         //initTestWater();    // Loads water over terrain 
 
         //Testing player class
