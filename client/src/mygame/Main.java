@@ -32,7 +32,7 @@ public class Main extends SimpleApplication {
     
 
     private Spatial sceneTestTerrain;
-    private WaterFilter water;
+    
     
     // Velocity of ship [TEST]
     private int CAMERA_MOVE_SPEED = 50;
@@ -61,7 +61,11 @@ public class Main extends SimpleApplication {
         
         //Loading terrain to rootNode
         terrain = new Terrain(assetManager.loadModel("Scenes/TestTerrain.j3o"));
-        terrain.loadTerrainTo(rootNode);
+        /* The terrain instance should be the only one attached to the rootNode,
+         * All elements and objects that live in the game should be attached to the
+         * current terrains node (terrain.getNode())
+         */
+        terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         //initTestWater();    // Loads water over terrain 
 
@@ -72,7 +76,7 @@ public class Main extends SimpleApplication {
         player.setDirection(new Vector3f(0,0,0));
         player.setSpeed(32f);
         player.getSpatial().scale(0.01f);
-        player.attachToNode(terrain.getNode());
+        player.attachToNode(terrain.getNode()); //attaching the player to the terrain's node
         
         inputHandler = new InputHandler(player); //Loads a new InputHandler instance with instanced player
         
@@ -138,11 +142,8 @@ public class Main extends SimpleApplication {
         //TODO: add render code
     }
     
-    public AssetManager getManager(){
-        return assetManager;
-    }
-    
     public void initTestWater(){
+        WaterFilter water;
         Vector3f lightdir = new Vector3f (-4f,-1f,5f);
         FilterPostProcessor fpp = new FilterPostProcessor(assetManager); 
         
