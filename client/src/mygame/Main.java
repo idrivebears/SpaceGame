@@ -30,10 +30,6 @@ public class Main extends SimpleApplication {
     Terrain terrain;
     InputHandler inputHandler;
     
-
-    private Spatial sceneTestTerrain;
-    
-    
     // Velocity of ship [TEST]
     private int CAMERA_MOVE_SPEED = 50;
     
@@ -66,8 +62,6 @@ public class Main extends SimpleApplication {
          * current terrains node (terrain.getNode())
          */
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
-        
-        //initTestWater();    // Loads water over terrain 
 
         //Testing player class
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
@@ -141,22 +135,5 @@ public class Main extends SimpleApplication {
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
     }
-    
-    public void initTestWater(){
-        WaterFilter water;
-        Vector3f lightdir = new Vector3f (-4f,-1f,5f);
-        FilterPostProcessor fpp = new FilterPostProcessor(assetManager); 
-        
-        water = new WaterFilter(rootNode, lightdir); 
-        water.setCenter(Vector3f.ZERO); 
-        water.setRadius(2600); 
-        water.setWaveScale(0.003f); 
-        water.setMaxAmplitude(2f); 
-        water.setFoamExistence(new Vector3f(1f, 4f, 0.5f)); 
-        water.setFoamTexture((Texture2D) assetManager.loadTexture("Common/MatDefs/Water/Textures/foam2.jpg")); 
-        water.setRefractionStrength(0.2f); 
-        water.setWaterHeight(1f); 
-        fpp.addFilter(water); 
-        viewPort.addProcessor(fpp); }
 }
     
