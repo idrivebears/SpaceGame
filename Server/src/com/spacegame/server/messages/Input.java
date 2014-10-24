@@ -4,11 +4,15 @@
  */
 package com.spacegame.server.messages;
 
+import com.jme3.network.AbstractMessage;
+import com.jme3.network.serializing.Serializable;
+
 /**
  *
  * @author Cam
  */
-public class Input {
+@Serializable
+public class Input extends AbstractMessage {
     char input;
     public Input(char input){
         this.input = input;
