@@ -65,7 +65,7 @@ public class Main extends SimpleApplication {
 
         //Testing player class
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player("Player1", "Wraith.obj", assetManager);
+        player = new Player("Player1", "SpaceShip.obj", assetManager);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
         player.setSpeed(32f);
