@@ -22,6 +22,7 @@ import com.jme3.water.WaterFilter;
 /**
  * Ship test
  * @author Alex Walls
+ * Holis
  * Override flycam, add chaseCam, add Mouse rotations, make World Generator, Collision Detection
  * Think about Collidable Interface
  */
@@ -74,7 +75,7 @@ public class Main extends SimpleApplication {
         inputHandler = new InputHandler(player); //Loads a new InputHandler instance with instanced player
         
         this.setUpLight();
-        this.setUpCamera(); //changed name to setUpCamera to match setUpLight syntax
+        //this.setUpCamera(); //changed name to setUpCamera to match setUpLight syntax
                 
         this.initKeys();
         
@@ -84,8 +85,8 @@ public class Main extends SimpleApplication {
         // New keys, testing rotation
         inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping("INPUT_Up", new KeyTrigger(KeyInput.KEY_E));
-        inputManager.addMapping("INPUT_Down", new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_E));
+        inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_Q));
         inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_C));
@@ -93,7 +94,7 @@ public class Main extends SimpleApplication {
         
         
         //Adding to action listener
-        inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_Up","INPUT_Down",
+        inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_RollUp","INPUT_RollDown",
                 "INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
     }
       
