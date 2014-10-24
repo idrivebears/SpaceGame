@@ -89,8 +89,8 @@ public class Main extends SimpleApplication {
         inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_Q));
         inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_C));
-        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_Z));
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_C));
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_Z));
         
         
         //Adding to action listener
