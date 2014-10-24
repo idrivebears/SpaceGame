@@ -2,7 +2,9 @@ package mygame;
 
 import SpaceEntities.Player;
 import SpaceUtilities.InputHandler;
+import SpaceUtilities.Terrain;
 import com.jme3.app.SimpleApplication;
+import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -25,7 +27,9 @@ import com.jme3.water.WaterFilter;
  */
 public class Main extends SimpleApplication {
     Player player;
+    Terrain terrain;
     InputHandler inputHandler;
+    
 
     private Spatial sceneTestTerrain;
     private WaterFilter water;
@@ -45,7 +49,7 @@ public class Main extends SimpleApplication {
         settings.setHeight(800);
         app.setSettings(settings);
         
-        app.start();  
+        app.start();
     }
     
 
@@ -54,8 +58,10 @@ public class Main extends SimpleApplication {
         
         //Adding path to assetManager lookup table
         assetManager.registerLocator("assets/Models/Ships/", FileLocator.class);
-
-        initTestTerrain();  // Loads all terrain
+        
+        //Loading terrain to rootNode
+        terrain = new Terrain(assetManager.loadModel("Scenes/TestTerrain.j3o"));
+        terrain.loadTerrainTo(rootNode);
         //initTestWater();    // Loads water over terrain 
 
         //Testing player class
@@ -65,7 +71,7 @@ public class Main extends SimpleApplication {
         player.setDirection(new Vector3f(0,0,0));
         player.setSpeed(32f);
         player.getSpatial().scale(0.01f);
-        player.attachToNode(rootNode);
+        player.attachToNode(terrain.getNode());
         
         inputHandler = new InputHandler(player); //Loads a new InputHandler instance with instanced player
         
@@ -131,9 +137,8 @@ public class Main extends SimpleApplication {
         //TODO: add render code
     }
     
-    private void initTestTerrain(){
-        sceneTestTerrain = assetManager.loadModel("Scenes/TestTerrain.j3o");
-        rootNode.attachChild(sceneTestTerrain);
+    public AssetManager getManager(){
+        return assetManager;
     }
     
     public void initTestWater(){
