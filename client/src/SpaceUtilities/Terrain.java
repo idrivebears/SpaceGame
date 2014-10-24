@@ -13,7 +13,8 @@ import com.jme3.water.WaterFilter;
 
 /**
  *
- * @author gwAwr
+ * @author alexw
+ * This class handles terrain loading
  */
 public class Terrain {
     private Spatial terrain;
