@@ -24,12 +24,11 @@ public class SpaceServer extends SimpleApplication {
     }
     
     public void simpleInitApp(){
+        Server server;
         try {
-            Server spaceServer = Network.createServer(6143);
-            spaceServer.start();
-            
+            server = Network.createServer(666);
+            ConfigureListeners.configure(server);
         } catch (IOException ex) {
-            //server could not bind port 6143
             Logger.getLogger(SpaceServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
