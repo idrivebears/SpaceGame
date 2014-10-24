@@ -116,7 +116,6 @@ public class Main extends SimpleApplication {
     private void setUpCamera(){
         //flyCam.setEnabled(false);
         flyCam.setMoveSpeed(CAMERA_MOVE_SPEED);
-        
         cam.setLocation(player.getPosition().add(new Vector3f(0,10,-10)));
         cam.lookAt(player.getPosition(), player.getPosition());
     }
