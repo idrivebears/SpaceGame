@@ -85,12 +85,12 @@ public class Main extends SimpleApplication {
         // New keys, testing rotation
         inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_E));
-        inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_UP));
+        inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_DOWN));
         inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_C));
-        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_Z));
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_RIGHT));
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_LEFT));
         
         
         //Adding to action listener
