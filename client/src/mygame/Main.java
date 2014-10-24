@@ -62,14 +62,13 @@ public class Main extends SimpleApplication {
          * current terrains node (terrain.getNode())
          */
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
-
-        //Testing player class
+        
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player("Player1", "Wraith.obj", assetManager);
+        player = new Player("Player1", "round_ship.obj", assetManager);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
         player.setSpeed(32f);
-        player.getSpatial().scale(0.01f);
+        player.getSpatial().scale(0.08f);
         player.attachToNode(terrain.getNode()); //attaching the player to the terrain's node
         
         inputHandler = new InputHandler(player); //Loads a new InputHandler instance with instanced player
