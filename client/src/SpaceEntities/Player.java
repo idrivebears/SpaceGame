@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package SpaceEntities;
 
 import com.jme3.asset.AssetManager;
@@ -12,6 +8,7 @@ import com.jme3.asset.AssetManager;
  */
 public class Player extends Ship{
     public final String PLAYER_ID;
+    private float speed;
     
     //Player states
     public boolean isAlive;
@@ -19,7 +16,16 @@ public class Player extends Ship{
     public Player(String id, String model, AssetManager am){
         super(model, am);
         this.PLAYER_ID = id;
+        isAlive = true;
     }
+    
+    public void setSpeed(float speed){
+        this.speed = speed;
+    }
+    public float getSpeed(){
+        return speed;
+    }
+    
     
     
     

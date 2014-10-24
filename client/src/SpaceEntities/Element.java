@@ -23,8 +23,7 @@ public abstract class Element implements Collidable{
     protected Material mat;
     protected Vector3f position;
     protected Vector3f direction;
-    protected float speed;    //speed should be a float value from 0 - 1
-    protected Node currentNode;
+    protected Node currentNode = new Node();
     
     //Direction get and set
     public Vector3f getDirection(){
@@ -40,14 +39,6 @@ public abstract class Element implements Collidable{
     }
     public void setPosition(Vector3f position){
         this.position = position;
-    }
-    
-    //Speed get and set
-    public float getSpeed(){
-        return speed;
-    }
-    public void setSpeed(float speed){
-        this.speed = Math.min(1, speed);
     }
     
     //Spatial get and set
@@ -81,18 +72,25 @@ public abstract class Element implements Collidable{
     public void attachToNode(Node node, int index){
         node.attachChildAt(node, index);
     }
-    public Node getCurrentNode(){
+    
+    //returns instance of the this node
+    public Node getNode(){
         return currentNode;
     }
     //Will update all states of the Element when called, this includes position, rotation, yaw, etc.
-    public void update(float tpf){
-        this.spatial.move(new Vector3f(direction.x*tpf, direction.y*tpf, direction.z*tpf));
-        this.position = spatial.getLocalTranslation();
-    }
+
     
     @Override
     public int collideWith(Collidable other, CollisionResults results) throws UnsupportedCollisionException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public Quaternion getLocalRotation(){
+        return spatial.getLocalRotation();
+    }
+    
+    public void setLocalRotation(Quaternion currentAngle){
+        spatial.setLocalRotation(currentAngle);
     }
     
 }
