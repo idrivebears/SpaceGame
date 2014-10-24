@@ -13,6 +13,7 @@ import com.jme3.asset.AssetManager;
 public class Ship extends Element{
     public Ship(String model, AssetManager am){
         spatial = am.loadModel(model);
+        this.currentNode.attachChild(spatial);
     }
 }
 

@@ -49,11 +49,11 @@ public class Terrain {
         this.node.detachChild(this.terrain);
     }
     
-    public void clearNode(){
-        this.node.detachAllChildren();
+    public void add(Node node){
+        this.node.attachChild(node);
     }
     
-    public void addWater(){
-        /*Implement water here*/
+    public void clearNode(){
+        this.node.detachAllChildren();
     }
 }

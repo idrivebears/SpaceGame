@@ -23,7 +23,7 @@ public abstract class Element implements Collidable{
     protected Material mat;
     protected Vector3f position;
     protected Vector3f direction;
-    protected Node currentNode;
+    protected Node currentNode = new Node();
     
     //Direction get and set
     public Vector3f getDirection(){
@@ -72,7 +72,9 @@ public abstract class Element implements Collidable{
     public void attachToNode(Node node, int index){
         node.attachChildAt(node, index);
     }
-    public Node getCurrentNode(){
+    
+    //returns instance of the this node
+    public Node getNode(){
         return currentNode;
     }
     //Will update all states of the Element when called, this includes position, rotation, yaw, etc.
