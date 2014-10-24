@@ -76,10 +76,7 @@ public abstract class Element implements Collidable{
         return currentNode;
     }
     //Will update all states of the Element when called, this includes position, rotation, yaw, etc.
-    public void update(float tpf){
-        this.spatial.move(new Vector3f(direction.x*tpf, direction.y*tpf, direction.z*tpf));
-        this.position = spatial.getLocalTranslation();
-    }
+
     
     @Override
     public int collideWith(Collidable other, CollisionResults results) throws UnsupportedCollisionException {
