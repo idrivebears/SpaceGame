@@ -22,6 +22,7 @@ import com.jme3.water.WaterFilter;
 /**
  * Ship test
  * @author Alex Walls
+ * Holis
  * Override flycam, add chaseCam, add Mouse rotations, make World Generator, Collision Detection
  * Think about Collidable Interface
  */
