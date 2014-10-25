@@ -14,6 +14,9 @@ import com.jme3.network.serializing.Serializable;
 @Serializable
 public class Input extends AbstractMessage {
     char input;
+    public Input(){
+        this.input = 0; //empty constructor for serialization
+    }
     public Input(char input){
         this.input = input;
     }

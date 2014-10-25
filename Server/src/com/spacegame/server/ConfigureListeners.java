@@ -5,6 +5,8 @@
 package com.spacegame.server;
 
 import com.jme3.network.Server;
+import com.jme3.network.serializing.Serializer;
+import com.spacegame.server.messages.*;
 
 /**
  *
@@ -17,10 +19,11 @@ public class ConfigureListeners {
     }
     
     private static void serialize(Server server){
-        
+        Serializer.registerClass(Input.class);
+        Serializer.registerClass(Update.class);
     }
     
     private static void addListeners(Server server){
-        
+        server.addMessageListener(new ServerListener(), Input.class);
     }
 }
