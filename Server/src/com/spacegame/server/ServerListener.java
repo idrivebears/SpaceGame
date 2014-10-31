@@ -16,8 +16,10 @@ import com.spacegame.server.messages.*;
 public class ServerListener implements MessageListener<HostedConnection> {
     public void messageReceived(HostedConnection source, Message m) {
         if(m instanceof Input){
-            //recieved player input
-            source.send(new Update(UpdateHandler.update()));
+            //recieved player input, update library
+            char input = ((Input)m).input; //gets the player input, which could be any Object
+            UpdateHandler.update(source.getId(), input);
+            //the player updates itself in the server library.
         }
     }
 }
