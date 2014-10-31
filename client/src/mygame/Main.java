@@ -117,41 +117,18 @@ public class Main extends SimpleApplication {
     }
     
     private void setUpCamera(){
-        flyCam.setEnabled(false);
-        //camNode = new CameraNode("Camera Node", cam);
-        //camNode.setControlDir(ControlDirection.SpatialToCamera);
-        //player.getNode().attachChild(camNode);
-        
-        //camNode.setLocalTranslation(new Vector3f(30, 5, -5));
-        //camNode.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        //camNode.move(player.getPosition());
-        //flyCam.setMoveSpeed(CAMERA_MOVE_SPEED);
-        //cam.setLocation(player.getPosition().add(new Vector3f(0,10,-10)));
-        //cam.lookAt(player.getPosition(), player.getPosition());
-        //chaseCam = new ChaseCamera(cam, player.getSpatial(), inputManager);
-        //chaseCam.setSmoothMotion(true);
-        //chaseCam.setLookAtOffset(player.getPosition().mult(10));
-        //chaseCam.setLookAtOffset(Vector3f.UNIT_X);
-        //chaseCam.setLookAtOffset(Vector3f.UNIT_Y.mult(3));
-        //chaseCam.setTrailingEnabled(true);
+       // flyCam.setEnabled(false);
         
     }
 
     @Override
     public void simpleUpdate(float tpf) {
         player.update(tpf);
-        // Camera. Set location and direction
-        //cam.setLocation(player.getPosition().add(new Vector3f(0,10,-20)));
-        //cam.setLocation(player.getPosition().add(new Vector3f(0,10,30)));
-        //cam.setLocation(player.getLocalRotation().getRotationColumn(0).normalize().add(player.getPosition().add(0,10,50)));
-        //cam.setLocation(player.getLocalRotation());
-       
+
+        // Cam location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
         cam.setLocation(player.getPosition().add(player.getLocalRotation().normalizeLocal().mult( new Vector3f(0,7,30))));
-        //cam.setAxes(Vector3f.UNIT_X.mult(Math.signum(player.getDirection().getX())), Vector3f.UNIT_Y, Vector3f.UNIT_Z);
-        //cam.setAxes(Vector3f.ZERO, Vector3f.NAN, Vector3f.ZERO);
-        //cam.lookAt(player.getPosition().add(new Vector3f(0,0,-30)), Vector3f.UNIT_Y);
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        //camNode.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        
     }
 
     @Override

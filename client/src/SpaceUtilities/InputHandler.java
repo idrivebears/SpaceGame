@@ -28,10 +28,10 @@ public class InputHandler implements AnalogListener{
             Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
             thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
         }
-        if(name.equals("INPUT_Backward")){
-            Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
-            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
-        }
+//        if(name.equals("INPUT_Backward")){
+//            Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
+//            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
+//        }
         if(name.equals("INPUT_RollUp")){
             Quaternion PITCH = new Quaternion().fromAngleAxis(-FastMath.PI/180, new Vector3f(1,0,0));
             thisPlayer.setLocalRotation(thisPlayer.getLocalRotation().mult(PITCH));
