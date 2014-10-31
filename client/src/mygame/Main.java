@@ -54,7 +54,7 @@ public class Main extends SimpleApplication {
     public void simpleInitApp(){
         
         //Adding path to assetManager lookup table
-        assetManager.registerLocator("assets/Models/Ships/", FileLocator.class);
+        assetManager.registerLocator("assets/Models/", FileLocator.class);
         
         //Loading terrain to rootNode
         terrain = new Terrain(assetManager.loadModel("Scenes/TestTerrain.j3o"));
@@ -65,7 +65,7 @@ public class Main extends SimpleApplication {
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player("Player1", "round_ship.obj", assetManager);
+        player = new Player("Player1", "Ships/round_ship.obj", assetManager);
         
         //Quaternion ROLL045  = new Quaternion().fromAngleAxis(FastMath.PI,   new Vector3f(0,0,1));
         
