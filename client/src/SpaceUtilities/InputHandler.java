@@ -25,11 +25,11 @@ public class InputHandler implements AnalogListener{
         if(name.equals("INPUT_Forward")){
             //Vector3f mov = ship.getLocalRotation().getRotationColumn(2).normalize();
             Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
-            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
+            thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
         }
         if(name.equals("INPUT_Backward")){
             Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
-            thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
+            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
         }
         if(name.equals("INPUT_RollUp")){
             Quaternion PITCH = new Quaternion().fromAngleAxis(-FastMath.PI/180, new Vector3f(1,0,0));
@@ -42,11 +42,11 @@ public class InputHandler implements AnalogListener{
         }
         if(name.equals("INPUT_Right")){
             Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(0).normalize();
-            thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
+            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
         }
         if(name.equals("INPUT_Left")){
             Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(0).normalize();
-            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
+            thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
         }
         if(name.equals("INPUT_RollLeft")){
             Quaternion PITCH = new Quaternion().fromAngleAxis(FastMath.PI/180, new Vector3f(0,1,0));
