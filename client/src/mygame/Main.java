@@ -4,20 +4,19 @@ import SpaceEntities.Player;
 import SpaceUtilities.InputHandler;
 import SpaceUtilities.Terrain;
 import com.jme3.app.SimpleApplication;
-import com.jme3.asset.AssetManager;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
-import com.jme3.scene.Spatial;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
+import com.jme3.math.Quaternion;
+import com.jme3.scene.CameraNode;
+import com.jme3.scene.control.CameraControl.ControlDirection;
 import com.jme3.system.AppSettings;
 
-import com.jme3.post.FilterPostProcessor;
-import com.jme3.texture.Texture2D;
-import com.jme3.water.WaterFilter;
 
 /**
  * Ship test
@@ -30,6 +29,7 @@ public class Main extends SimpleApplication {
     Player player;
     Terrain terrain;
     InputHandler inputHandler;
+    //CameraNode camNode;
     
     // Velocity of ship [TEST]
     private int CAMERA_MOVE_SPEED = 50;
@@ -66,6 +66,10 @@ public class Main extends SimpleApplication {
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
         player = new Player("Player1", "round_ship.obj", assetManager);
+        
+        //Quaternion ROLL045  = new Quaternion().fromAngleAxis(FastMath.PI,   new Vector3f(0,0,1));
+        
+        //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
         player.getSpatial().scale(0.08f);
@@ -113,20 +117,41 @@ public class Main extends SimpleApplication {
     }
     
     private void setUpCamera(){
-        //flyCam.setEnabled(false);
-        flyCam.setMoveSpeed(CAMERA_MOVE_SPEED);
-        cam.setLocation(player.getPosition().add(new Vector3f(0,10,-10)));
-        cam.lookAt(player.getPosition(), player.getPosition());
+        flyCam.setEnabled(false);
+        //camNode = new CameraNode("Camera Node", cam);
+        //camNode.setControlDir(ControlDirection.SpatialToCamera);
+        //player.getNode().attachChild(camNode);
+        
+        //camNode.setLocalTranslation(new Vector3f(30, 5, -5));
+        //camNode.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        //camNode.move(player.getPosition());
+        //flyCam.setMoveSpeed(CAMERA_MOVE_SPEED);
+        //cam.setLocation(player.getPosition().add(new Vector3f(0,10,-10)));
+        //cam.lookAt(player.getPosition(), player.getPosition());
+        //chaseCam = new ChaseCamera(cam, player.getSpatial(), inputManager);
+        //chaseCam.setSmoothMotion(true);
+        //chaseCam.setLookAtOffset(player.getPosition().mult(10));
+        //chaseCam.setLookAtOffset(Vector3f.UNIT_X);
+        //chaseCam.setLookAtOffset(Vector3f.UNIT_Y.mult(3));
+        //chaseCam.setTrailingEnabled(true);
+        
     }
 
     @Override
     public void simpleUpdate(float tpf) {
         player.update(tpf);
         // Camera. Set location and direction
-        cam.setLocation(player.getPosition().add(new Vector3f(0,10,-20)));
+        //cam.setLocation(player.getPosition().add(new Vector3f(0,10,-20)));
+        //cam.setLocation(player.getPosition().add(new Vector3f(0,10,30)));
+        //cam.setLocation(player.getLocalRotation().getRotationColumn(0).normalize().add(player.getPosition().add(0,10,50)));
+        //cam.setLocation(player.getLocalRotation());
+       
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().normalizeLocal().mult( new Vector3f(0,7,30))));
+        //cam.setAxes(Vector3f.UNIT_X.mult(Math.signum(player.getDirection().getX())), Vector3f.UNIT_Y, Vector3f.UNIT_Z);
+        //cam.setAxes(Vector3f.ZERO, Vector3f.NAN, Vector3f.ZERO);
+        //cam.lookAt(player.getPosition().add(new Vector3f(0,0,-30)), Vector3f.UNIT_Y);
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.update();
-
+        //camNode.lookAt(player.getPosition(), Vector3f.UNIT_Y);
     }
 
     @Override
