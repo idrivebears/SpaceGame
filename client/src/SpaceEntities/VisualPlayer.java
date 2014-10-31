@@ -9,10 +9,9 @@ import com.jme3.math.Vector3f;
 
 /**
  *
- * @author Usuario
+ * @author awalls
  */
 public class VisualPlayer {
-    private boolean isMainPlayer;
     private Vector3f direction;
     private Vector3f position;
     Quaternion currentAngle;
@@ -21,7 +20,22 @@ public class VisualPlayer {
         this.position = position;
         this.direction = direction;
         this.currentAngle = angle;
+    }  
+    
+    public Vector3f getDirection() {
+        return direction;
     }
+
+    public Vector3f getPosition() {
+        return position;
+    }
+
+    public Quaternion getCurrentAngle() {
+        return currentAngle;
+    }
+
+    
+
     
     
 }
