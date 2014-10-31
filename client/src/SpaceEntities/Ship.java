@@ -31,6 +31,9 @@ public class Ship extends Element{
                 this.elementData.getDirection().z*tpf)
                 );
         elementData.setPosition(spatial.getLocalTranslation());
+        
+       
+        
     }
 }
 
