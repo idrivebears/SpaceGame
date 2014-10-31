@@ -1,4 +1,7 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package SpaceUtilities;
 
 import com.jme3.math.Quaternion;
@@ -11,7 +14,6 @@ import com.jme3.math.Vector3f;
  * Facilitates transfer of position data in the scene graph
  */
 public class ElementData {
-
     private Vector3f direction;
     private Vector3f position;
     private Quaternion angle;
@@ -27,7 +29,6 @@ public class ElementData {
     public Quaternion getAngle() {
         return angle;
     }
-    
     public void setDirection(Vector3f direction) {
         this.direction = direction;
     }
@@ -43,7 +44,6 @@ public class ElementData {
     public ElementData(){
         this(new Vector3f(0,0,0), new Vector3f(0,0,0), new Quaternion());
     }
-    
     public ElementData(Vector3f d, Vector3f p, Quaternion a){
         direction = new Vector3f(d);
         position = new Vector3f(p);
