@@ -68,7 +68,6 @@ public class Main extends SimpleApplication {
         player = new Player("Player1", "round_ship.obj", assetManager);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
-        player.setSpeed(32f);
         player.getSpatial().scale(0.08f);
         terrain.add(player.getNode()); //attaching the player to the terrain's node
         

@@ -8,7 +8,7 @@ import com.jme3.asset.AssetManager;
  */
 public class Player extends Ship{
     public final String PLAYER_ID;
-    private float speed;
+    private float speed = 32f; //default speed
     
     //Player states
     public boolean isAlive;

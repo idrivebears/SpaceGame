@@ -24,6 +24,7 @@ public class InputHandler implements AnalogListener{
     public void onAnalog(String name, float value, float tpf){
         if(name.equals("INPUT_Forward")){
             //Vector3f mov = ship.getLocalRotation().getRotationColumn(2).normalize();
+            
             Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
             thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
         }

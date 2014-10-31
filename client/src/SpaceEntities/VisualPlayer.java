@@ -8,8 +8,9 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 
 /**
- *
+ *  DEPRECATED
  * @author awalls
+ * 
  */
 public class VisualPlayer {
     private Vector3f direction;

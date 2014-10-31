@@ -7,6 +7,7 @@
  */
 package SpaceEntities;
 
+import SpaceUtilities.ElementData;
 import com.jme3.collision.Collidable;
 import com.jme3.collision.CollisionResults;
 import com.jme3.collision.UnsupportedCollisionException;
@@ -18,27 +19,25 @@ import com.jme3.math.Quaternion;
 
 
 public abstract class Element implements Collidable{
-    protected Quaternion currentAngle;
     protected Spatial spatial;
     protected Material mat;
-    protected Vector3f position;
-    protected Vector3f direction;
+    protected ElementData elementData;
     protected Node currentNode = new Node();
     
     //Direction get and set
     public Vector3f getDirection(){
-        return direction;
+        return elementData.getDirection();
     }
     public void setDirection(Vector3f direction){
-        this.direction = direction;
+        elementData.setDirection(direction);
     }
     
     //Position get and set
     public Vector3f getPosition(){
-        return position;
+        return elementData.getPosition();
     }
     public void setPosition(Vector3f position){
-        this.position = position;
+        elementData.setPosition(position);
     }
     
     //Spatial get and set
@@ -59,10 +58,10 @@ public abstract class Element implements Collidable{
     
     //Angle methods
     public Quaternion getAngle(){
-        return currentAngle;
+        return elementData.getAngle();
     }
     public void setAngle(Quaternion angle){
-        currentAngle = angle;
+        elementData.setAngle(angle);
     }
     
     //Node methods
