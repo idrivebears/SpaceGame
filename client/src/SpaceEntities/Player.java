@@ -1,6 +1,7 @@
 package SpaceEntities;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.math.Vector3f;
 
 /**
  *
@@ -26,6 +27,12 @@ public class Player extends Ship{
         return speed;
     }
     
+   
+    public void update(float tpf){
+        super.update(tpf);
+        Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
+        this.setDirection(mov.mult(-this.getSpeed()));
+    }
     
     
     

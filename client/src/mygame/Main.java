@@ -86,19 +86,20 @@ public class Main extends SimpleApplication {
     
     private void initKeys(){
         // New keys, testing rotation
-        inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
-        inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_E));
-        inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_Q));
-        inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_C));
-        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_Z));
+        //inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
+        //inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_S));
+        //inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
+        //inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_A));
         
         
         //Adding to action listener
-        inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_RollUp","INPUT_RollDown",
-                "INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
+        //inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_RollUp","INPUT_RollDown",
+          //      "INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
+        inputManager.addListener(inputHandler,"INPUT_RollUp","INPUT_RollDown","INPUT_RollLeft","INPUT_RollRight");
     }
       
     //Light is needed to make the models visible
@@ -116,8 +117,11 @@ public class Main extends SimpleApplication {
         rootNode.addLight(backupLights);
     }
     
-    private void setUpCamera(){
-       // flyCam.setEnabled(false);
+    private void updateCamera(){
+       //flyCam.setEnabled(false);
+        // Cam location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().normalizeLocal().mult( new Vector3f(0,7,30))));
+        cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
         
     }
 
@@ -125,9 +129,8 @@ public class Main extends SimpleApplication {
     public void simpleUpdate(float tpf) {
         player.update(tpf);
 
-        // Cam location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().normalizeLocal().mult( new Vector3f(0,7,30))));
-        cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        updateCamera();
+               
         
     }
 
