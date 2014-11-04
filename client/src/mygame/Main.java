@@ -105,7 +105,7 @@ public class Main extends SimpleApplication {
         bgMusic.setLooping(true);
         bgMusic.setPositional(false);
         bgMusic.setDirectional(false);
-        bgMusic.setVolume(100);
+        bgMusic.setVolume(2);
         rootNode.attachChild(bgMusic);
         bgMusic.play();
     }

@@ -40,7 +40,7 @@ public abstract class Element extends PhysicsRigidBody{
     public void setPosition(Vector3f position){
         elementData.setPosition(position);
     }
-    
+
     //Spatial get and set
     public Spatial getSpatial(){
         return spatial;
