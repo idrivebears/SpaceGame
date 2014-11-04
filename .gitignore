@@ -45,3 +45,4 @@ Temporary Items
 /client/build/
 /client/dist/
 client/hs_err_pid4148.log
+/Server/build/

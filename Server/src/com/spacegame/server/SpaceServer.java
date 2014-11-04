@@ -11,6 +11,8 @@ import com.jme3.system.JmeContext;
 import com.spacegame.server.messages.Update;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,9 +26,13 @@ public class SpaceServer extends SimpleApplication {
     Server server;
     public static void main(String args[]){
         SpaceServer serverApp = new SpaceServer();
+        DisplayInfo display = new DisplayInfo();
         serverApp.runSetup();
         serverApp.start(JmeContext.Type.Headless);
         System.out.println("Server is running.");
+        
+        Timer timer = new Timer();
+        timer.schedule(display, 0, 3000);
     }
     
     @Override
@@ -52,6 +58,25 @@ public class SpaceServer extends SimpleApplication {
         System.out.print("Please choose a port to run the server on:> ");
         serverPort = in.nextInt();
         serverPort = (serverPort > 0 && serverPort < 9999) ? serverPort : 666;
-        System.out.println("Creating server...");
+        System.out.println("Creating server on port " + serverPort + "...");
+    }
+}
+
+class DisplayInfo extends TimerTask{
+    String info = "";
+    @Override
+    public void run(){
+        displayInfo();
+    }
+    
+    public void publishInfo(String info){
+        this.info = info;
+    }
+    
+    private void displayInfo(){
+        if(info.equals(""))
+            System.out.println("No information to display yet.");
+        else
+            System.out.println(info);
     }
 }
