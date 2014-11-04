@@ -27,7 +27,7 @@ public class SpaceServer extends SimpleApplication {
     public static void main(String args[]){
         SpaceServer serverApp = new SpaceServer();
         DisplayInfo display = new DisplayInfo();
-        serverApp.runSetup();
+        serverApp.runServerSetup();
         serverApp.start(JmeContext.Type.Headless);
         System.out.println("Server is running.");
         
@@ -52,7 +52,7 @@ public class SpaceServer extends SimpleApplication {
         server.broadcast(new Update(UpdateHandler.getElements()));
     }
     
-    private void runSetup(){
+    private void runServerSetup(){
         in = new Scanner(System.in);
         System.out.println("Super Crazy Space Maniac Game Deluxe 4");
         System.out.print("Please choose a port to run the server on:> ");

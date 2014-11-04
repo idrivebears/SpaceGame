@@ -13,6 +13,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.system.AppSettings;
+import java.util.Scanner;
 
 
 /**
@@ -27,6 +28,7 @@ public class Main extends SimpleApplication {
     private Player player;
     private Terrain terrain;
     private InputHandler inputHandler;
+    private int serverPort;
     //CameraNode camNode;
     
     // Velocity of ship [TEST]
@@ -34,7 +36,10 @@ public class Main extends SimpleApplication {
     
     
     public static void main(String[] args) {
-        Main app = new Main();
+        
+        Main game = new Main();
+        
+        game.runServerSetup();
         
         // Title and image
         AppSettings settings = new AppSettings(true);
@@ -42,12 +47,11 @@ public class Main extends SimpleApplication {
         settings.setSettingsDialogImage("Interface/nave.jpg");
         settings.setWidth(1280);
         settings.setHeight(800);
-        app.setSettings(settings);
+        game.setSettings(settings);
         
-        app.start();
+        game.start();
     }
     
-
     @Override
     public void simpleInitApp(){
         
@@ -80,6 +84,14 @@ public class Main extends SimpleApplication {
         this.initKeys();
         this.initAudio();
         
+    }
+    
+    private void runServerSetup(){
+        Scanner in = new Scanner(System.in);
+        System.out.print("Please enter a server port to connect to:> ");
+        serverPort = in.nextInt();
+        serverPort = (serverPort > 0 && serverPort < 9999) ? serverPort : 666;
+        System.out.println("Attempting to connect to server " + serverPort + " ...");
     }
     
     private void initKeys(){
