@@ -87,11 +87,15 @@ public class Main extends SimpleApplication {
     }
     
     private void runServerSetup(){
+        
+        //MISSING: add loop for failed connections to server
         Scanner in = new Scanner(System.in);
+        //LOOP:
         System.out.print("Please enter a server port to connect to:> ");
         serverPort = in.nextInt();
         serverPort = (serverPort > 0 && serverPort < 9999) ? serverPort : 666;
         System.out.println("Attempting to connect to server " + serverPort + " ...");
+        //ENDLOOP
     }
     
     private void initKeys(){

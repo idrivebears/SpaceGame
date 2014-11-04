@@ -21,7 +21,6 @@ import java.util.logging.Logger;
  * @author Cam
  */
 public class SpaceServer extends SimpleApplication {
-    Scanner in;
     int serverPort;
     Server server;
     public static void main(String args[]){
@@ -53,7 +52,7 @@ public class SpaceServer extends SimpleApplication {
     }
     
     private void runServerSetup(){
-        in = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         System.out.println("Super Crazy Space Maniac Game Deluxe 4");
         System.out.print("Please choose a port to run the server on:> ");
         serverPort = in.nextInt();
