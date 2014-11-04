@@ -8,6 +8,7 @@
 package SpaceEntities;
 
 import SpaceUtilities.ElementData;
+import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.collision.Collidable;
 import com.jme3.collision.CollisionResults;
 import com.jme3.collision.UnsupportedCollisionException;
@@ -18,7 +19,7 @@ import com.jme3.scene.Spatial;
 import com.jme3.math.Quaternion;
 
 
-public abstract class Element implements Collidable{
+public abstract class Element extends PhysicsRigidBody{
     protected Spatial spatial;
     protected Material mat;
     protected ElementData elementData;
@@ -77,12 +78,6 @@ public abstract class Element implements Collidable{
         return currentNode;
     }
     //Will update all states of the Element when called, this includes position, rotation, yaw, etc.
-
-    
-    @Override
-    public int collideWith(Collidable other, CollisionResults results) throws UnsupportedCollisionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     public Quaternion getLocalRotation(){
         return spatial.getLocalRotation();

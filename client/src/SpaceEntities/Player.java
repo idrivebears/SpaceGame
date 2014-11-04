@@ -27,7 +27,7 @@ public class Player extends Ship{
         return speed;
     }
     
-   
+   @Override
     public void update(float tpf){
         super.update(tpf);
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();

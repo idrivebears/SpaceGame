@@ -5,16 +5,13 @@ import SpaceUtilities.InputHandler;
 import SpaceUtilities.Terrain;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
+import com.jme3.audio.AudioNode;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
-import com.jme3.scene.CameraNode;
-import com.jme3.scene.control.CameraControl.ControlDirection;
 import com.jme3.system.AppSettings;
 
 
@@ -26,9 +23,10 @@ import com.jme3.system.AppSettings;
  * Think about Collidable Interface
  */
 public class Main extends SimpleApplication {
-    Player player;
-    Terrain terrain;
-    InputHandler inputHandler;
+    private AudioNode bgMusic;
+    private Player player;
+    private Terrain terrain;
+    private InputHandler inputHandler;
     //CameraNode camNode;
     
     // Velocity of ship [TEST]
@@ -79,8 +77,8 @@ public class Main extends SimpleApplication {
         
         this.setUpLight();
         //this.setUpCamera(); //changed name to setUpCamera to match setUpLight syntax
-                
         this.initKeys();
+        this.initAudio();
         
     }
     
@@ -100,6 +98,16 @@ public class Main extends SimpleApplication {
         //inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_RollUp","INPUT_RollDown",
           //      "INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
         inputManager.addListener(inputHandler,"INPUT_RollUp","INPUT_RollDown","INPUT_RollLeft","INPUT_RollRight");
+    }
+    
+    private void initAudio(){
+        bgMusic = new AudioNode(assetManager, "Sounds/strauss.ogg", true);
+        bgMusic.setLooping(true);
+        bgMusic.setPositional(false);
+        bgMusic.setDirectional(false);
+        bgMusic.setVolume(100);
+        rootNode.attachChild(bgMusic);
+        bgMusic.play();
     }
       
     //Light is needed to make the models visible

@@ -38,7 +38,7 @@ public class InputHandler implements AnalogListener{
             
         }
         if(name.equals("INPUT_RollDown")){
-            Quaternion PITCH = new Quaternion().fromAngleAxis(-FastMath.PI/180, new Vector3f(1,0,0));
+            Quaternion PITCH = new Quaternion().fromAngleAxis(FastMath.PI/180, new Vector3f(-1,0,0));
             thisPlayer.setLocalRotation(thisPlayer.getLocalRotation().mult(PITCH));
         }/*
         if(name.equals("INPUT_Right")){
