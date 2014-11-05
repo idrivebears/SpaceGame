@@ -61,7 +61,7 @@ public class SpaceServer extends SimpleApplication {
     }
 }
 
-class DisplayInfo extends TimerTask{
+class DisplayInfo extends TimerTask {
     String info = "";
     @Override
     public void run(){

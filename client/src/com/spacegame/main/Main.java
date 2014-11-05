@@ -117,12 +117,11 @@ public class Main extends SimpleApplication {
     }
     
     private void initAudio(){
-        bgMusic = new AudioNode(assetManager, "Sounds/strauss.ogg", true);
-        bgMusic.setLooping(true);
+        bgMusic = new AudioNode(assetManager, "Sounds/theme.ogg", true);
+        bgMusic.setLooping(false);
         bgMusic.setPositional(false);
-        bgMusic.setDirectional(false);
         bgMusic.setVolume(2);
-        rootNode.attachChild(bgMusic);
+        terrain.add(bgMusic);
         bgMusic.play();
     }
       
