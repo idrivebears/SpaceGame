@@ -12,7 +12,6 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.control.CameraControl.ControlDirection;
 import com.jme3.system.AppSettings;
@@ -57,7 +56,7 @@ public class Main extends SimpleApplication {
         assetManager.registerLocator("assets/Models/", FileLocator.class);
         
         //Loading terrain to rootNode
-        terrain = new Terrain(assetManager.loadModel("Scenes/TestTerrain.j3o"));
+        terrain = new Terrain(assetManager.loadModel("Scenes/cuadtest.j3o"));
         /* The terrain instance should be the only one attached to the rootNode,
          * All elements and objects that live in the game should be attached to the
          * current terrains node (terrain.getNode())
@@ -122,13 +121,13 @@ public class Main extends SimpleApplication {
         // Cam location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
         cam.setLocation(player.getPosition().add(player.getLocalRotation().normalizeLocal().mult( new Vector3f(0,7,30))));
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        cam.setAxes(player.getLocalRotation().mult(Vector3f.UNIT_X.mult(-1)),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
         
     }
 
     @Override
     public void simpleUpdate(float tpf) {
         player.update(tpf);
-
         updateCamera();
                
         
