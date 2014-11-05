@@ -48,15 +48,14 @@ public class SpaceServer extends SimpleApplication {
     @Override
     public void simpleUpdate(float tpf){
         //update foo
-        server.broadcast(new Update(UpdateHandler.getElements()));
     }
     
     private void runServerSetup(){
         Scanner in = new Scanner(System.in);
         System.out.println("Super Crazy Space Maniac Game Deluxe 4");
-        System.out.print("Please choose a port to run the server on:> ");
+        System.out.print("Please choose an available port to run the server on:> ");
         serverPort = in.nextInt();
-        serverPort = (serverPort > 0 && serverPort < 9999) ? serverPort : 666;
+        serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
         System.out.println("Creating server on port " + serverPort + "...");
     }
 }

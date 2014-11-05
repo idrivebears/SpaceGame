@@ -93,7 +93,7 @@ public class Main extends SimpleApplication {
         //LOOP:
         System.out.print("Please enter a server port to connect to:> ");
         serverPort = in.nextInt();
-        serverPort = (serverPort > 0 && serverPort < 9999) ? serverPort : 666;
+        serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
         System.out.println("Attempting to connect to server " + serverPort + " ...");
         //ENDLOOP
     }

@@ -14,6 +14,7 @@ import com.jme3.math.Vector3f;
  * Facilitates transfer of position data in the scene graph
  */
 public class ElementData {
+    private int id;
     private Vector3f direction;
     private Vector3f position;
     private Quaternion angle;
@@ -49,6 +50,12 @@ public class ElementData {
     public void setAngle(Quaternion angle) {
         this.angle = angle;
     }
-
     
+    public void setID(int id){
+        this.id = id;
+    }
+    
+    public int getID(){
+        return this.id;
+    }
 }
