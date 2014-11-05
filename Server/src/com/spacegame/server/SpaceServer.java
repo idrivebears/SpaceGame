@@ -8,7 +8,6 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.system.JmeContext;
-import com.spacegame.server.messages.Update;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Timer;
