@@ -18,11 +18,9 @@ public class ElementData {
     private Vector3f direction;
     private Vector3f position;
     private Quaternion angle;
-        
-    public ElementData(){
-        this(new Vector3f(0,0,0), new Vector3f(0,0,0), new Quaternion());
-    }
-    public ElementData(Vector3f d, Vector3f p, Quaternion a){
+
+    public ElementData(int id, Vector3f d, Vector3f p, Quaternion a){
+        this.id = id;
         direction = new Vector3f(d);
         position = new Vector3f(p);
         angle = new Quaternion(a);
