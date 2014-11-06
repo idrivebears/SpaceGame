@@ -75,8 +75,7 @@ public class Main extends SimpleApplication {
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
         player = new Player("Player1", "Ships/round_ship.obj", assetManager);
         
-        //Quaternion ROLL045  = new Quaternion().fromAngleAxis(FastMath.PI,   new Vector3f(0,0,1));
-        
+               
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
@@ -87,8 +86,8 @@ public class Main extends SimpleApplication {
         
         this.setUpLight();
         
-        flyCam.setEnabled(false);
-        //this.setUpCamera(); //changed name to setUpCamera to match setUpLight syntax
+        flyCam.setEnabled(false); 
+        
         this.initKeys();
         this.initAudio();
         
@@ -107,21 +106,20 @@ public class Main extends SimpleApplication {
     }
     
     private void initKeys(){
-        // New keys, testing rotation
-
-        //inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
-        //inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
+        // Key for movement and shooting
+        
+        // Basic movement
         inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_S));
-        //inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
-        //inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_A));
         
-        //Adding to action listener
-        //inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_RollUp","INPUT_RollDown",
-          //      "INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
-        inputManager.addListener(inputHandler,"INPUT_RollUp","INPUT_RollDown","INPUT_RollLeft","INPUT_RollRight");
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_RIGHT));
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_LEFT));
+        
+        // Shooting
+        inputManager.addMapping("INPUT_Shoot", new KeyTrigger(KeyInput.KEY_SPACE));
+        
+        inputManager.addListener(inputHandler,"INPUT_RollUp","INPUT_RollDown",
+                                          "INPUT_RollLeft","INPUT_RollRight","INPUT_Shoot");
     }
     
     private void initAudio(){
@@ -149,14 +147,13 @@ public class Main extends SimpleApplication {
     }
     
     private void updateCamera(){
-       //flyCam.setEnabled(false);
-        // Cam location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
+       // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
         cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        
+        // Rotate camera axes disabled
         //cam.setAxes(player.getLocalRotation().mult(Vector3f.UNIT_X.mult(-1)),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
-        //cam.setAxes(Vector3f.ZERO, Vector3f.NAN, Vector3f.ZERO);
-        //cam.setAxes(player.getLocalRotation().mult(Vector3f.ZERO),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
-        //cam.setAxes(cam.get,player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
+        
     }
 
     @Override
