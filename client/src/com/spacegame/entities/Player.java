@@ -9,7 +9,7 @@ import com.jme3.math.Vector3f;
  */
 public class Player extends Ship{
     public final String PLAYER_ID;
-    private float speed = 32f; //default speed
+    private float speed = 64f; //default speed
     
     //Player states
     public boolean isAlive;
