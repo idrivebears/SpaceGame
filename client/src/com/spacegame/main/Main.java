@@ -12,12 +12,12 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
-<<<<<<< HEAD:client/src/mygame/Main.java
+
 import com.jme3.math.FastMath;
 import com.jme3.scene.CameraNode;
 import com.jme3.scene.control.CameraControl.ControlDirection;
-=======
->>>>>>> master:client/src/com/spacegame/main/Main.java
+
+
 import com.jme3.system.AppSettings;
 import java.util.Scanner;
 
