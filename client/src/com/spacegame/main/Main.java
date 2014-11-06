@@ -100,6 +100,7 @@ public class Main extends SimpleApplication {
     
     private void initKeys(){
         // New keys, testing rotation
+
         //inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
         //inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
         inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_W));
@@ -108,7 +109,6 @@ public class Main extends SimpleApplication {
         //inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_D));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_A));
-        
         
         //Adding to action listener
         //inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_RollUp","INPUT_RollDown",
