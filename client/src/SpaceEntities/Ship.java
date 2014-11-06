@@ -25,11 +25,13 @@ public class Ship extends Element{
         
         //elementData is inherited from Element class, and is private to the object
         //elementData contains direction, position and angle
+        
         this.spatial.move(new Vector3f(
                 this.elementData.getDirection().x*tpf, 
                 this.elementData.getDirection().y*tpf,
                 this.elementData.getDirection().z*tpf)
                 );
+                
         elementData.setPosition(spatial.getLocalTranslation());
         
        
