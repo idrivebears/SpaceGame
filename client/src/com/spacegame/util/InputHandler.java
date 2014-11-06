@@ -22,6 +22,7 @@ public class InputHandler implements AnalogListener{
     //The commands here should change to something similar to server.sendKey(String playerID, String keyPressed);
     @Override
     public void onAnalog(String name, float value, float tpf){
+        // Basic movement. Considers "tpf", making velocity in all directions equal
        // if(name.equals("INPUT_Forward")){
             //Vector3f mov = ship.getLocalRotation().getRotationColumn(2).normalize();
             
@@ -32,15 +33,12 @@ public class InputHandler implements AnalogListener{
 //            Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
 //            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
 //        }
-        System.out.println(value + " " + tpf);
+        //System.out.println(value + " " + tpf); value is equal to tpf
         if(name.equals("INPUT_RollUp")){
-            Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI*value)/10, new Vector3f(1,0,0));
-            thisPlayer.setLocalRotation(thisPlayer.getLocalRotation().mult(PITCH));
-            
+            thisPlayer.PitchUp(tpf);
         }
         if(name.equals("INPUT_RollDown")){
-            Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI*value)/10, new Vector3f(-1,0,0));
-            thisPlayer.setLocalRotation(thisPlayer.getLocalRotation().mult(PITCH));
+            thisPlayer.PitchDown(tpf);
         }/*
         if(name.equals("INPUT_Right")){
             Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(0).normalize();
@@ -51,13 +49,11 @@ public class InputHandler implements AnalogListener{
             thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
         }*/
         if(name.equals("INPUT_RollLeft")){
-            Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI*value)/10, new Vector3f(0,0,1));
-            thisPlayer.setLocalRotation(thisPlayer.getLocalRotation().mult(PITCH));
+            thisPlayer.RollLeft(tpf);
             
         }
         if(name.equals("INPUT_RollRight")){
-            Quaternion PITCH = new Quaternion().fromAngleAxis((-FastMath.PI*value)/10, new Vector3f(0,0,1));
-            thisPlayer.setLocalRotation(thisPlayer.getLocalRotation().mult(PITCH));
+            thisPlayer.RollRight(tpf);
         }
     }
 }
