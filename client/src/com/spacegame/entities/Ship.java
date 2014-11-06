@@ -20,7 +20,7 @@ public class Ship extends Element{
         spatial = am.loadModel(model);
         this.currentNode.attachChild(spatial);
     }
-    
+    ///Movement
     // Around x axe. Positive
     public void PitchUp(float tpf){
         Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI*tpf)/10, new Vector3f(1,0,0));
@@ -42,6 +42,10 @@ public class Ship extends Element{
         this.setLocalRotation(this.getLocalRotation().mult(ROLL));
     }
     
+    //Shooting. TO DO
+    public void Shoot(){
+        
+    }
     
     /*update method is automatically called by SimpleAppUpdate method, theres
      no need to call it anywhere*/

@@ -55,5 +55,8 @@ public class InputHandler implements AnalogListener{
         if(name.equals("INPUT_RollRight")){
             thisPlayer.RollRight(tpf);
         }
+        if(name.equals("INPUT_Shoot")){
+            thisPlayer.Shoot();
+        }
     }
 }
