@@ -9,6 +9,7 @@ import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.system.JmeContext;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,10 +22,12 @@ import java.util.logging.Logger;
  */
 public class SpaceServer extends SimpleApplication {
     int serverPort;
-    Server server;
+    private static Server server = null;
+    private static DisplayInfo display;
+    
     public static void main(String args[]){
         SpaceServer serverApp = new SpaceServer();
-        DisplayInfo display = new DisplayInfo();
+        display = new DisplayInfo();
         serverApp.runServerSetup();
         serverApp.start(JmeContext.Type.Headless);
         System.out.println("Server is running.");
@@ -59,25 +62,27 @@ public class SpaceServer extends SimpleApplication {
         System.out.println("Creating server on port " + serverPort + "...");
     }
     
-    public Server getServer(){
+    public static Server getServer(){
         return server;
     }
 }
 
 class DisplayInfo extends TimerTask {
     String info = "";
+    
     @Override
     public void run(){
         displayInfo();
     }
     
-    public void publishInfo(String info){
+    public void publish(String info){
         this.info = info;
     }
     
     private void displayInfo(){
-        if(info.equals(""))
+        if(info.equals("")){
             System.out.println("No information to display yet.");
+        }   
         else
             System.out.println(info);
     }
