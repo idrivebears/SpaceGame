@@ -130,7 +130,7 @@ public class Main extends SimpleApplication {
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
         terrain.add(bgMusic);
-        bgMusic.play();
+        //bgMusic.play();
     }
       
     //Light is needed to make the models visible
