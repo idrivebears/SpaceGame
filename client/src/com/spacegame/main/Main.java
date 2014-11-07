@@ -111,8 +111,8 @@ public class Main extends SimpleApplication {
         // Key for movement and shooting
         
         // Basic movement
-        inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_W));
+        inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_S));
         
         inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_RIGHT));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_LEFT));
@@ -120,7 +120,7 @@ public class Main extends SimpleApplication {
         // Shooting
         inputManager.addMapping("INPUT_Shoot", new KeyTrigger(KeyInput.KEY_SPACE));
         
-        inputManager.addListener(inputHandler,"INPUT_RollUp","INPUT_RollDown",
+        inputManager.addListener(inputHandler,"INPUT_PitchUp","INPUT_PitchDown",
                                           "INPUT_RollLeft","INPUT_RollRight","INPUT_Shoot");
     }
     
@@ -150,7 +150,12 @@ public class Main extends SimpleApplication {
     
     private void updateCamera(){
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
+        if(!(player.getPitchSpeed() < 0.5 && player.getPitchSpeed() > -0.5)){
+            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
+        }
+        else{
+            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult(new Vector3f(0,7,30))));
+        }
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
         
         // Rotate camera axes disabled

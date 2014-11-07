@@ -63,7 +63,7 @@ public class Player extends Ship{
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
         this.setDirection(mov.mult(-this.getSpeed()));
     }
-    
+
     
     
 }

@@ -17,53 +17,70 @@ public class InputHandler implements AnalogListener, ActionListener {
         thisPlayer = player;
     }
     
+    float RollFeeling;
+    float PitchFeeling;
+    
     //The commands here should change to something similar to server.sendKey(String playerID, String keyPressed);
     @Override
     public void onAnalog(String name, float value, float tpf){
         // Basic movement. Considers "tpf", making velocity in all directions equal
 
         //System.out.println(value + " " + tpf); //value is equal to tpf
-        /*
-        if(name.equals("INPUT_RollUp")){
-            
-            thisPlayer.PitchUp(tpf);
+        
+        if(name.equals("INPUT_PitchUp")){
+            thisPlayer.modifyPitch("up");
+            thisPlayer.pitch(tpf);
         }
-        if(name.equals("INPUT_RollDown")){
-            thisPlayer.PitchDown(tpf);
+        if(name.equals("INPUT_PitchDown")){
+            thisPlayer.modifyPitch("down");
+            thisPlayer.pitch(tpf);
         }
         if(name.equals("INPUT_RollLeft")){
-            thisPlayer.RollLeft(tpf);
-            
+            thisPlayer.roll(tpf);
+            thisPlayer.modifyRoll("left");
         }
         if(name.equals("INPUT_RollRight")){
-            thisPlayer.RollRight(tpf);
+            thisPlayer.roll(tpf);
+            thisPlayer.modifyRoll("right");
         }
         if(name.equals("INPUT_Shoot")){
             thisPlayer.Shoot();
-        }
-        */
+        } 
+        
     }
 
     public void onAction(String name, boolean isPressed, float tpf) {
         System.out.println(name + " " + isPressed + " " + tpf);
         
                 
-        if(name.equals("INPUT_RollUp")){
-            
-            thisPlayer.PitchUp(tpf);
+        if(isPressed && name.equals("INPUT_PitchUp")){
+            RollFeeling = thisPlayer.getRollSpeed();
+        } else if (!isPressed && name.equals("INPUT_PitchUp")){
+            thisPlayer.setPitchSpeed(0);
         }
-        if(name.equals("INPUT_RollDown")){
-            thisPlayer.PitchDown(tpf);
+        
+        if(isPressed && name.equals("INPUT_PitchDown")){
+           RollFeeling = thisPlayer.getRollSpeed();
+        } else if(!isPressed && name.equals("INPUT_PitchDown")){
+            thisPlayer.setPitchSpeed(0);
         }
-        if(name.equals("INPUT_RollLeft")){
-            thisPlayer.RollLeft(tpf);
-            
+        
+        if(isPressed && name.equals("INPUT_RollLeft")){
+           RollFeeling = thisPlayer.getRollSpeed();
+        } else if(!isPressed && name.equals("INPUT_RollLeft")){
+            thisPlayer.setRollSpeed(0);
         }
-        if(name.equals("INPUT_RollRight")){
-            thisPlayer.RollRight(tpf);
+        
+        if(isPressed && name.equals("INPUT_RollRight")){
+           RollFeeling = thisPlayer.getRollSpeed(); 
+        } else if(isPressed && name.equals("INPUT_RollRight")){
+            thisPlayer.setRollSpeed(0);
         }
-        if(name.equals("INPUT_Shoot")){
+        
+        if(isPressed && name.equals("INPUT_Shoot")){
             thisPlayer.Shoot();
+        } else if(!isPressed && name.equals("INPUT_Shoot")){
+            
         }
     }
 }

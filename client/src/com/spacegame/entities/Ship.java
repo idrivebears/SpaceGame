@@ -16,9 +16,9 @@ import com.jme3.math.Vector3f;
  */
 public class Ship extends Element{
     
-    private float speed = 32f; //default speed
-    private float pitchSpeed = 0; 
-    private float rollSpeed = 0;
+    private float speed = 64f; //default speed
+    private float pitchSpeed; 
+    private float rollSpeed;
     
     public Ship(String model, AssetManager am){
         elementData = new ElementData();
@@ -26,13 +26,13 @@ public class Ship extends Element{
         this.currentNode.attachChild(spatial);
     }
     
+    // Getters and setters
     public void setSpeed(float speed){
         this.speed = speed;
     }
     public float getSpeed(){
         return speed;
     }
-    
     public void setPitchSpeed(float s){
         this.pitchSpeed = s;
     }
@@ -46,7 +46,29 @@ public class Ship extends Element{
         return this.rollSpeed;
     }
     
+    //Modify pitchspeed, up and down. Between interval [-1,1].
+    public void modifyPitch(String direction){
+        if(direction.equals("up")){
+            if(pitchSpeed < 1) pitchSpeed += .1;
+        } else if(direction.equals("down")){
+            if(pitchSpeed > -1) pitchSpeed -= .1;
+        }
+    }
+    
+    //Modify rollspeed, up and down. Between interval [-1,1].
+    public void modifyRoll(String direction){
+        if(direction.equals("left")){
+            if(rollSpeed < 1) rollSpeed += .05;
+        } else if(direction.equals("right")){
+            if(rollSpeed > -1) rollSpeed -= .05;
+        }
+    }
+    
+    
+    
     ///Movement
+    /*
+        
     // Around x axe. Positive
     public void PitchUp(float tpf){
         Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI * tpf * pitchSpeed)/10, new Vector3f(1,0,0));
@@ -67,6 +89,18 @@ public class Ship extends Element{
         Quaternion ROLL = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed)/5, new Vector3f(0,0,1));
         this.setLocalRotation(this.getLocalRotation().mult(ROLL));
     }
+      */
+    
+    public void pitch(float tpf){
+        Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI * tpf * pitchSpeed)/5, new Vector3f(1,0,0));
+        this.setLocalRotation(this.getLocalRotation().mult(PITCH)); 
+    }
+    
+    public void roll(float tpf){
+        Quaternion ROLL = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed), new Vector3f(0,0,1));
+        this.setLocalRotation(this.getLocalRotation().mult(ROLL));
+    }
+    
     
     //Shooting. TO DO
     public void Shoot(){
