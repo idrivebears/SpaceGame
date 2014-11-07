@@ -2,19 +2,20 @@ package com.spacegame.entities;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.math.Vector3f;
+import com.spacegame.util.ElementData;
 
 /**
  *
  * @author Usuario
  */
 public class Player extends Ship{
-    public final String PLAYER_ID;
+    public final int PLAYER_ID;
     private float speed = 32f; //default speed
     
     //Player states
     public boolean isAlive;
     
-    public Player(String id, String model, AssetManager am){
+    public Player(int id, String model, AssetManager am){
         super(model, am);
         this.PLAYER_ID = id;
         isAlive = true;
@@ -25,6 +26,12 @@ public class Player extends Ship{
     }
     public float getSpeed(){
         return speed;
+    }
+    
+    public void updateStats(ElementData e){
+        this.elementData.setAngle(e.getAngle());
+        this.elementData.setDirection(e.getDirection());
+        this.elementData.setPosition(e.getPosition());
     }
     
    @Override
