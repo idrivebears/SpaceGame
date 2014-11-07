@@ -12,6 +12,7 @@ public class Player extends Ship{
 
     public final int PLAYER_ID;
     private float speed = 32f; //default speed
+    private int health;
     
     //Player states
     public boolean isAlive;
@@ -20,6 +21,29 @@ public class Player extends Ship{
         super(model, am);
         this.PLAYER_ID = id;
         isAlive = true;
+        health = 100;
+    }
+    
+    //Does the passed attackDamage to the player
+    //If the player has no health left, the player is no
+    //longer alive.
+    public void attack(int attackDamage){
+        int damageDone = this.health - attackDamage;
+        if(damageDone <= 0){
+            this.isAlive = false;
+        }
+        else{
+            this.health = damageDone;
+        }
+    }
+    
+    //Brings the player back to life to a starting position.
+    public void respawn(Vector3f position){
+        if(!this.isAlive){
+            this.elementData.setPosition(position);
+            this.health = 100;
+            this.isAlive = true;
+        }
     }
     
     public void setSpeed(float speed){
@@ -29,6 +53,7 @@ public class Player extends Ship{
         return speed;
     }
     
+    //Updates the players Angle, Position and Direction
     public void updateStats(ElementData e){
         this.elementData.setAngle(e.getAngle());
         this.elementData.setDirection(e.getDirection());
