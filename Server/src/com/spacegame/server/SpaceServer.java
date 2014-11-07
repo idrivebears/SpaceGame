@@ -38,9 +38,10 @@ public class SpaceServer extends SimpleApplication {
         try {
             server = Network.createServer(serverPort);
             ConfigureListeners.configure(server);
+            server.start();
         } catch (IOException ex) {
             Logger.getLogger(SpaceServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   
     }
     
     //update method for the server, gets called n times per "frame"
@@ -56,6 +57,10 @@ public class SpaceServer extends SimpleApplication {
         serverPort = in.nextInt();
         serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
         System.out.println("Creating server on port " + serverPort + "...");
+    }
+    
+    public Server getServer(){
+        return server;
     }
 }
 
