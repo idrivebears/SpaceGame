@@ -12,13 +12,10 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
-
-import com.jme3.math.FastMath;
-import com.jme3.scene.CameraNode;
-import com.jme3.scene.control.CameraControl.ControlDirection;
-
-
 import com.jme3.system.AppSettings;
+import com.spacegame.util.ElementData;
+import com.spacegame.util.PlayerList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -35,10 +32,15 @@ public class Main extends SimpleApplication {
     private Terrain terrain;
     private InputHandler inputHandler;
     private int serverPort;
+    
+    //Contains the instanciated Player objects to render locally
+    PlayerList playerList = new PlayerList();
+    
     //CameraNode camNode;
     
     // Velocity of ship [TEST]
     private int CAMERA_MOVE_SPEED = 50;
+    private String PLAYER_MODEL = "Ships/round_ship.obj";
     
     
     public static void main(String[] args) {
@@ -73,7 +75,7 @@ public class Main extends SimpleApplication {
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player("Player1", "Ships/round_ship.obj", assetManager);
+        player = new Player(1, PLAYER_MODEL, assetManager);
         
                
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
@@ -158,15 +160,38 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleUpdate(float tpf) {
-        player.update(tpf);
+       player.update(tpf);
        updateCamera();
-               
-        
+       
+       //updatePlayerList();
+       
+       
+       //get ArrayList<ElementData> serverData for updatePlayerList()
     }
 
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
+        //renderPlayers();
+    }
+    
+    
+    //serverData should be recieved from the server (StateProcessor.Elements list)
+    private void updatePlayerList(ArrayList<ElementData> serverData){
+        
+        //Checks the ElementData list for any non-existing players
+        //and instanciates and adds a new player to the playerList.
+        for(ElementData e : serverData){
+            if(!playerList.contains(e)){
+                playerList.addPlayer(new Player(e.getID(), PLAYER_MODEL, assetManager));
+            }
+            else{
+                //If the player does exist in the list, it
+                //updates the player with matching id to its new ElementData stats
+                playerList.getPlayer(e.getID()).updateStats(e);
+            }
+        }
+        
     }
 }
     

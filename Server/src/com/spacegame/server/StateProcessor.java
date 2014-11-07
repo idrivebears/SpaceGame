@@ -45,8 +45,8 @@ public class StateProcessor {
                     break;
                 }
             }
-            
             //start processing the key movement here (InputHandler code)
+            
             
         }
         
