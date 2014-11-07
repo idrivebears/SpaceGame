@@ -1,10 +1,8 @@
 package com.spacegame.util;
 
+import com.jme3.input.controls.ActionListener;
 import com.spacegame.entities.Player;
 import com.jme3.input.controls.AnalogListener;
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
 
 /**
  *
@@ -12,51 +10,77 @@ import com.jme3.math.Vector3f;
  * 
  * This will send the input pressed by the client to the server, including a client ID
  */
-public class InputHandler implements AnalogListener{
+public class InputHandler implements AnalogListener, ActionListener {
     Player thisPlayer;
     
     public InputHandler(Player player){
         thisPlayer = player;
     }
     
+    float RollFeeling;
+    float PitchFeeling;
+    
     //The commands here should change to something similar to server.sendKey(String playerID, String keyPressed);
     @Override
     public void onAnalog(String name, float value, float tpf){
         // Basic movement. Considers "tpf", making velocity in all directions equal
-       // if(name.equals("INPUT_Forward")){
-            //Vector3f mov = ship.getLocalRotation().getRotationColumn(2).normalize();
-            
-         //   Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
-          //  thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
-        //}
-//        if(name.equals("INPUT_Backward")){
-//            Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(2).normalize();
-//            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
-//        }
-        //System.out.println(value + " " + tpf); value is equal to tpf
-        if(name.equals("INPUT_RollUp")){
-            thisPlayer.PitchUp(tpf);
+
+        //System.out.println(value + " " + tpf); //value is equal to tpf
+        
+        if(name.equals("INPUT_PitchUp")){
+            thisPlayer.modifyPitch("up");
+            thisPlayer.pitch(tpf);
         }
-        if(name.equals("INPUT_RollDown")){
-            thisPlayer.PitchDown(tpf);
-        }/*
-        if(name.equals("INPUT_Right")){
-            Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(0).normalize();
-            thisPlayer.setDirection(mov.mult(thisPlayer.getSpeed()));
+        if(name.equals("INPUT_PitchDown")){
+            thisPlayer.modifyPitch("down");
+            thisPlayer.pitch(tpf);
         }
-        if(name.equals("INPUT_Left")){
-            Vector3f mov = thisPlayer.getLocalRotation().getRotationColumn(0).normalize();
-            thisPlayer.setDirection(mov.mult(-thisPlayer.getSpeed()));
-        }*/
         if(name.equals("INPUT_RollLeft")){
-            thisPlayer.RollLeft(tpf);
-            
+            thisPlayer.roll(tpf);
+            thisPlayer.modifyRoll("left");
         }
         if(name.equals("INPUT_RollRight")){
-            thisPlayer.RollRight(tpf);
+            thisPlayer.roll(tpf);
+            thisPlayer.modifyRoll("right");
         }
         if(name.equals("INPUT_Shoot")){
             thisPlayer.Shoot();
+        } 
+        
+    }
+
+    public void onAction(String name, boolean isPressed, float tpf) {
+        System.out.println(name + " " + isPressed + " " + tpf);
+        
+                
+        if(isPressed && name.equals("INPUT_PitchUp")){
+            RollFeeling = thisPlayer.getRollSpeed();
+        } else if (!isPressed && name.equals("INPUT_PitchUp")){
+            thisPlayer.setPitchSpeed(0);
+        }
+        
+        if(isPressed && name.equals("INPUT_PitchDown")){
+           RollFeeling = thisPlayer.getRollSpeed();
+        } else if(!isPressed && name.equals("INPUT_PitchDown")){
+            thisPlayer.setPitchSpeed(0);
+        }
+        
+        if(isPressed && name.equals("INPUT_RollLeft")){
+           RollFeeling = thisPlayer.getRollSpeed();
+        } else if(!isPressed && name.equals("INPUT_RollLeft")){
+            thisPlayer.setRollSpeed(0);
+        }
+        
+        if(isPressed && name.equals("INPUT_RollRight")){
+           RollFeeling = thisPlayer.getRollSpeed(); 
+        } else if(isPressed && name.equals("INPUT_RollRight")){
+            thisPlayer.setRollSpeed(0);
+        }
+        
+        if(isPressed && name.equals("INPUT_Shoot")){
+            thisPlayer.Shoot();
+        } else if(!isPressed && name.equals("INPUT_Shoot")){
+            
         }
     }
 }

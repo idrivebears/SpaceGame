@@ -14,7 +14,7 @@ import com.spacegame.util.ElementData;
 public class Player extends Ship{
 
     public final int PLAYER_ID;
-    private float speed = 32f; //default speed
+    
     private int health;
     
     //Player states
@@ -49,12 +49,6 @@ public class Player extends Ship{
         }
     }
     
-    public void setSpeed(float speed){
-        this.speed = speed;
-    }
-    public float getSpeed(){
-        return speed;
-    }
     
     //Updates the players Angle, Position and Direction
     public void updateStats(ElementData e){
@@ -69,7 +63,7 @@ public class Player extends Ship{
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
         this.setDirection(mov.mult(-this.getSpeed()));
     }
-    
+
     
     
 }
