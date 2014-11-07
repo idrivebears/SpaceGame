@@ -9,13 +9,9 @@ import com.spacegame.util.ElementData;
  * @author Usuario
  */
 public class Player extends Ship{
-<<<<<<< HEAD
-    public final String PLAYER_ID;
-    private float speed = 64f; //default speed
-=======
+
     public final int PLAYER_ID;
     private float speed = 32f; //default speed
->>>>>>> master
     
     //Player states
     public boolean isAlive;
