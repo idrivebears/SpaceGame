@@ -9,6 +9,7 @@ import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.system.JmeContext;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,11 +21,13 @@ import java.util.logging.Logger;
  * @author Cam
  */
 public class SpaceServer extends SimpleApplication {
-    int serverPort;
-    Server server;
+    private static int serverPort;
+    private static Server server = null;
+    private static DisplayInfo display;
+    
     public static void main(String args[]){
         SpaceServer serverApp = new SpaceServer();
-        DisplayInfo display = new DisplayInfo();
+        display = new DisplayInfo();
         serverApp.runServerSetup();
         serverApp.start(JmeContext.Type.Headless);
         System.out.println("Server is running.");
@@ -38,9 +41,10 @@ public class SpaceServer extends SimpleApplication {
         try {
             server = Network.createServer(serverPort);
             ConfigureListeners.configure(server);
+            server.start();
         } catch (IOException ex) {
             Logger.getLogger(SpaceServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }   
     }
     
     //update method for the server, gets called n times per "frame"
@@ -57,22 +61,31 @@ public class SpaceServer extends SimpleApplication {
         serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
         System.out.println("Creating server on port " + serverPort + "...");
     }
+    public static int getPort(){
+        return serverPort;
+    }
+    public static Server getServer(){
+        return server;
+    }
 }
 
 class DisplayInfo extends TimerTask {
     String info = "";
+    
     @Override
     public void run(){
         displayInfo();
     }
     
-    public void publishInfo(String info){
+    public void publish(String info){
         this.info = info;
     }
     
     private void displayInfo(){
-        if(info.equals(""))
+        if(info.equals("")){
+            System.out.println("Running on port: " + SpaceServer.getPort());
             System.out.println("No information to display yet.");
+        }   
         else
             System.out.println(info);
     }
