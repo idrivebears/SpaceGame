@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @author Cam
  */
 public class SpaceServer extends SimpleApplication {
-    int serverPort;
+    private static int serverPort;
     private static Server server = null;
     private static DisplayInfo display;
     
@@ -61,7 +61,9 @@ public class SpaceServer extends SimpleApplication {
         serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
         System.out.println("Creating server on port " + serverPort + "...");
     }
-    
+    public static int getPort(){
+        return serverPort;
+    }
     public static Server getServer(){
         return server;
     }
@@ -81,6 +83,7 @@ class DisplayInfo extends TimerTask {
     
     private void displayInfo(){
         if(info.equals("")){
+            System.out.println("Running on port: " + SpaceServer.getPort());
             System.out.println("No information to display yet.");
         }   
         else
