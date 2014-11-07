@@ -12,13 +12,10 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
-
-import com.jme3.math.FastMath;
-import com.jme3.scene.CameraNode;
-import com.jme3.scene.control.CameraControl.ControlDirection;
-
-
 import com.jme3.system.AppSettings;
+import com.spacegame.util.ElementData;
+import com.spacegame.util.PlayerList;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -35,10 +32,15 @@ public class Main extends SimpleApplication {
     private Terrain terrain;
     private InputHandler inputHandler;
     private int serverPort;
+    
+    //Contains the instanciated Player objects to render locally
+    PlayerList playerList = new PlayerList();
+    
     //CameraNode camNode;
     
     // Velocity of ship [TEST]
     private int CAMERA_MOVE_SPEED = 50;
+    private String PLAYER_MODEL = "Ships/round_ship.obj";
     
     
     public static void main(String[] args) {
@@ -73,10 +75,9 @@ public class Main extends SimpleApplication {
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player("Player1", "Ships/round_ship.obj", assetManager);
+        player = new Player(1, PLAYER_MODEL, assetManager);
         
-        //Quaternion ROLL045  = new Quaternion().fromAngleAxis(FastMath.PI,   new Vector3f(0,0,1));
-        
+               
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
@@ -87,8 +88,8 @@ public class Main extends SimpleApplication {
         
         this.setUpLight();
         
-        flyCam.setEnabled(false);
-        //this.setUpCamera(); //changed name to setUpCamera to match setUpLight syntax
+        flyCam.setEnabled(false); 
+        
         this.initKeys();
         this.initAudio();
         
@@ -107,21 +108,20 @@ public class Main extends SimpleApplication {
     }
     
     private void initKeys(){
-        // New keys, testing rotation
-
-        //inputManager.addMapping("INPUT_Forward", new KeyTrigger(KeyInput.KEY_W));
-        //inputManager.addMapping("INPUT_Backward", new KeyTrigger(KeyInput.KEY_S));
+        // Key for movement and shooting
+        
+        // Basic movement
         inputManager.addMapping("INPUT_RollUp", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("INPUT_RollDown", new KeyTrigger(KeyInput.KEY_S));
-        //inputManager.addMapping("INPUT_Right", new KeyTrigger(KeyInput.KEY_D));
-        //inputManager.addMapping("INPUT_Left", new KeyTrigger(KeyInput.KEY_A));
-        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_D));
-        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_A));
         
-        //Adding to action listener
-        //inputManager.addListener(inputHandler,"INPUT_Forward", "INPUT_Backward","INPUT_RollUp","INPUT_RollDown",
-          //      "INPUT_Right","INPUT_Left","INPUT_RollLeft","INPUT_RollRight");
-        inputManager.addListener(inputHandler,"INPUT_RollUp","INPUT_RollDown","INPUT_RollLeft","INPUT_RollRight");
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_RIGHT));
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_LEFT));
+        
+        // Shooting
+        inputManager.addMapping("INPUT_Shoot", new KeyTrigger(KeyInput.KEY_SPACE));
+        
+        inputManager.addListener(inputHandler,"INPUT_RollUp","INPUT_RollDown",
+                                          "INPUT_RollLeft","INPUT_RollRight","INPUT_Shoot");
     }
     
     private void initAudio(){
@@ -149,27 +149,49 @@ public class Main extends SimpleApplication {
     }
     
     private void updateCamera(){
-       //flyCam.setEnabled(false);
-        // Cam location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
+       // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
         cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        
+        // Rotate camera axes disabled
         //cam.setAxes(player.getLocalRotation().mult(Vector3f.UNIT_X.mult(-1)),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
-        //cam.setAxes(Vector3f.ZERO, Vector3f.NAN, Vector3f.ZERO);
-        //cam.setAxes(player.getLocalRotation().mult(Vector3f.ZERO),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
-        //cam.setAxes(cam.get,player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
+        
     }
 
     @Override
     public void simpleUpdate(float tpf) {
-        player.update(tpf);
+       player.update(tpf);
        updateCamera();
-               
-        
+       
+       //updatePlayerList();
+       
+       
+       //get ArrayList<ElementData> serverData for updatePlayerList()
     }
 
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
+        //renderPlayers();
+    }
+    
+    
+    //serverData should be recieved from the server (StateProcessor.Elements list)
+    private void updatePlayerList(ArrayList<ElementData> serverData){
+        
+        //Checks the ElementData list for any non-existing players
+        //and instanciates and adds a new player to the playerList.
+        for(ElementData e : serverData){
+            if(!playerList.contains(e)){
+                playerList.addPlayer(new Player(e.getID(), PLAYER_MODEL, assetManager));
+            }
+            else{
+                //If the player does exist in the list, it
+                //updates the player with matching id to its new ElementData stats
+                playerList.getPlayer(e.getID()).updateStats(e);
+            }
+        }
+        
     }
 }
     

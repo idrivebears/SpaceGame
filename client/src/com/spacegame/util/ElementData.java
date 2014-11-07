@@ -14,9 +14,21 @@ import com.jme3.math.Vector3f;
  * Facilitates transfer of position data in the scene graph
  */
 public class ElementData {
+    private int id;
     private Vector3f direction;
     private Vector3f position;
     private Quaternion angle;
+    
+    public ElementData(){
+        //Empty constructor delete
+    }
+    
+    public ElementData(int id, Vector3f d, Vector3f p, Quaternion a){
+        this.id = id;
+        direction = new Vector3f(d);
+        position = new Vector3f(p);
+        angle = new Quaternion(a);
+    }
 
     public Vector3f getDirection() {
         return direction;
@@ -41,13 +53,11 @@ public class ElementData {
         this.angle = angle;
     }
     
-    public ElementData(){
-        this(new Vector3f(0,0,0), new Vector3f(0,0,0), new Quaternion());
-    }
-    public ElementData(Vector3f d, Vector3f p, Quaternion a){
-        direction = new Vector3f(d);
-        position = new Vector3f(p);
-        angle = new Quaternion(a);
+    public void setID(int id){
+        this.id = id;
     }
     
+    public int getID(){
+        return this.id;
+    }
 }
