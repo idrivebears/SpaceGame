@@ -9,6 +9,7 @@ import com.spacegame.util.ElementData;
  * @author Usuario
  */
 public class Player extends Ship{
+
     public final int PLAYER_ID;
     private float speed = 32f; //default speed
     
