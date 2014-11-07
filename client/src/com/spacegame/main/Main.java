@@ -12,9 +12,12 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.network.Client;
+import com.jme3.network.Network;
 import com.jme3.system.AppSettings;
 import com.spacegame.util.ElementData;
 import com.spacegame.util.PlayerList;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,7 +34,8 @@ public class Main extends SimpleApplication {
     private Player player;
     private Terrain terrain;
     private InputHandler inputHandler;
-    private int serverPort;
+    
+    private Client client;
     
     //Contains the instanciated Player objects to render locally
     PlayerList playerList = new PlayerList();
@@ -41,6 +45,7 @@ public class Main extends SimpleApplication {
     // Velocity of ship [TEST]
     private int CAMERA_MOVE_SPEED = 50;
     private String PLAYER_MODEL = "Ships/round_ship.obj";
+    private String SERVER = "localhost";
     
     
     public static void main(String[] args) {
@@ -96,15 +101,30 @@ public class Main extends SimpleApplication {
     }
     
     private void runServerSetup(){
-        
-        //MISSING: add loop for failed connections to server
+        int serverPort;
+        String serverAddress;
+        boolean connectionSuccess = false;
         Scanner in = new Scanner(System.in);
-        //LOOP:
-        System.out.print("Please enter a server port to connect to:> ");
-        serverPort = in.nextInt();
-        serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
-        System.out.println("Attempting to connect to server " + serverPort + " ...");
-        //ENDLOOP
+        
+        while(!connectionSuccess){
+            System.out.print("Please enter a server address to connect to:> ");
+            serverAddress = in.next();
+            System.out.print("Please enter a server port to connect to:> ");
+            serverPort = in.nextInt();
+            //serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
+            System.out.println("Attempting to connect to server " + serverAddress + " at port:  "+ serverPort + " ...");
+            try{
+                client = Network.connectToServer(serverAddress, serverPort);
+                connectionSuccess = true;
+            }
+            catch(IOException e){
+                System.out.println("Server Address/Port not valid or server not running, please try again.");
+                System.out.println("Error:: " + e.getLocalizedMessage());
+            }
+        }
+        client.start();
+        
+        
     }
     
     private void initKeys(){
@@ -164,7 +184,7 @@ public class Main extends SimpleApplication {
        updateCamera();
        
        
-       //get ArrayList<ElementData> serverData for updatePlayerList()
+       //get ArrayList<ElementData> serverData for updatePlayerList() from server
        //updatePlayerList();
        
     }
