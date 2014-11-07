@@ -6,7 +6,10 @@ import com.spacegame.util.ElementData;
 
 /**
  *
- * @author Usuario
+ * @author awalls
+ * Main Player class
+ * The objets for each Player must be instanciated only client-side
+ * 
  */
 public class Player extends Ship{
 

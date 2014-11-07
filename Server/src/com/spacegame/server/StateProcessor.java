@@ -5,12 +5,20 @@ import com.jme3.math.Vector3f;
 import com.spacegame.data.KeyData;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentLinkedQueue;
+/*
+ * StateProcessor contains 2 static linked lists, elements and keysPressed
+ * elements handles the states of all the players in the server
+ * keysPressed is a Queue with all of the recieved keys from clients
+ */
 
 public class StateProcessor {
     
     private static ArrayList<ElementData> elements = new ArrayList<ElementData>();
     private static ConcurrentLinkedQueue<KeyData> keysPressed = new ConcurrentLinkedQueue<KeyData>();
     
+    
+    //updatePlayers will take an input and add it to the Queue
+    //the queue is later polled for processing the movements of players
     public static void updatePlayer(KeyData input){
         boolean idExists = false;
         for(ElementData ed : elements){
@@ -45,7 +53,8 @@ public class StateProcessor {
                     break;
                 }
             }
-            //start processing the key movement here (InputHandler code)
+            //start processing the movement for the currentPlayer here (InputHandler code)
+            
             
             
         }
