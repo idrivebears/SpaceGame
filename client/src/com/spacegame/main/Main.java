@@ -163,10 +163,10 @@ public class Main extends SimpleApplication {
        player.update(tpf);
        updateCamera();
        
-       //updatePlayerList();
-       
        
        //get ArrayList<ElementData> serverData for updatePlayerList()
+       //updatePlayerList();
+       
     }
 
     @Override
@@ -174,7 +174,6 @@ public class Main extends SimpleApplication {
         //TODO: add render code
         //renderPlayers();
     }
-    
     
     //serverData should be recieved from the server (StateProcessor.Elements list)
     private void updatePlayerList(ArrayList<ElementData> serverData){
