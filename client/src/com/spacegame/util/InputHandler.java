@@ -61,20 +61,22 @@ public class InputHandler implements AnalogListener, ActionListener {
             RollFeeling = thisPlayer.getRollSpeed();
         } else if (!isPressed && name.equals("INPUT_PitchUp")){
             thisPlayer.setPitchSpeed(0);
+            //thisPlayer.keepPitch(tpf);
         }
         
         if(isPressed && name.equals("INPUT_PitchDown")){
            RollFeeling = thisPlayer.getRollSpeed();
         } else if(!isPressed && name.equals("INPUT_PitchDown")){
             thisPlayer.setPitchSpeed(0);
+            //thisPlayer.keepPitch(tpf);
         }
         
         if(isPressed && name.equals("INPUT_RollLeft")){
-           
            RollFeeling = thisPlayer.getRollSpeed();
            thisPlayer.setRollSpeed(0);
         } else if(!isPressed && name.equals("INPUT_RollLeft")){
             thisPlayer.setRollSpeed(0);
+            //thisPlayer.keepRoll(tpf);
         }
         
         if(isPressed && name.equals("INPUT_RollRight")){
@@ -82,6 +84,7 @@ public class InputHandler implements AnalogListener, ActionListener {
            thisPlayer.setRollSpeed(0);
         } else if(isPressed && name.equals("INPUT_RollRight")){
             thisPlayer.setRollSpeed(0);
+            //thisPlayer.keepRoll(tpf);
         }
         
         if(isPressed && name.equals("INPUT_Shoot")){

@@ -143,13 +143,13 @@ public class Main extends SimpleApplication {
         // Key for movement and shooting
         
         // Basic movement WASD
-        inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_W));
-        inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_S));
+        inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_D));
         //Arrow keys
-        inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_UP));
-        inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_DOWN));
+        inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_DOWN));
+        inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_UP));
         inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_RIGHT));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_LEFT));
         
@@ -194,7 +194,7 @@ public class Main extends SimpleApplication {
             cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         }*/
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
         
         // Rotate camera axes disabled
         //cam.setAxes(player.getLocalRotation().mult(Vector3f.UNIT_X.mult(-1)),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));

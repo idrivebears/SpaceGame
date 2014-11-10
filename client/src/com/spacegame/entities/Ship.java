@@ -104,11 +104,14 @@ public class Ship extends Element{
     public void keepPitch(float tpf){
         while(this.pitchSpeed > .1 || this.pitchSpeed < -.1){
             this.pitch(tpf);
-            //(this.pitchSpeed > 0)? this.pitchSpeed += -.05 : this.pitchSpeed +=.05;
+            this.pitchSpeed += (this.pitchSpeed > 0) ? -0.05f : 0.05f;
         }
     }
-    public void keepRoll(){
-        
+    public void keepRoll(float tpf){
+        while(this.rollSpeed > .1 || this.rollSpeed < -.1){
+            this.roll(tpf);
+            this.rollSpeed += (this.rollSpeed > 0) ? -0.05f : 0.05f;
+        }
     }
     
     //Shooting. TO DO
