@@ -25,6 +25,7 @@ public class Player extends Ship{
         this.PLAYER_ID = id;
         isAlive = true;
         health = 100;
+        this.getSpatial().scale(0.08f);
     }
     
     //Does the passed attackDamage to the player
