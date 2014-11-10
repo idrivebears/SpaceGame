@@ -141,10 +141,14 @@ public class Main extends SimpleApplication {
     private void initKeys(){
         // Key for movement and shooting
         
-        // Basic movement
+        // Basic movement WASD
         inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_S));
-        
+        inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_A));
+        inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_D));
+        //Arrow keys
+        inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_UP));
+        inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_DOWN));
         inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_RIGHT));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_LEFT));
         
