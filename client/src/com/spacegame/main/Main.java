@@ -96,6 +96,7 @@ public class Main extends SimpleApplication {
         
         this.initKeys();
         this.initAudio();
+        
         /*
         //Tester for updatePlayerList()
         ArrayList<ElementData> sd = new ArrayList<ElementData>();
