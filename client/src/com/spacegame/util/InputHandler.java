@@ -30,18 +30,22 @@ public class InputHandler implements AnalogListener, ActionListener {
         if(name.equals("INPUT_PitchUp")){
             thisPlayer.modifyPitch("up");
             thisPlayer.pitch(tpf);
+            //System.out.println(thisPlayer.getPitchSpeed());
         }
         if(name.equals("INPUT_PitchDown")){
             thisPlayer.modifyPitch("down");
             thisPlayer.pitch(tpf);
+            //System.out.println(thisPlayer.getPitchSpeed());
         }
         if(name.equals("INPUT_RollLeft")){
-            thisPlayer.roll(tpf);
             thisPlayer.modifyRoll("left");
+            thisPlayer.roll(tpf);
+            //System.out.println("INPUT_RollLeft" + thisPlayer.getRollSpeed());
         }
         if(name.equals("INPUT_RollRight")){
-            thisPlayer.roll(tpf);
             thisPlayer.modifyRoll("right");
+            thisPlayer.roll(tpf);
+            //System.out.println("INPUT_RollRight" + thisPlayer.getRollSpeed());
         }
         if(name.equals("INPUT_Shoot")){
             thisPlayer.Shoot();
@@ -50,7 +54,7 @@ public class InputHandler implements AnalogListener, ActionListener {
     }
 
     public void onAction(String name, boolean isPressed, float tpf) {
-        System.out.println(name + " " + isPressed + " " + tpf);
+        //System.out.println(name + " " + isPressed + " " + tpf);
         
                 
         if(isPressed && name.equals("INPUT_PitchUp")){
@@ -66,13 +70,16 @@ public class InputHandler implements AnalogListener, ActionListener {
         }
         
         if(isPressed && name.equals("INPUT_RollLeft")){
+           
            RollFeeling = thisPlayer.getRollSpeed();
+           thisPlayer.setRollSpeed(0);
         } else if(!isPressed && name.equals("INPUT_RollLeft")){
-            thisPlayer.setRollSpeed(0);
+            
         }
         
         if(isPressed && name.equals("INPUT_RollRight")){
-           RollFeeling = thisPlayer.getRollSpeed(); 
+           RollFeeling = thisPlayer.getRollSpeed();
+           thisPlayer.setRollSpeed(0);
         } else if(isPressed && name.equals("INPUT_RollRight")){
             thisPlayer.setRollSpeed(0);
         }

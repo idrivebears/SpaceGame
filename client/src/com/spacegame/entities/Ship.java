@@ -101,6 +101,15 @@ public class Ship extends Element{
         this.setLocalRotation(this.getLocalRotation().mult(ROLL));
     }
     
+    public void keepPitch(float tpf){
+        while(this.pitchSpeed > .1 || this.pitchSpeed < -.1){
+            this.pitch(tpf);
+            //(this.pitchSpeed > 0)? this.pitchSpeed += -.05 : this.pitchSpeed +=.05;
+        }
+    }
+    public void keepRoll(){
+        
+    }
     
     //Shooting. TO DO
     public void Shoot(){

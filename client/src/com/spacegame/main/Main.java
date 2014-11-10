@@ -185,13 +185,15 @@ public class Main extends SimpleApplication {
     
     private void updateCamera(){
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
-        if(!(player.getPitchSpeed() < 0.5 && player.getPitchSpeed() > -0.5)){
+        /*
+        if(!(player.getPitchSpeed() < 0.7 && player.getPitchSpeed() > -0.7)){
             cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         }
         else{
-            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult(new Vector3f(0,7,30))));
-        }
+            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
+        }*/
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         
         // Rotate camera axes disabled
         //cam.setAxes(player.getLocalRotation().mult(Vector3f.UNIT_X.mult(-1)),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
