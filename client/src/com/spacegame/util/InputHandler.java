@@ -74,7 +74,7 @@ public class InputHandler implements AnalogListener, ActionListener {
            RollFeeling = thisPlayer.getRollSpeed();
            thisPlayer.setRollSpeed(0);
         } else if(!isPressed && name.equals("INPUT_RollLeft")){
-            
+            thisPlayer.setRollSpeed(0);
         }
         
         if(isPressed && name.equals("INPUT_RollRight")){
