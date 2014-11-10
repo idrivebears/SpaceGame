@@ -68,4 +68,14 @@ public class PlayerList{
         return null;
     }
     
+    public void printAllPlayers(){
+        for(Player p : playerList){
+            printPlayer(p);
+        }
+    }
+    
+    private void printPlayer(Player p){
+        System.out.println(p.PLAYER_ID + "|"+ p.getPosition()+ "|" + p.getDirection());
+    }
+    
 }

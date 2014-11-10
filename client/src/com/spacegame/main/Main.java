@@ -12,6 +12,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Quaternion;
 import com.jme3.network.Client;
 import com.jme3.network.Network;
 import com.jme3.system.AppSettings;
@@ -45,7 +46,6 @@ public class Main extends SimpleApplication {
     // Velocity of ship [TEST]
     private int CAMERA_MOVE_SPEED = 50;
     private String PLAYER_MODEL = "Ships/round_ship.obj";
-    private String SERVER = "localhost";
     
     
     public static void main(String[] args) {
@@ -86,7 +86,6 @@ public class Main extends SimpleApplication {
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
-        player.getSpatial().scale(0.08f);
         terrain.add(player.getNode()); //attaching the player to the terrain's node
         
         inputHandler = new InputHandler(player); //Loads a new InputHandler instance with instanced player
@@ -97,6 +96,18 @@ public class Main extends SimpleApplication {
         
         this.initKeys();
         this.initAudio();
+        /*
+        //Tester for updatePlayerList()
+        ArrayList<ElementData> sd = new ArrayList<ElementData>();
+        sd.add(new ElementData(0, new Vector3f(0,0,0), new Vector3f(1,1,1), new Quaternion()));
+        sd.add(new ElementData(1, new Vector3f(0,0,0), new Vector3f(1,1,0), new Quaternion()));
+        sd.add(new ElementData(2, new Vector3f(0,0,0), new Vector3f(0,1,1), new Quaternion()));
+        sd.add(new ElementData(1, new Vector3f(0.2f,0.4f,0.5f), new Vector3f(1,1,0), new Quaternion()));
+        sd.add(new ElementData(3, new Vector3f(0,0,0), new Vector3f(-1,-2,0), new Quaternion()));
+        updatePlayerList(sd);
+        playerList.printAllPlayers();
+        */
+        
         
     }
     
@@ -190,8 +201,7 @@ public class Main extends SimpleApplication {
        
        
        //get ArrayList<ElementData> serverData for updatePlayerList() from server
-       //updatePlayerList();
-       
+       //updatePlayerList()
     }
 
     @Override
@@ -205,11 +215,14 @@ public class Main extends SimpleApplication {
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
         for(ElementData e : serverData){
+            //If the player is not existant in the playerList
             if(!playerList.contains(e)){
-                playerList.addPlayer(new Player(e.getID(), PLAYER_MODEL, assetManager));
+                Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager);
+                playerList.addPlayer(temp);
+                terrain.add(temp.getNode());
             }
             else{
-                //If the player does exist in the list, it
+                //If the player exists in the list, it
                 //updates the player with matching id to its new ElementData stats
                 playerList.getPlayer(e.getID()).updateStats(e);
             }
