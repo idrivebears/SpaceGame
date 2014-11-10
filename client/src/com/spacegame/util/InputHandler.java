@@ -40,12 +40,12 @@ public class InputHandler implements AnalogListener, ActionListener {
         if(name.equals("INPUT_RollLeft")){
             thisPlayer.modifyRoll("left");
             thisPlayer.roll(tpf);
-            System.out.println("INPUT_RollLeft" + thisPlayer.getRollSpeed());
+            //System.out.println("INPUT_RollLeft" + thisPlayer.getRollSpeed());
         }
         if(name.equals("INPUT_RollRight")){
             thisPlayer.modifyRoll("right");
             thisPlayer.roll(tpf);
-            System.out.println("INPUT_RollRight" + thisPlayer.getRollSpeed());
+            //System.out.println("INPUT_RollRight" + thisPlayer.getRollSpeed());
         }
         if(name.equals("INPUT_Shoot")){
             thisPlayer.Shoot();
@@ -54,7 +54,7 @@ public class InputHandler implements AnalogListener, ActionListener {
     }
 
     public void onAction(String name, boolean isPressed, float tpf) {
-        System.out.println(name + " " + isPressed + " " + tpf);
+        //System.out.println(name + " " + isPressed + " " + tpf);
         
                 
         if(isPressed && name.equals("INPUT_PitchUp")){
