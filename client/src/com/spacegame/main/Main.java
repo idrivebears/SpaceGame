@@ -12,11 +12,14 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
 import com.jme3.network.Client;
 import com.jme3.network.Network;
+import com.jme3.network.serializing.Serializer;
 import com.jme3.system.AppSettings;
+import com.spacegame.networking.ClientListener;
+import com.spacegame.networking.Input;
+import com.spacegame.networking.Test;
+import com.spacegame.networking.Update;
 import com.spacegame.util.ElementData;
 import com.spacegame.util.PlayerList;
 import java.io.IOException;
@@ -128,6 +131,14 @@ public class Main extends SimpleApplication {
             System.out.println("Attempting to connect to server " + serverAddress + " at port:  "+ serverPort + " ...");
             try{
                 client = Network.connectToServer(serverAddress, serverPort);
+                //DEVCAM setup
+                client.addMessageListener(new ClientListener()); //adds the listener
+                //serialize packages
+                System.out.println("Listener added");
+                Serializer.registerClass(Update.class);
+                Serializer.registerClass(Input.class); //assuming client will send inputs
+                Serializer.registerClass(Test.class);
+                //end of setup
                 connectionSuccess = true;
             }
             catch(IOException e){

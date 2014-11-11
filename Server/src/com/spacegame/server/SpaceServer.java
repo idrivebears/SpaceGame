@@ -8,8 +8,8 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.system.JmeContext;
+import com.spacegame.server.messages.Test;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class SpaceServer extends SimpleApplication {
     private static int serverPort;
-    private static Server server = null;
+    protected static Server server = null;
     private static DisplayInfo display;
     
     public static void main(String args[]){
@@ -75,6 +75,13 @@ class DisplayInfo extends TimerTask {
     @Override
     public void run(){
         displayInfo();
+        
+        //added test updates
+        if(SpaceServer.server != null){
+            SpaceServer.server.broadcast(new Test("test"));
+            System.out.println("Test update sent");
+        }
+        //end of test updates
     }
     
     public void publish(String info){
@@ -85,6 +92,7 @@ class DisplayInfo extends TimerTask {
         if(info.equals("")){
             System.out.println("Running on port: " + SpaceServer.getPort());
             System.out.println("No information to display yet.");
+            //bootstrap update
         }   
         else
             System.out.println(info);
