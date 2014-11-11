@@ -19,6 +19,7 @@ public class Ship extends Element{
     private float speed = 64f; //default speed
     private float pitchSpeed; 
     private float rollSpeed;
+    private float yawSpeed;
     
     public Ship(String model, AssetManager am){
         elementData = new ElementData();
@@ -45,6 +46,12 @@ public class Ship extends Element{
     public float getRollSpeed(){
         return this.rollSpeed;
     }
+    public void setYawSpeed(float s){
+        this.yawSpeed = s;
+    }
+    public float getYawSpeed(){
+        return this.yawSpeed;
+    }
     
     //Modify pitchspeed, up and down. Between interval [-1,1].
     public void modifyPitch(String direction){
@@ -61,6 +68,13 @@ public class Ship extends Element{
             if(rollSpeed < 1) rollSpeed += .05;
         } else if(direction.equals("right")){
             if(rollSpeed > -1) rollSpeed -= .05;
+        }
+    }
+     public void modifyYaw(String direction){
+        if(direction.equals("left")){
+            if(yawSpeed < 1) yawSpeed += .05;
+        } else if(direction.equals("right")){
+            if(yawSpeed > -1) yawSpeed -= .05;
         }
     }
     
@@ -102,8 +116,9 @@ public class Ship extends Element{
     }
     
     public void yaw (float tpf){
-        Quaternion ROLL = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed), new Vector3f(0,0,1));
-        this.setLocalRotation(this.getLocalRotation().mult(ROLL));
+        Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf * yawSpeed)/5, new Vector3f(0,1,0));
+        //this.setLocalRotation(this.getLocalRotation().mult(YAW));
+        this.getLocalRotation().mult(YAW);
     }
     
     

@@ -47,6 +47,16 @@ public class InputHandler implements AnalogListener, ActionListener {
             thisPlayer.roll(tpf);
             //System.out.println("INPUT_RollRight" + thisPlayer.getRollSpeed());
         }
+        if(name.equals("INPUT_YawLeft")){
+            thisPlayer.modifyYaw("left");
+            thisPlayer.yaw(tpf);
+            //System.out.println("INPUT_RollRight" + thisPlayer.getRollSpeed());
+        }
+        if(name.equals("INPUT_YawRight")){
+            thisPlayer.modifyYaw("right");
+            thisPlayer.yaw(tpf);
+            //System.out.println("INPUT_RollRight" + thisPlayer.getRollSpeed());
+        }
         if(name.equals("INPUT_Shoot")){
             thisPlayer.Shoot();
         } 
@@ -58,21 +68,21 @@ public class InputHandler implements AnalogListener, ActionListener {
         
                 
         if(isPressed && name.equals("INPUT_PitchUp")){
-            RollFeeling = thisPlayer.getRollSpeed();
+            //RollFeeling = thisPlayer.getRollSpeed();
         } else if (!isPressed && name.equals("INPUT_PitchUp")){
             thisPlayer.setPitchSpeed(0);
             //thisPlayer.keepPitch(tpf);
         }
         
         if(isPressed && name.equals("INPUT_PitchDown")){
-           RollFeeling = thisPlayer.getRollSpeed();
+           //RollFeeling = thisPlayer.getRollSpeed();
         } else if(!isPressed && name.equals("INPUT_PitchDown")){
             thisPlayer.setPitchSpeed(0);
             //thisPlayer.keepPitch(tpf);
         }
         
         if(isPressed && name.equals("INPUT_RollLeft")){
-           RollFeeling = thisPlayer.getRollSpeed();
+           //RollFeeling = thisPlayer.getRollSpeed();
            thisPlayer.setRollSpeed(0);
         } else if(!isPressed && name.equals("INPUT_RollLeft")){
             thisPlayer.setRollSpeed(0);
@@ -80,10 +90,24 @@ public class InputHandler implements AnalogListener, ActionListener {
         }
         
         if(isPressed && name.equals("INPUT_RollRight")){
-           RollFeeling = thisPlayer.getRollSpeed();
+           //RollFeeling = thisPlayer.getRollSpeed();
            thisPlayer.setRollSpeed(0);
         } else if(isPressed && name.equals("INPUT_RollRight")){
             thisPlayer.setRollSpeed(0);
+            //thisPlayer.keepRoll(tpf);
+        }
+        if(isPressed && name.equals("INPUT_YawLeft")){
+           //RollFeeling = thisPlayer.getRollSpeed();
+           thisPlayer.setYawSpeed(0);
+        } else if(isPressed && name.equals("INPUT_YawLeft")){
+            thisPlayer.setYawSpeed(0);
+            //thisPlayer.keepRoll(tpf);
+        }
+        if(isPressed && name.equals("INPUT_YawRight")){
+           //RollFeeling = thisPlayer.getRollSpeed();
+           thisPlayer.setYawSpeed(0);
+        } else if(isPressed && name.equals("INPUT_YawRight")){
+            thisPlayer.setYawSpeed(0);
             //thisPlayer.keepRoll(tpf);
         }
         
