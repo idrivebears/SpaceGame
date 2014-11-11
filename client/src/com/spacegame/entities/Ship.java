@@ -101,6 +101,12 @@ public class Ship extends Element{
         this.setLocalRotation(this.getLocalRotation().mult(ROLL));
     }
     
+    public void yaw (float tpf){
+        Quaternion ROLL = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed), new Vector3f(0,0,1));
+        this.setLocalRotation(this.getLocalRotation().mult(ROLL));
+    }
+    
+    
     public void keepPitch(float tpf){
         while(this.pitchSpeed > .1 || this.pitchSpeed < -.1){
             this.pitch(tpf);

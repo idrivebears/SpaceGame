@@ -61,6 +61,8 @@ public class Player extends Ship{
    @Override
     public void update(float tpf){
         super.update(tpf);
+        
+        //Keep moving
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
         this.setDirection(mov.mult(-this.getSpeed()));
     }

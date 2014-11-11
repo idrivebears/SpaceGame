@@ -178,7 +178,7 @@ public class Main extends SimpleApplication {
         sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
         backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
         
-        viewPort.setBackgroundColor(ColorRGBA.Yellow);
+        viewPort.setBackgroundColor(ColorRGBA.Gray);
              
         rootNode.addLight(sun);
         rootNode.addLight(backupLights);
