@@ -21,6 +21,7 @@ public class ConfigureListeners {
     private static void serialize(Server server){
         Serializer.registerClass(Input.class);
         Serializer.registerClass(Update.class);
+        Serializer.registerClass(Test.class);
     }
     
     private static void addListeners(Server server){
