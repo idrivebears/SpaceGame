@@ -17,9 +17,16 @@ import com.jme3.math.Vector3f;
 public class Ship extends Element{
     
     private float speed = 64f; //default speed
+    
+    // Speed of rotation, 3 Axes
     private float pitchSpeed; 
     private float rollSpeed;
     private float yawSpeed;
+    
+    //Angle between camera and ship
+    private float angleCamX;
+    private float angleCamY;
+    private float angleCamZ;
     
     public Ship(String model, AssetManager am){
         elementData = new ElementData();
@@ -52,6 +59,30 @@ public class Ship extends Element{
     public float getYawSpeed(){
         return this.yawSpeed;
     }
+
+    public float getAngleCamX() {
+        return angleCamX;
+    }
+
+    public float getAngleCamY() {
+        return angleCamY;
+    }
+
+    public float getAngleCamZ() {
+        return angleCamZ;
+    }
+
+    public void setAngleCamX(float angleCamX) {
+        this.angleCamX = angleCamX;
+    }
+
+    public void setAngleCamY(float angleCamY) {
+        this.angleCamY = angleCamY;
+    }
+
+    public void setAngleCamZ(float angleCamZ) {
+        this.angleCamZ = angleCamZ;
+    }
     
     //Modify pitchspeed, up and down. Between interval [-1,1].
     public void modifyPitch(String direction){
@@ -70,6 +101,8 @@ public class Ship extends Element{
             if(rollSpeed > -1) rollSpeed -= .05;
         }
     }
+    
+    //Modify yawSpeed, up and down. Between interval [-1,1].
      public void modifyYaw(String direction){
         if(direction.equals("left")){
             if(yawSpeed < 1) yawSpeed += .05;
@@ -80,31 +113,12 @@ public class Ship extends Element{
     
     
     
-    ///Movement
-    /*
-        
-    // Around x axe. Positive
-    public void PitchUp(float tpf){
-        Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI * tpf * pitchSpeed)/10, new Vector3f(1,0,0));
-        this.setLocalRotation(this.getLocalRotation().mult(PITCH)); 
-    }
-    // Around x axe. Negative
-    public void PitchDown(float tpf){
-        Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI * tpf * pitchSpeed)/10, new Vector3f(1,0,0));
-        this.setLocalRotation(this.getLocalRotation().mult(PITCH));
-    }
-    // Around z axe. Positive
-    public void RollRight(float tpf){
-        Quaternion ROLL = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed)/5, new Vector3f(0,0,1));
-        this.setLocalRotation(this.getLocalRotation().mult(ROLL));
-    }
-    // Around z axe. Negative
-    public void RollLeft(float tpf){
-        Quaternion ROLL = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed)/5, new Vector3f(0,0,1));
-        this.setLocalRotation(this.getLocalRotation().mult(ROLL));
-    }
-      */
-    
+    /* Real Movement
+     * pitch is around x axe. "Up" and "down"
+     * roll is around z axe. Like a wheel.
+     * yaw is around y axe. Like a dancer around a tube.
+     */
+     
     public void pitch(float tpf){
         Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI * tpf * pitchSpeed)/5, new Vector3f(1,0,0));
         this.setLocalRotation(this.getLocalRotation().mult(PITCH)); 
@@ -117,11 +131,15 @@ public class Ship extends Element{
     
     public void yaw (float tpf){
         Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf * yawSpeed)/5, new Vector3f(0,1,0));
-        //this.setLocalRotation(this.getLocalRotation().mult(YAW));
-        this.getLocalRotation().mult(YAW);
+        this.setLocalRotation(this.getLocalRotation().mult(YAW));
     }
     
-    
+    public void keepMoving(){
+        Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
+        this.setDirection(mov.mult(-this.getSpeed()));
+    }
+    /*
+     * TODO: keepMoving
     public void keepPitch(float tpf){
         while(this.pitchSpeed > .1 || this.pitchSpeed < -.1){
             this.pitch(tpf);
@@ -134,6 +152,7 @@ public class Ship extends Element{
             this.rollSpeed += (this.rollSpeed > 0) ? -0.05f : 0.05f;
         }
     }
+    * */
     
     //Shooting. TO DO
     public void Shoot(){

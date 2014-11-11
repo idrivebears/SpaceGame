@@ -12,6 +12,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.network.Client;
 import com.jme3.network.Network;
@@ -197,8 +198,20 @@ public class Main extends SimpleApplication {
             cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         }*/
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        //cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        //float angle = player.getLocalRotation().mult(Vector3f.UNIT_X).normalizeLocal().an;
+        //player.setAngleCamX(speed);
         
+        float angle = cam.getRotation().mult(Vector3f.UNIT_Z).normalizeLocal().angleBetween(player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)).normalizeLocal());
+        System.out.println(angle + " ANGLE");
+         
+        if(angle > .5){
+            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        }
+        /*
+        //cam.setRotation(Quaternion.IDENTITY);
+        System.out.println(angle + " ANGLE");
+        */
         // Rotate camera axes disabled
         //cam.setAxes(player.getLocalRotation().mult(Vector3f.UNIT_X.mult(-1)),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
         
