@@ -1,6 +1,7 @@
 package com.spacegame.entities;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.spacegame.util.ElementData;
 
@@ -14,7 +15,7 @@ import com.spacegame.util.ElementData;
 public class Player extends Ship{
 
     public final int PLAYER_ID;
-    
+      
     private int health;
     
     //Player states
@@ -63,8 +64,7 @@ public class Player extends Ship{
         super.update(tpf);
         
         //Keep moving
-        Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
-        this.setDirection(mov.mult(-this.getSpeed()));
+        //super.keepMoving();
     }
 
     

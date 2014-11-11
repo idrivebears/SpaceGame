@@ -12,6 +12,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.network.Client;
 import com.jme3.network.Network;
@@ -147,6 +148,9 @@ public class Main extends SimpleApplication {
         inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_W));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_A));
         inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_D));
+        inputManager.addMapping("INPUT_YawLeft", new KeyTrigger(KeyInput.KEY_Q));
+        inputManager.addMapping("INPUT_YawRight", new KeyTrigger(KeyInput.KEY_E));
+        
         //Arrow keys
         inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_DOWN));
         inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_UP));
@@ -156,8 +160,8 @@ public class Main extends SimpleApplication {
         // Shooting
         inputManager.addMapping("INPUT_Shoot", new KeyTrigger(KeyInput.KEY_SPACE));
         
-        inputManager.addListener(inputHandler,"INPUT_PitchUp","INPUT_PitchDown",
-                                          "INPUT_RollLeft","INPUT_RollRight","INPUT_Shoot");
+        inputManager.addListener(inputHandler,"INPUT_PitchUp","INPUT_PitchDown","INPUT_RollLeft",
+                "INPUT_RollRight","INPUT_Shoot","INPUT_YawLeft","INPUT_YawRight");
     }
     
     private void initAudio(){
@@ -195,10 +199,16 @@ public class Main extends SimpleApplication {
         }*/
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
         cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
-        
-        // Rotate camera axes disabled
-        //cam.setAxes(player.getLocalRotation().mult(Vector3f.UNIT_X.mult(-1)),player.getLocalRotation().mult(Vector3f.UNIT_Y), player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)));
-        
+
+        /*
+         * ToDo: Implement elastic cam
+        float angle = cam.getRotation().mult(Vector3f.UNIT_Z).normalizeLocal().angleBetween(player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)).normalizeLocal());
+        System.out.println(angle + " ANGLE");
+         
+        if(angle > .5){
+            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        }
+        */
     }
 
     @Override
