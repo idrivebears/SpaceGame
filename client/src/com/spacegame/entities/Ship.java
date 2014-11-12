@@ -130,8 +130,10 @@ public class Ship extends Element{
     }
     
     public void yaw (float tpf){
-        Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf * yawSpeed)/5, new Vector3f(0,1,0));
+        Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf)/5, new Vector3f(1,0,1));
         this.setLocalRotation(this.getLocalRotation().mult(YAW));
+        //this.pitch(tpf);
+        //this.roll(tpf);
     }
     
     public void keepMoving(){

@@ -64,7 +64,7 @@ public class Player extends Ship{
         super.update(tpf);
         
         //Keep moving
-        //super.keepMoving();
+        super.keepMoving();
     }
 
     
