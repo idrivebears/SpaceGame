@@ -239,6 +239,7 @@ public class Main extends SimpleApplication {
     }
     
     //serverData should be recieved from the server (StateProcessor.Elements list)
+    //Missing: consider isAlive
     private void updatePlayerList(ArrayList<ElementData> serverData){
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
