@@ -6,9 +6,12 @@ package com.spacegame.entities;
 
 import com.spacegame.util.ElementData;
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.renderer.queue.RenderQueue;
+import com.jme3.scene.Geometry;
 
 /**
  *
@@ -130,8 +133,21 @@ public class Ship extends Element{
     }
     
     public void yaw (float tpf){
-        Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf)/5, new Vector3f(1,0,1));
-        this.setLocalRotation(this.getLocalRotation().mult(YAW));
+        //System.out.println(this.getLocalRotation().getZ());
+        if(FastMath.abs(this.getLocalRotation().getZ()) < .45){
+            Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed)/5, new Vector3f(0,0,1));
+            this.setLocalRotation(this.getLocalRotation().mult(YAW));
+            
+        } else  if(this.getLocalRotation().getZ() < .45){
+            Quaternion aux = this.getLocalRotation();
+            this.setLocalRotation(new Quaternion(aux.getX(), aux.getY(), -.45f, aux.getW()));
+        } else {
+            Quaternion aux = this.getLocalRotation();
+            this.setLocalRotation(new Quaternion(aux.getX(), aux.getY(), .45f, aux.getW()));
+        }
+        
+        
+        
         //this.pitch(tpf);
         //this.roll(tpf);
     }
@@ -157,9 +173,19 @@ public class Ship extends Element{
     * */
     
     //Shooting. TO DO
+    /*
     public void Shoot(){
-        
-    }
+        Geometry bulletg = new Geometry("bullet", bullet);
+        bulletg.setMaterial(mat2);
+        bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        bulletg.setLocalTranslation(cam.getLocation());
+        RigidBodyControl bulletNode = new BombControl(assetManager, bulletCollisionShape, 1);
+//          RigidBodyControl bulletNode = new RigidBodyControl(bulletCollisionShape, 1);
+        bulletNode.setLinearVelocity(cam.getDirection().mult(25));
+        bulletg.addControl(bulletNode);
+        rootNode.attachChild(bulletg);
+        getPhysicsSpace().add(bulletNode);
+    }*/
     
     /*update method is automatically called by SimpleAppUpdate method, theres
      no need to call it anywhere*/
