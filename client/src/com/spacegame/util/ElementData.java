@@ -60,4 +60,9 @@ public class ElementData {
     public int getID(){
         return this.id;
     }
+    
+    @Override
+    public String toString(){
+        return "ID:" + this.id + " Pos: " + this.position.toString();
+    }
 }

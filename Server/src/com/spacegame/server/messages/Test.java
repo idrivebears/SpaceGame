@@ -20,5 +20,8 @@ public class Test extends AbstractMessage{
     public Test(String input){
         this.message = input;
     }
+    public String getMessage(){
+        return this.message;
+    }
     
 }

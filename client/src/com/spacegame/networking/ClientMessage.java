@@ -6,6 +6,7 @@ import java.util.ArrayList;
 /**
  *
  * @author alexwalls
+ * DEPRECATED
  */
 public class ClientMessage {
     

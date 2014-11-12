@@ -11,6 +11,8 @@ import com.jme3.network.MessageListener;
 /**
  *
  * @author Cam
+ * DEPRECATED
+ * Implemented this class straight into the client
  */
 public class ClientListener implements MessageListener<Client> {
   public void messageReceived(Client source, Message message) {
@@ -22,9 +24,11 @@ public class ClientListener implements MessageListener<Client> {
       //    >this is assuming the file "Element data" @ com.spacegame.util.ElementData is correct
       // problem arises, the updatePlayerList function MUST be called from here
       // probable solution is to make the listener a nested class of main, and call it from there.
-      // awating wall's confirmation...
+      // awating walls' confirmation...
      
       //WALLS ALL UPDATE CALLS ARE MADE FROM HERE
+      
+      
     }
   }
 }

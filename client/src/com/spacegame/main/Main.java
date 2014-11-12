@@ -6,6 +6,7 @@ import com.spacegame.util.Terrain;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.audio.AudioNode;
+import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
@@ -13,10 +14,11 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
 import com.jme3.network.Client;
+import com.jme3.network.Message;
+import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.AppSettings;
-import com.spacegame.networking.ClientListener;
 import com.spacegame.networking.Input;
 import com.spacegame.networking.Test;
 import com.spacegame.networking.Update;
@@ -34,13 +36,15 @@ import java.util.Scanner;
  * Override flycam, add chaseCam, add Mouse rotations, make World Generator, Collision Detection
  * Think about Collidable Interface
  */
-public class Main extends SimpleApplication {
+public class Main extends SimpleApplication implements MessageListener<Client> {
     private AudioNode bgMusic;
     private Player player;
     private Terrain terrain;
     private InputHandler inputHandler;
     
     private Client client;
+    
+    BitmapText displayText;
     
     //Contains the instanciated Player objects to render locally
     PlayerList playerList = new PlayerList();
@@ -55,15 +59,17 @@ public class Main extends SimpleApplication {
     public static void main(String[] args) {
         
         Main game = new Main();
-        
+        game.setDisplayFps(true);
+        game.setDisplayStatView(false); //removes default show of text stats
+        game.setShowSettings(false);
         game.runServerSetup();
         
         // Title and image
         AppSettings settings = new AppSettings(true);
         settings.setTitle("Super Crazy Space Maniac Game Deluxe 4"); //5 star name
         settings.setSettingsDialogImage("Interface/nave.jpg");
-        settings.setWidth(1280);
-        settings.setHeight(800);
+        settings.setWidth(640);
+        settings.setHeight(400);
         game.setSettings(settings);
         
         game.start();
@@ -84,7 +90,7 @@ public class Main extends SimpleApplication {
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player(1, PLAYER_MODEL, assetManager);
+        player = new Player(client.getId(), PLAYER_MODEL, assetManager);
         
                
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
@@ -100,6 +106,13 @@ public class Main extends SimpleApplication {
         
         this.initKeys();
         this.initAudio();
+        
+        displayText = new BitmapText(guiFont, false);
+        displayText.setSize(guiFont.getCharSet().getRenderedSize());
+        displayText.setColor(ColorRGBA.Green);
+        displayText.setLocalTranslation(10, displayText.getLineHeight()+30,0);
+        
+        guiNode.attachChild(displayText);
         
         /*
         //Tester for updatePlayerList()
@@ -129,10 +142,11 @@ public class Main extends SimpleApplication {
             serverPort = in.nextInt();
             //serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
             System.out.println("Attempting to connect to server " + serverAddress + " at port:  "+ serverPort + " ...");
-            try{
+            try {
+                serverAddress = "localhost"; //default
                 client = Network.connectToServer(serverAddress, serverPort);
                 //DEVCAM setup
-                client.addMessageListener(new ClientListener()); //adds the listener
+                client.addMessageListener(this); //adds the listener
                 //serialize packages
                 System.out.println("Listener added");
                 Serializer.registerClass(Update.class);
@@ -183,6 +197,10 @@ public class Main extends SimpleApplication {
         terrain.add(bgMusic);
         //bgMusic.play();
     }
+    
+    private void updateStatusText(){
+        displayText.setText("ID: " + player.PLAYER_ID + " Health: " + player.getHealth());
+    }
       
     //Light is needed to make the models visible
     private void setUpLight(){
@@ -226,6 +244,7 @@ public class Main extends SimpleApplication {
     public void simpleUpdate(float tpf) {
        player.update(tpf);
        updateCamera();
+       updateStatusText();
        
        
        //get ArrayList<ElementData> serverData for updatePlayerList() from server
@@ -257,6 +276,22 @@ public class Main extends SimpleApplication {
             }
         }
         
+    }
+    
+    @Override //override implemented interface MessageListener
+    public void messageReceived(Client source, Message message) {
+        System.out.println("MESSAGE ARRIVED");
+        
+        if (message instanceof Update) {
+            Update update = (Update)message;
+            // do something with the message
+            System.out.println("UPDATE ARRIVED");
+            System.out.println(update.getInfo().toString());
+            this.updatePlayerList(update.getInfo());
+            //CONSIDER
+            //    >this is assuming "Update" will be the actuall updtade message
+            //    >this is assuming the file "Element data" @ com.spacegame.util.ElementData is correct
+        }
     }
 }
     

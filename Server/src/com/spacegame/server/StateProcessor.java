@@ -13,9 +13,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class StateProcessor {
     
-    private static ArrayList<ElementData> elements = new ArrayList<ElementData>();
+    public static ArrayList<ElementData> elements = new ArrayList<ElementData>();
     private static ConcurrentLinkedQueue<KeyData> keysPressed = new ConcurrentLinkedQueue<KeyData>();
-    
     
     //updatePlayers will take an input and add it to the Queue
     //the queue is later polled for processing the movements of players

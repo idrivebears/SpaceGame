@@ -51,6 +51,9 @@ public class Player extends Ship{
         }
     }
     
+    public int getHealth(){
+        return this.health;
+    }
     
     //Updates the players Angle, Position and Direction
     public void updateStats(ElementData e){

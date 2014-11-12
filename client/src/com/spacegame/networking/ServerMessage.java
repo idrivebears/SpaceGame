@@ -9,6 +9,7 @@ import com.jme3.math.Vector3f;
 /**
  *
  * @author alexwalls
+ * DEPRECATED
  */
 public class ServerMessage {
     private Vector3f direction;
