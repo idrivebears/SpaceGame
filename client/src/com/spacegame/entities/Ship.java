@@ -141,21 +141,12 @@ public class Ship extends Element{
         this.setDirection(mov.mult(-this.getSpeed()));
     }
     
-    //Shooting. TO DO
-    /*
-    public void Shoot(){
-        Geometry bulletg = new Geometry("bullet", bullet);
-        bulletg.setMaterial(mat2);
-        bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-        bulletg.setLocalTranslation(cam.getLocation());
-        RigidBodyControl bulletNode = new BombControl(assetManager, bulletCollisionShape, 1);
-//          RigidBodyControl bulletNode = new RigidBodyControl(bulletCollisionShape, 1);
-        bulletNode.setLinearVelocity(cam.getDirection().mult(25));
-        bulletg.addControl(bulletNode);
-        rootNode.attachChild(bulletg);
-        getPhysicsSpace().add(bulletNode);
-    }*/
-    
+    //Shooting. 
+    public void shoot(){
+        //System.out.println(this.getLocalRotation().getRotationColumn(2));
+        Bullet bullet = new Bullet(this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
+        
+    }    
     /*update method is automatically called by SimpleAppUpdate method, theres
      no need to call it anywhere*/
     public void update(float tpf){
