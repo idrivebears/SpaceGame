@@ -144,7 +144,7 @@ public class Ship extends Element{
     //Shooting. 
     public void shoot(){
         //System.out.println(this.getLocalRotation().getRotationColumn(2));
-        Bullet bullet = new Bullet(this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
+        //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
         
     }    
     /*update method is automatically called by SimpleAppUpdate method, theres

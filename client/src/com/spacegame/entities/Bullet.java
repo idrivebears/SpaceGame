@@ -4,6 +4,7 @@
  */
 package com.spacegame.entities;
 
+import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
@@ -16,12 +17,16 @@ import com.spacegame.util.ElementData;
  */
 public class Bullet extends Element {
     
-    
+    private Sphere bullet;
+    private Geometry bulletg;
     private Material mat;
     
-    public Bullet(Vector3f position, Vector3f direction){
-        Sphere bullet = new Sphere(100,100,.4f);
-        Geometry bulletg = new Geometry("bullet", bullet);
+    //Not completed
+    public Bullet(String model, AssetManager am, Vector3f position, Vector3f direction){
+        this.bullet = new Sphere(100,100,.4f);
+        this.bulletg = new Geometry("bullet", bullet);
+        this.mat = new Material(am,"Common/MatDefs/Misc/Unshaded.j3md");
+        this.setPosition(position);
         bulletg.setMaterial(mat);
         //bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         elementData = new ElementData();
