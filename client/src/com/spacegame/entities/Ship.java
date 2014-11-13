@@ -6,12 +6,9 @@ package com.spacegame.entities;
 
 import com.spacegame.util.ElementData;
 import com.jme3.asset.AssetManager;
-import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.jme3.renderer.queue.RenderQueue;
-import com.jme3.scene.Geometry;
 
 /**
  *
@@ -41,28 +38,32 @@ public class Ship extends Element{
     public void setSpeed(float speed){
         this.speed = speed;
     }
-    public float getSpeed(){
-        return speed;
-    }
     public void setPitchSpeed(float s){
         this.pitchSpeed = s;
-    }
-    public float getPitchSpeed(){
-        return this.pitchSpeed;
     }
     public void setRollSpeed(float s){
         this.rollSpeed = s;
     }
-    public float getRollSpeed(){
-        return this.rollSpeed;
-    }
     public void setYawSpeed(float s){
         this.yawSpeed = s;
     }
+    
+    public float getSpeed(){
+        return speed;
+    }
+    public float getPitchSpeed(){
+        return this.pitchSpeed;
+    }
+    
+    public float getRollSpeed(){
+        return this.rollSpeed;
+    }
+    
     public float getYawSpeed(){
         return this.yawSpeed;
     }
 
+    
     public float getAngleCamX() {
         return angleCamX;
     }
@@ -108,19 +109,16 @@ public class Ship extends Element{
     //Modify yawSpeed, up and down. Between interval [-1,1].
      public void modifyYaw(String direction){
         if(direction.equals("left")){
-            if(yawSpeed < 1) yawSpeed += .05;
+            if(yawSpeed < 1) yawSpeed += .01;
         } else if(direction.equals("right")){
-            if(yawSpeed > -1) yawSpeed -= .05;
+            if(yawSpeed > -1) yawSpeed -= .01;
         }
     }
-    
-    
-    
+
     /* Real Movement
      * pitch is around x axe. "Up" and "down"
      * roll is around z axe. Like a wheel.
-     * yaw is around y axe. Like a dancer around a tube.
-     */
+     * yaw is around y axe. Like a dancer around a tube.*/
      
     public void pitch(float tpf){
         Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI * tpf * pitchSpeed)/5, new Vector3f(1,0,0));
@@ -133,44 +131,15 @@ public class Ship extends Element{
     }
     
     public void yaw (float tpf){
-        //System.out.println(this.getLocalRotation().getZ());
-        if(FastMath.abs(this.getLocalRotation().getZ()) < .45){
-            Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf * rollSpeed)/5, new Vector3f(0,0,1));
-            this.setLocalRotation(this.getLocalRotation().mult(YAW));
-            
-        } else  if(this.getLocalRotation().getZ() < .45){
-            Quaternion aux = this.getLocalRotation();
-            this.setLocalRotation(new Quaternion(aux.getX(), aux.getY(), -.45f, aux.getW()));
-        } else {
-            Quaternion aux = this.getLocalRotation();
-            this.setLocalRotation(new Quaternion(aux.getX(), aux.getY(), .45f, aux.getW()));
-        }
-        
-        
-        
-        //this.pitch(tpf);
-        //this.roll(tpf);
+        Quaternion YAW = new Quaternion().fromAngleAxis((FastMath.PI * tpf * yawSpeed), new Vector3f(0,1,0));
+        this.setLocalRotation(this.getLocalRotation().mult(YAW));
     }
     
+    // Always forward
     public void keepMoving(){
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
         this.setDirection(mov.mult(-this.getSpeed()));
     }
-    /*
-     * TODO: keepMoving
-    public void keepPitch(float tpf){
-        while(this.pitchSpeed > .1 || this.pitchSpeed < -.1){
-            this.pitch(tpf);
-            this.pitchSpeed += (this.pitchSpeed > 0) ? -0.05f : 0.05f;
-        }
-    }
-    public void keepRoll(float tpf){
-        while(this.rollSpeed > .1 || this.rollSpeed < -.1){
-            this.roll(tpf);
-            this.rollSpeed += (this.rollSpeed > 0) ? -0.05f : 0.05f;
-        }
-    }
-    * */
     
     //Shooting. TO DO
     /*
@@ -201,9 +170,7 @@ public class Ship extends Element{
                 );
                 
         elementData.setPosition(spatial.getLocalTranslation());
-        
-       
-        
+
     }
 }
 
