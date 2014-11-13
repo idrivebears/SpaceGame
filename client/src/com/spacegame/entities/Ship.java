@@ -6,6 +6,7 @@ package com.spacegame.entities;
 
 import com.spacegame.util.ElementData;
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -15,8 +16,11 @@ import com.jme3.math.Vector3f;
  * @author gwAwr
  */
 public class Ship extends Element{
+
+    private SphereCollisionShape CShip;    
     
-    private float speed = 64f; //default speed
+    private float speed = 0f; //default speed
+    private float radius = 5f; // default radius of collision shape
     
     // Speed of rotation, 3 Axes
     private float pitchSpeed; 
@@ -32,9 +36,14 @@ public class Ship extends Element{
         elementData = new ElementData();
         spatial = am.loadModel(model);
         this.currentNode.attachChild(spatial);
+        CShip = new SphereCollisionShape(radius);
     }
     
     // Getters and setters
+    public SphereCollisionShape getShipCollisionShape(){
+        return CShip;
+    }
+    
     public void setSpeed(float speed){
         this.speed = speed;
     }

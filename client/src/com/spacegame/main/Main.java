@@ -6,6 +6,11 @@ import com.spacegame.util.Terrain;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.audio.AudioNode;
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.control.CharacterControl;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -40,6 +45,8 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     private AudioNode bgMusic;
     private Player player;
     private Terrain terrain;
+    private RigidBodyControl terrainRBC;
+    private CharacterControl ShipControl;
     private InputHandler inputHandler;
     
     private Client client;
@@ -74,9 +81,12 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         
         game.start();
     }
+    private BulletAppState BAS;
     
     @Override
     public void simpleInitApp(){
+        BAS = new BulletAppState();
+        stateManager.attach(BAS);
         
         //Adding path to assetManager lookup table
         assetManager.registerLocator("assets/Models/", FileLocator.class);
@@ -87,11 +97,19 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
          * All elements and objects that live in the game should be attached to the
          * current terrains node (terrain.getNode())
          */
+        CollisionShape cs = CollisionShapeFactory.createMeshShape(terrain.getSpatial());
+        terrainRBC = new RigidBodyControl(cs, 0);
+        BAS.getPhysicsSpace().add(terrainRBC);
+        
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
         player = new Player(client.getId(), PLAYER_MODEL, assetManager);
         
+        ShipControl = new CharacterControl(player.getShipCollisionShape(),1f);
+        player.getNode().addControl(ShipControl);
+        BAS.getPhysicsSpace().add(ShipControl);
+        ShipControl.setGravity(0);
                
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
