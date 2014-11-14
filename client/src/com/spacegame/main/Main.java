@@ -148,7 +148,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
                 //DEVCAM setup
                 client.addMessageListener(this); //adds the listener
                 //serialize packages
-                System.out.println("Listener added");
+                log("Listener added");
                 Serializer.registerClass(Update.class);
                 Serializer.registerClass(Input.class); //assuming client will send inputs
                 Serializer.registerClass(Test.class);
@@ -156,8 +156,8 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
                 connectionSuccess = true;
             }
             catch(IOException e){
-                System.out.println("Server Address/Port not valid or server not running, please try again.");
-                System.out.println("Error:: " + e.getLocalizedMessage());
+                log("Server Address/Port not valid or server not running, please try again.");
+                log("Error:: " + e.getLocalizedMessage());
             }
         }
         client.start();
@@ -254,7 +254,6 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
-        //renderPlayers();
     }
     
     //serverData should be recieved from the server (StateProcessor.Elements list)
@@ -280,18 +279,26 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     
     @Override //override implemented interface MessageListener
     public void messageReceived(Client source, Message message) {
-        System.out.println("MESSAGE ARRIVED");
+        log("MESSAGE ARRIVED");
         
         if (message instanceof Update) {
             Update update = (Update)message;
             // do something with the message
-            System.out.println("UPDATE ARRIVED");
-            System.out.println(update.getInfo().toString());
+            log("UPDATE ARRIVED");
+            log(update.getInfo().toString());
             this.updatePlayerList(update.getInfo());
             //CONSIDER
-            //    >this is assuming "Update" will be the actuall updtade message
+            //    >this is assuming "Update" will be the actual updated message
             //    >this is assuming the file "Element data" @ com.spacegame.util.ElementData is correct
         }
+        else if(message instanceof Input){
+            log("Instance of input");
+        }
+    }
+    
+    private void log(String message){
+        System.out.println(message);
+        //add writing to log file
     }
 }
     
