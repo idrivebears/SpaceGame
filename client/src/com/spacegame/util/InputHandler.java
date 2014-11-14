@@ -113,6 +113,7 @@ public class InputHandler implements AnalogListener, ActionListener {
         }
         
         if(isPressed && name.equals("INPUT_Shoot")){
+            thisPlayer.shoot();
             System.out.println("PIUM");
         } else if(!isPressed && name.equals("INPUT_Shoot")){
             
