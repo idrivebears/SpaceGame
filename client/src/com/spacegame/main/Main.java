@@ -299,7 +299,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     public void messageReceived(Client source, Message message) {
         log("MESSAGE ARRIVED");
         
-        if (message instanceof Update) {
+        if (message instanceof Object) {
             Update update = (Update)message;
             // do something with the message
             log("UPDATE ARRIVED");

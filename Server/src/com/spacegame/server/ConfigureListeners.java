@@ -27,5 +27,6 @@ public class ConfigureListeners {
     private static void addListeners(Server server){
         server.addMessageListener(new ServerListener(), Update.class);
         server.addMessageListener(new ServerListener(), Input.class);
+        server.addMessageListener(new ServerListener(), Update.class);
     }
 }
