@@ -157,7 +157,7 @@ public class Ship extends Element{
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
         this.ShipControl.setWalkDirection(mov.mult(-this.getSpeed()));
         //this.setDirection(mov.mult(-this.getSpeed()));
-        this.setDirection(this.ShipControl.getWalkDirection());
+        //this.setDirection(this.ShipControl.getWalkDirection());
     }
     
     //Shooting. 
@@ -172,13 +172,16 @@ public class Ship extends Element{
         
         //elementData is inherited from Element class, and is private to the object
         //elementData contains direction, position and angle
-        
+        this.elementData.setDirection(this.getShipControl().getWalkDirection());
         this.spatial.move(new Vector3f(
+                //this.getShipControl().getPhysicsLocation().x*tpf,
+                //this.getShipControl().getPhysicsLocation().y*tpf,
+                //this.getShipControl().getPhysicsLocation().z*tpf)
                 this.elementData.getDirection().x*tpf, 
                 this.elementData.getDirection().y*tpf,
                 this.elementData.getDirection().z*tpf)
                 );
-                
+                spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
         elementData.setPosition(spatial.getLocalTranslation());
 
     }

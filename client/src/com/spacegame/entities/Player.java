@@ -57,6 +57,8 @@ public class Player extends Ship{
     
     //Updates the players Angle, Position and Direction
     public void updateStats(ElementData e){
+        e.setDirection(super.getShipControl().getWalkDirection());
+        e.setPosition(super.getShipControl().getPhysicsLocation());
         this.elementData.setAngle(e.getAngle());
         this.elementData.setDirection(e.getDirection());
         this.elementData.setPosition(e.getPosition());

@@ -243,10 +243,10 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         else{
             cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         }*/
-       // cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-       // cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
-        cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+       // cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
+       // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
         
         /*
          * ToDo: Implement elastic cam
@@ -278,6 +278,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     
     //serverData should be recieved from the server (StateProcessor.Elements list)
     //Missing: consider isAlive
+    
     private void updatePlayerList(ArrayList<ElementData> serverData){
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
