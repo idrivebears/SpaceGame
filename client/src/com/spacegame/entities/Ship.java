@@ -7,6 +7,7 @@ package com.spacegame.entities;
 import com.spacegame.util.ElementData;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
+import com.jme3.bullet.control.CharacterControl;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
@@ -17,9 +18,10 @@ import com.jme3.math.Vector3f;
  */
 public class Ship extends Element{
 
-    private SphereCollisionShape CShip;    
+    private SphereCollisionShape CShip;
+    private CharacterControl ShipControl;
     
-    private float speed = 0f; //default speed
+    private float speed = 1f; //default speed
     private float radius = 5f; // default radius of collision shape
     
     // Speed of rotation, 3 Axes
@@ -37,11 +39,16 @@ public class Ship extends Element{
         spatial = am.loadModel(model);
         this.currentNode.attachChild(spatial);
         CShip = new SphereCollisionShape(radius);
+        ShipControl = new CharacterControl(CShip,1f);
     }
     
     // Getters and setters
     public SphereCollisionShape getShipCollisionShape(){
         return CShip;
+    }
+    
+    public CharacterControl getShipControl(){
+        return ShipControl;
     }
     
     public void setSpeed(float speed){
@@ -146,8 +153,11 @@ public class Ship extends Element{
     
     // Always forward
     public void keepMoving(){
+        
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
-        this.setDirection(mov.mult(-this.getSpeed()));
+        this.ShipControl.setWalkDirection(mov.mult(-this.getSpeed()));
+        //this.setDirection(mov.mult(-this.getSpeed()));
+        this.setDirection(this.ShipControl.getWalkDirection());
     }
     
     //Shooting. 
