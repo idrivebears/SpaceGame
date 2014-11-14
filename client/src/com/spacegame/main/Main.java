@@ -205,7 +205,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         displayText.setLocalTranslation(10, displayText.getLineHeight()+30,0);
         
         pic = new Picture("HUD Bar Health");
-        pic.setImage(assetManager, "Interface/barHealth.jpg", true);
+        pic.setImage(assetManager, "Interface/hpUnit.png", true);
         pic.setWidth(settings.getWidth()/4);
         pic.setHeight(settings.getHeight()/14);
         pic.setPosition(0, settings.getHeight() - settings.getHeight()/10);
