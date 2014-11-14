@@ -10,6 +10,7 @@ import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
+import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
@@ -18,7 +19,11 @@ import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
+import com.jme3.scene.Geometry;
+import com.jme3.scene.control.BillboardControl;
+import com.jme3.scene.shape.Quad;
 import com.jme3.system.AppSettings;
+import com.jme3.ui.Picture;
 import com.spacegame.networking.Input;
 import com.spacegame.networking.Test;
 import com.spacegame.networking.Update;
@@ -45,6 +50,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     private Client client;
     
     BitmapText displayText;
+    Picture pic;
     
     //Contains the instanciated Player objects to render locally
     PlayerList playerList = new PlayerList();
@@ -80,7 +86,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         
         //Adding path to assetManager lookup table
         assetManager.registerLocator("assets/Models/", FileLocator.class);
-        
+             
         //Loading terrain to rootNode
         terrain = new Terrain(assetManager.loadModel("Scenes/TestTerrain.j3o"));
         /* The terrain instance should be the only one attached to the rootNode,
@@ -106,13 +112,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         
         this.initKeys();
         this.initAudio();
-        
-        displayText = new BitmapText(guiFont, false);
-        displayText.setSize(guiFont.getCharSet().getRenderedSize());
-        displayText.setColor(ColorRGBA.Green);
-        displayText.setLocalTranslation(10, displayText.getLineHeight()+30,0);
-        
-        guiNode.attachChild(displayText);
+        this.initHUD();
         
         /*
         //Tester for updatePlayerList()
@@ -198,8 +198,26 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         //bgMusic.play();
     }
     
-    private void updateStatusText(){
+    private void initHUD(){
+        displayText = new BitmapText(guiFont, false);
+        displayText.setSize(guiFont.getCharSet().getRenderedSize());
+        displayText.setColor(ColorRGBA.Green);
+        displayText.setLocalTranslation(10, displayText.getLineHeight()+30,0);
+        
+        pic = new Picture("HUD Bar Health");
+        pic.setImage(assetManager, "Interface/barHealth.jpg", true);
+        pic.setWidth(settings.getWidth()/4);
+        pic.setHeight(settings.getHeight()/14);
+        pic.setPosition(0, settings.getHeight() - settings.getHeight()/10);
+        
+        guiNode.attachChild(displayText);
+        guiNode.attachChild(pic);
+    }
+    
+    private void updateHUD(){
         displayText.setText("ID: " + player.PLAYER_ID + " Health: " + player.getHealth());
+        //System.out.println((int)(settings.getWidth()/4 * (player.getHealth()/100.)));
+        pic.setWidth( (int)(settings.getWidth()/4 * (player.getHealth()/100.)));
     }
       
     //Light is needed to make the models visible
@@ -244,7 +262,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     public void simpleUpdate(float tpf) {
        player.update(tpf);
        updateCamera();
-       updateStatusText();
+       updateHUD();
        
        
        //get ArrayList<ElementData> serverData for updatePlayerList() from server
