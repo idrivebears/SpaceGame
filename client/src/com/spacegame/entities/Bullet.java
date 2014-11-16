@@ -9,8 +9,7 @@ import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
-import com.spacegame.util.ElementData;
-
+import com.spacegame.networking.ElementData;
 /**
  *
  * @author Usuario
@@ -29,8 +28,8 @@ public class Bullet extends Element {
         this.setPosition(position);
         bulletg.setMaterial(mat);
         //bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-        elementData = new ElementData();
         
+        elementData = new ElementData();
         this.currentNode.attachChild(bulletg);
         /*
          *             

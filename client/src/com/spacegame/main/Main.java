@@ -27,7 +27,7 @@ import com.jme3.ui.Picture;
 import com.spacegame.networking.Input;
 import com.spacegame.networking.Test;
 import com.spacegame.networking.Update;
-import com.spacegame.util.ElementData;
+import com.spacegame.networking.ElementData;
 import com.spacegame.util.PlayerList;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -299,15 +299,12 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     public void messageReceived(Client source, Message message) {
         log("MESSAGE ARRIVED");
         
-        if (message instanceof Object) {
+        if (message instanceof Update) {
             Update update = (Update)message;
             // do something with the message
             log("UPDATE ARRIVED");
-            log(update.getInfo().toString());
-            this.updatePlayerList(update.getInfo());
-            //CONSIDER
-            //    >this is assuming "Update" will be the actual updated message
-            //    >this is assuming the file "Element data" @ com.spacegame.util.ElementData is correct
+            //log(update.getInfo().toString());
+            //this.updatePlayerList(update.getInfo());
         }
         else if(message instanceof Input){
             log("Instance of input");

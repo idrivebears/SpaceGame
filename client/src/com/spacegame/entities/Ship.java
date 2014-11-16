@@ -4,7 +4,7 @@
  */
 package com.spacegame.entities;
 
-import com.spacegame.util.ElementData;
+import com.spacegame.networking.ElementData;
 import com.jme3.asset.AssetManager;
 import com.jme3.math.FastMath;
 import com.jme3.math.Quaternion;
@@ -30,6 +30,7 @@ public class Ship extends Element{
     
     public Ship(String model, AssetManager am){
         elementData = new ElementData();
+        
         spatial = am.loadModel(model);
         this.currentNode.attachChild(spatial);
     }

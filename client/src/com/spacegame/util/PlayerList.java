@@ -1,6 +1,7 @@
 
 package com.spacegame.util;
 
+import com.spacegame.networking.ElementData;
 import com.spacegame.entities.Player;
 import java.util.ArrayList;
 
