@@ -243,10 +243,10 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         else{
             cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         }*/
-        cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
-       // cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
-       // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+       // cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+       // cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
+        cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
         
         /*
          * ToDo: Implement elastic cam

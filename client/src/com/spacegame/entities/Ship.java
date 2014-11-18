@@ -40,6 +40,7 @@ public class Ship extends Element{
         this.currentNode.attachChild(spatial);
         CShip = new SphereCollisionShape(radius);
         ShipControl = new CharacterControl(CShip,1f);
+        spatial.addControl(ShipControl);
     }
     
     // Getters and setters
@@ -172,18 +173,19 @@ public class Ship extends Element{
         
         //elementData is inherited from Element class, and is private to the object
         //elementData contains direction, position and angle
-        this.elementData.setDirection(this.getShipControl().getWalkDirection());
+        //this.elementData.setDirection(this.getShipControl().getWalkDirection());
+        //this.spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
         this.spatial.move(new Vector3f(
-                //this.getShipControl().getPhysicsLocation().x*tpf,
-                //this.getShipControl().getPhysicsLocation().y*tpf,
-                //this.getShipControl().getPhysicsLocation().z*tpf)
+               // this.getShipControl().getPhysicsLocation().x*tpf,
+               // this.getShipControl().getPhysicsLocation().y*tpf,
+               // this.getShipControl().getPhysicsLocation().z*tpf)
                 this.elementData.getDirection().x*tpf, 
                 this.elementData.getDirection().y*tpf,
                 this.elementData.getDirection().z*tpf)
                 );
-                spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
+                //spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
         elementData.setPosition(spatial.getLocalTranslation());
-
+        //elementData.setPosition(this.getShipControl().getPhysicsLocation());
     }
 }
 
