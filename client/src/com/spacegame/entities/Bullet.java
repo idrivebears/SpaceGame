@@ -26,19 +26,24 @@ public class Bullet extends Element {
     private SphereCollisionShape BulletCS;
     private CharacterControl BulletControl;
     private float radius = .4f;
+    private float speed = 100f;
     
     //Not completed
-    public Bullet(String model, AssetManager am, Vector3f position, Vector3f direction){
+    public Bullet(AssetManager am, Vector3f position, Vector3f direction){
+        elementData = new ElementData();
         this.bullet = new Sphere(100,100,radius);
         this.bulletg = new Geometry("bullet", bullet);
         this.mat = new Material(am,"Common/MatDefs/Misc/Unshaded.j3md");
         this.setPosition(position);
         this.mat.setColor("Color", ColorRGBA.Blue);
         bulletg.setMaterial(mat);
-        //bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
-        elementData = new ElementData();
-        
         this.currentNode.attachChild(bulletg);
+        //bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        BulletCS = new SphereCollisionShape(radius);
+        BulletControl = new CharacterControl(BulletCS,1f);
+        
+        BulletControl.setWalkDirection(direction.mult(speed));
+        BulletControl.setGravity(0);
         /*
          *             
             
@@ -54,5 +59,7 @@ public class Bullet extends Element {
     rootNode.attachChild(cube1Geo);
          */
     }
-    
+    public CharacterControl getBulletControl(){
+        return BulletControl;
+    }
 }
