@@ -43,7 +43,7 @@ public class Main extends SimpleApplication{
     private Terrain terrain;
     private InputHandler inputHandler;
     
-    private Client client;
+    public static Client client; //client was originally private non-static
     
     BitmapText displayText;
     Picture pic;
@@ -149,6 +149,7 @@ public class Main extends SimpleApplication{
                 Serializer.registerClass(Update.class);
                 Serializer.registerClass(Input.class); //assuming client will send inputs
                 Serializer.registerClass(Test.class);
+                Serializer.registerClass(ElementData.class);
                 //end of setup
                 connectionSuccess = true;
             }
@@ -164,10 +165,13 @@ public class Main extends SimpleApplication{
     public class MyClientListener implements MessageListener<Client> {
         public void messageReceived( Client source, Message m ) {
             if(m instanceof Test){
-                source.send(new Input('w'));
+                source.send(new Input());
             }
             if(m instanceof Update){
                 log("Update arrived properly");
+                Update update = (Update)m; //typecast m into update
+                update.getInfo(); //update client with information
+                source.send(new Input('w'));
             }
         }
     }

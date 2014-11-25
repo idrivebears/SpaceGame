@@ -14,14 +14,15 @@ import com.spacegame.server.messages.*;
  */
 public class ConfigureListeners {
     public static void configure(Server server){
-        serialize(server);
+        serialize();
         addListeners(server);
     }
     
-    private static void serialize(Server server){
+    private static void serialize(){
         Serializer.registerClass(Update.class);
         Serializer.registerClass(Input.class);
         Serializer.registerClass(Test.class);
+        Serializer.registerClass(ElementData.class);
     }
     
     private static void addListeners(Server server){
