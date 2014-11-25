@@ -163,9 +163,11 @@ public class Main extends SimpleApplication{
     //embedded listener class
     public class MyClientListener implements MessageListener<Client> {
         public void messageReceived( Client source, Message m ) {
-            if(m instanceof Test)
-            {
-                source.send(new Input());
+            if(m instanceof Test){
+                source.send(new Input('w'));
+            }
+            if(m instanceof Update){
+                log("Update arrived properly");
             }
         }
     }
