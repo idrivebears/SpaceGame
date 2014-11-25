@@ -143,6 +143,7 @@ public class Main extends SimpleApplication{
                 client = Network.connectToServer(serverAddress, serverPort);
                 //DEVCAM setup
                 client.addMessageListener(new MyClientListener(), Update.class); //adds the listener
+                client.addMessageListener(new MyClientListener(), Test.class);
                 //serialize packages
                 log("Listener added");
                 Serializer.registerClass(Update.class);
@@ -162,6 +163,10 @@ public class Main extends SimpleApplication{
     //embedded listener class
     public class MyClientListener implements MessageListener<Client> {
         public void messageReceived( Client source, Message m ) {
+            if(m instanceof Test)
+            {
+                source.send(new Input());
+            }
         }
     }
     

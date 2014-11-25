@@ -15,10 +15,14 @@ public class ServerListener implements MessageListener<HostedConnection> {
     
     public void messageReceived(HostedConnection source, Message m) {
         if(m instanceof Input){
-            //recieved player input, update library
             char input = ((Input)m).input; //gets the player input, which could be any Object
+            System.out.println("client["+source.getId()+"] :: " + input);
             StateProcessor.updatePlayer(new KeyData(source.getId(), input));
-            //the player updates itself in the server library.
+        }
+        
+        if(m instanceof Test)
+        {
+            System.out.println("Client says" + ((Test)m).getMessage());
         }
     }
 }

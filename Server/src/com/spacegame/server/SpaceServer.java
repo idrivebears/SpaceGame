@@ -8,7 +8,7 @@ import com.jme3.app.SimpleApplication;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.system.JmeContext;
-import com.spacegame.server.messages.Update;
+import com.spacegame.server.messages.Test;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.Timer;
@@ -78,7 +78,7 @@ class DisplayInfo extends TimerTask {
         
         //added test updates
         if(SpaceServer.server != null){
-            SpaceServer.server.broadcast(new Update(StateProcessor.elements));
+            SpaceServer.server.broadcast(new Test("Hello world"));
             System.out.println("Message(Update) sent");
         }
         //end of test updates
