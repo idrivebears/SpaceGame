@@ -37,7 +37,7 @@ import java.util.Scanner;
  * Override flycam, add chaseCam, add Mouse rotations, make World Generator, Collision Detection
  * Think about Collidable Interface
  */
-public class Main extends SimpleApplication implements MessageListener<Client> {
+public class Main extends SimpleApplication{
     private AudioNode bgMusic;
     private Player player;
     private Terrain terrain;
@@ -142,7 +142,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
                 serverAddress = "localhost"; //default
                 client = Network.connectToServer(serverAddress, serverPort);
                 //DEVCAM setup
-                client.addMessageListener(this); //adds the listener
+                client.addMessageListener(new MyClientListener(), Update.class); //adds the listener
                 //serialize packages
                 log("Listener added");
                 Serializer.registerClass(Update.class);
@@ -157,8 +157,12 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
             }
         }
         client.start();
-        
-        
+    }
+    
+    //embedded listener class
+    public class MyClientListener implements MessageListener<Client> {
+        public void messageReceived( Client source, Message m ) {
+        }
     }
     
     private void initKeys(){
@@ -290,23 +294,6 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         }
         
     }
-    
-    @Override //override implemented interface MessageListener
-    public void messageReceived(Client source, Message message) {
-        log("MESSAGE ARRIVED");
-        
-        if (message instanceof Update) {
-            Update update = (Update)message;
-            // do something with the message
-            log("UPDATE ARRIVED");
-            //log(update.getInfo().toString());
-            //this.updatePlayerList(update.getInfo());
-        }
-        else if(message instanceof Input){
-            log("Instance of input");
-        }
-    }
-    
     private void log(String message){
         System.out.println(message);
         //add writing to log file
