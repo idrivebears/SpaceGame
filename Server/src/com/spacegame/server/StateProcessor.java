@@ -53,8 +53,17 @@ public class StateProcessor {
                 }
             }
             //start processing the movement for the currentPlayer here (InputHandler code)
-            
-            
+            switch(keyPressed.KEY)
+            {
+                case 'w':
+                    break;
+                case 'a':
+                    break;
+                case 's':
+                    break;
+                case 'd':
+                    break;
+            }
             
         }
         

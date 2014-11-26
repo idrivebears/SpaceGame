@@ -168,10 +168,9 @@ public class Main extends SimpleApplication{
                 source.send(new Input());
             }
             if(m instanceof Update){
-                log("Update arrived properly");
+                //log("Update arrived properly");
                 Update update = (Update)m; //typecast m into update
-                update.getInfo(); //update client with information
-                source.send(new Input('w'));
+                updatePlayerList(update.getInfo());
             }
         }
     }
