@@ -139,7 +139,7 @@ public class Main extends SimpleApplication{
             //serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
             System.out.println("Attempting to connect to server " + serverAddress + " at port:  "+ serverPort + " ...");
             try {
-                serverAddress = "localhost"; //default
+                serverAddress = in.nextLine(); //default
                 client = Network.connectToServer(serverAddress, serverPort);
                 //DEVCAM setup
                 client.addMessageListener(new MyClientListener(), Update.class); //adds the listener
