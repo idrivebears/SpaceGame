@@ -1,6 +1,7 @@
 package com.spacegame.entities;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.spacegame.util.ElementData;
@@ -21,8 +22,8 @@ public class Player extends Ship{
     //Player states
     public boolean isAlive;
     
-    public Player(int id, String model, AssetManager am){
-        super(model, am);
+    public Player(int id, String model, AssetManager am,BulletAppState BAS){
+        super(model, am, BAS);
         this.PLAYER_ID = id;
         isAlive = true;
         health = 100;

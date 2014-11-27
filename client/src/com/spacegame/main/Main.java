@@ -106,11 +106,11 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player(client.getId(), PLAYER_MODEL, assetManager);
+        player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS);
         
 //        ShipControl = new CharacterControl(player.getShipCollisionShape(),1f);
         player.getNode().addControl(player.getShipControl());
-        BAS.getPhysicsSpace().add(player.getShipControl());
+        //BAS.getPhysicsSpace().add(player.getShipControl());
         player.getShipControl().setGravity(0);
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
@@ -245,10 +245,10 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         else{
             cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
         }*/
-       // cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-       // cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
-        cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        //cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
+       // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
         
         /*
          * ToDo: Implement elastic cam
@@ -287,7 +287,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         for(ElementData e : serverData){
             //If the player is not existant in the playerList
             if(!playerList.contains(e)){
-                Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager);
+                Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager,BAS);
                 playerList.addPlayer(temp);
                 terrain.add(temp.getNode());
             }
