@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.spacegame.util;
+package com.spacegame.networking;
 
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
+import com.jme3.network.serializing.Serializable;
 
 /**
  *
@@ -13,6 +14,7 @@ import com.jme3.math.Vector3f;
  * This is the data package to be sent between classes
  * Facilitates transfer of position data in the scene graph
  */
+@Serializable
 public class ElementData {
     private int id;
     private Vector3f direction;
@@ -20,9 +22,9 @@ public class ElementData {
     private Quaternion angle;
     
     public ElementData(){
-        //Empty constructor delete
+        //constructor for uknown reasons (mainly, the call in client-side Bullet
+        //& the call in client-side Ship
     }
-    
     public ElementData(int id, Vector3f d, Vector3f p, Quaternion a){
         this.id = id;
         direction = new Vector3f(d);
@@ -60,7 +62,7 @@ public class ElementData {
     public int getID(){
         return this.id;
     }
-    
+        
     @Override
     public String toString(){
         return "ID:" + this.id + " Pos: " + this.position.toString();

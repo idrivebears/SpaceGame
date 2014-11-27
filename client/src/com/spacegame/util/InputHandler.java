@@ -3,6 +3,8 @@ package com.spacegame.util;
 import com.jme3.input.controls.ActionListener;
 import com.spacegame.entities.Player;
 import com.jme3.input.controls.AnalogListener;
+import com.spacegame.main.Main;
+import com.spacegame.networking.Input;
 
 /**
  *
@@ -31,30 +33,36 @@ public class InputHandler implements AnalogListener, ActionListener {
             thisPlayer.modifyPitch("up");
             thisPlayer.pitch(tpf);
             //System.out.println(thisPlayer.getPitchSpeed());
+            Main.client.send(new Input('s'));
         }
         if(name.equals("INPUT_PitchDown")){
             thisPlayer.modifyPitch("down");
             thisPlayer.pitch(tpf);
             //System.out.println(thisPlayer.getPitchSpeed());
+            Main.client.send(new Input('w'));
         }
         if(name.equals("INPUT_RollLeft")){
             thisPlayer.modifyRoll("left");
             thisPlayer.roll(tpf);
             //System.out.println("INPUT_RollLeft" + thisPlayer.getRollSpeed());
+            Main.client.send(new Input('a'));
         }
         if(name.equals("INPUT_RollRight")){
             thisPlayer.modifyRoll("right");
             thisPlayer.roll(tpf);
             //System.out.println("INPUT_RollRight" + thisPlayer.getRollSpeed());
+            Main.client.send(new Input('d'));
         }
         
         if(name.equals("INPUT_YawLeft")){
             thisPlayer.modifyYaw("left");
             thisPlayer.yaw(tpf);
+            Main.client.send(new Input('q'));
         }
         if(name.equals("INPUT_YawRight")){
             thisPlayer.modifyYaw("right");
             thisPlayer.yaw(tpf);
+            Main.client.send(new Input('e'));
         }
       
         if(name.equals("INPUT_Shoot")){
@@ -114,6 +122,7 @@ public class InputHandler implements AnalogListener, ActionListener {
         
         if(isPressed && name.equals("INPUT_Shoot")){
             thisPlayer.shoot();
+            thisPlayer.attack(1); // TESTING HUD Bar Health
             System.out.println("PIUM");
         } else if(!isPressed && name.equals("INPUT_Shoot")){
             

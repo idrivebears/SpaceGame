@@ -10,7 +10,8 @@ import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
-import com.spacegame.util.ElementData;
+
+
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.ColorRGBA;
@@ -33,8 +34,9 @@ public class Bullet extends Element {
     private float speed = 100f;
     
     //Not completed
+
     public Bullet(AssetManager am, Vector3f position, Vector3f direction,BulletAppState BAS){
-        elementData = new ElementData();
+        //elementData = new ElementData();
         bullet = new Sphere(100,100,radius);
         bulletg = new Geometry("bullet", bullet);
         mat = new Material(am,"Common/MatDefs/Misc/Unshaded.j3md");
@@ -47,6 +49,16 @@ public class Bullet extends Element {
         BulletControl = new BombControl(am,BulletCS,1f);
         BulletControl.setLinearVelocity(direction.mult(25));
         bulletg.addControl(BulletControl);
+
+
+        this.bullet = new Sphere(100,100,.4f);
+        this.bulletg = new Geometry("bullet", bullet);
+        this.mat = new Material(am,"Common/MatDefs/Misc/Unshaded.j3md");
+        this.setPosition(position);
+        bulletg.setMaterial(mat);
+        //bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+
+
         this.currentNode.attachChild(bulletg);
         BAS.getPhysicsSpace().add(BulletControl);
     }

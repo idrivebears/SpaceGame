@@ -4,7 +4,7 @@
  */
 package com.spacegame.entities;
 
-import com.spacegame.util.ElementData;
+import com.spacegame.networking.ElementData;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
@@ -51,6 +51,7 @@ public class Ship extends Element{
     
     public Ship(String model, AssetManager am,BulletAppState BAS){
         elementData = new ElementData();
+        
         spatial = am.loadModel(model);
         this.currentNode.attachChild(spatial);
         CShip = new SphereCollisionShape(radius);
@@ -151,9 +152,9 @@ public class Ship extends Element{
     }
 
     /* Real Movement
-     * pitch is around x axe. "Up" and "down"
-     * roll is around z axe. Like a wheel.
-     * yaw is around y axe. Like a dancer around a tube.*/
+     * pitch is around x axis. "Up" and "down"
+     * roll is around z axis. Like a wheel.
+     * yaw is around y axis. Like a dancer around a tube.*/
      
     public void pitch(float tpf){
         Quaternion PITCH = new Quaternion().fromAngleAxis((FastMath.PI * tpf * pitchSpeed)/5, new Vector3f(1,0,0));

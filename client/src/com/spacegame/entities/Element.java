@@ -7,7 +7,7 @@
  */
 package com.spacegame.entities;
 
-import com.spacegame.util.ElementData;
+import com.spacegame.networking.ElementData;
 import com.jme3.bullet.objects.PhysicsRigidBody;
 import com.jme3.collision.Collidable;
 import com.jme3.collision.CollisionResults;

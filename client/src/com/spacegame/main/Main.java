@@ -25,10 +25,11 @@ import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.AppSettings;
+import com.jme3.ui.Picture;
 import com.spacegame.networking.Input;
 import com.spacegame.networking.Test;
 import com.spacegame.networking.Update;
-import com.spacegame.util.ElementData;
+import com.spacegame.networking.ElementData;
 import com.spacegame.util.PlayerList;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ import java.util.Scanner;
  * Override flycam, add chaseCam, add Mouse rotations, make World Generator, Collision Detection
  * Think about Collidable Interface
  */
-public class Main extends SimpleApplication implements MessageListener<Client> {
+public class Main extends SimpleApplication{
     private AudioNode bgMusic;
     private Player player;
     private Terrain terrain;
@@ -51,9 +52,10 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
 //    private CharacterControl ShipControl;
     private InputHandler inputHandler;
     
-    private Client client;
+    public static Client client; //client was originally private non-static
     
     BitmapText displayText;
+    Picture pic;
     
     //Contains the instanciated Player objects to render locally
     PlayerList playerList = new PlayerList();
@@ -92,7 +94,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         
         //Adding path to assetManager lookup table
         assetManager.registerLocator("assets/Models/", FileLocator.class);
-        
+             
         //Loading terrain to rootNode
         terrain = new Terrain(assetManager.loadModel("Scenes/TestTerrain.j3o"));
         /* The terrain instance should be the only one attached to the rootNode,
@@ -125,13 +127,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         
         this.initKeys();
         this.initAudio();
-        
-        displayText = new BitmapText(guiFont, false);
-        displayText.setSize(guiFont.getCharSet().getRenderedSize());
-        displayText.setColor(ColorRGBA.Green);
-        displayText.setLocalTranslation(10, displayText.getLineHeight()+30,0);
-        
-        guiNode.attachChild(displayText);
+        this.initHUD();
         
         /*
         //Tester for updatePlayerList()
@@ -162,26 +158,40 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
             //serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
             System.out.println("Attempting to connect to server " + serverAddress + " at port:  "+ serverPort + " ...");
             try {
-                serverAddress = "localhost"; //default
+                serverAddress = in.nextLine(); //default
                 client = Network.connectToServer(serverAddress, serverPort);
                 //DEVCAM setup
-                client.addMessageListener(this); //adds the listener
+                client.addMessageListener(new MyClientListener(), Update.class); //adds the listener
+                client.addMessageListener(new MyClientListener(), Test.class);
                 //serialize packages
-                System.out.println("Listener added");
+                log("Listener added");
                 Serializer.registerClass(Update.class);
                 Serializer.registerClass(Input.class); //assuming client will send inputs
                 Serializer.registerClass(Test.class);
+                Serializer.registerClass(ElementData.class);
                 //end of setup
                 connectionSuccess = true;
             }
             catch(IOException e){
-                System.out.println("Server Address/Port not valid or server not running, please try again.");
-                System.out.println("Error:: " + e.getLocalizedMessage());
+                log("Server Address/Port not valid or server not running, please try again.");
+                log("Error:: " + e.getLocalizedMessage());
             }
         }
         client.start();
-        
-        
+    }
+    
+    //embedded listener class
+    public class MyClientListener implements MessageListener<Client> {
+        public void messageReceived( Client source, Message m ) {
+            if(m instanceof Test){
+                source.send(new Input());
+            }
+            if(m instanceof Update){
+                //log("Update arrived properly");
+                Update update = (Update)m; //typecast m into update
+                updatePlayerList(update.getInfo());
+            }
+        }
     }
     
     private void initKeys(){
@@ -217,8 +227,26 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         //bgMusic.play();
     }
     
-    private void updateStatusText(){
+    private void initHUD(){
+        displayText = new BitmapText(guiFont, false);
+        displayText.setSize(guiFont.getCharSet().getRenderedSize());
+        displayText.setColor(ColorRGBA.Green);
+        displayText.setLocalTranslation(10, displayText.getLineHeight()+30,0);
+        
+        pic = new Picture("HUD Bar Health");
+        pic.setImage(assetManager, "Interface/hpUnit.png", true);
+        pic.setWidth(settings.getWidth()/4);
+        pic.setHeight(settings.getHeight()/14);
+        pic.setPosition(0, settings.getHeight() - settings.getHeight()/10);
+        
+        guiNode.attachChild(displayText);
+        guiNode.attachChild(pic);
+    }
+    
+    private void updateHUD(){
         displayText.setText("ID: " + player.PLAYER_ID + " Health: " + player.getHealth());
+        //System.out.println((int)(settings.getWidth()/4 * (player.getHealth()/100.)));
+        pic.setWidth( (int)(settings.getWidth()/4 * (player.getHealth()/100.)));
     }
       
     //Light is needed to make the models visible
@@ -265,7 +293,7 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     public void simpleUpdate(float tpf) {
        player.update(tpf);
        updateCamera();
-       updateStatusText();
+       updateHUD();
        
        
        //get ArrayList<ElementData> serverData for updatePlayerList() from server
@@ -275,7 +303,6 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
     @Override
     public void simpleRender(RenderManager rm) {
         //TODO: add render code
-        //renderPlayers();
     }
     
     //serverData should be recieved from the server (StateProcessor.Elements list)
@@ -299,21 +326,9 @@ public class Main extends SimpleApplication implements MessageListener<Client> {
         }
         
     }
-    
-    @Override //override implemented interface MessageListener
-    public void messageReceived(Client source, Message message) {
-        System.out.println("MESSAGE ARRIVED");
-        
-        if (message instanceof Update) {
-            Update update = (Update)message;
-            // do something with the message
-            System.out.println("UPDATE ARRIVED");
-            System.out.println(update.getInfo().toString());
-            this.updatePlayerList(update.getInfo());
-            //CONSIDER
-            //    >this is assuming "Update" will be the actuall updtade message
-            //    >this is assuming the file "Element data" @ com.spacegame.util.ElementData is correct
-        }
+    private void log(String message){
+        System.out.println(message);
+        //add writing to log file
     }
 }
     

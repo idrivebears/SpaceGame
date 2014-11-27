@@ -6,7 +6,6 @@ package com.spacegame.networking;
 
 import com.jme3.network.AbstractMessage;
 import com.jme3.network.serializing.Serializable;
-import com.spacegame.util.ElementData;
 import java.util.ArrayList;
 
 /**

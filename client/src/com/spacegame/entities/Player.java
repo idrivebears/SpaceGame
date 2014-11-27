@@ -4,7 +4,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
-import com.spacegame.util.ElementData;
+import com.spacegame.networking.ElementData;
 
 /**
  *
