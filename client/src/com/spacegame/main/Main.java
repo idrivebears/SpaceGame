@@ -9,7 +9,6 @@ import com.jme3.asset.plugins.FileLocator;
 import com.jme3.audio.AudioNode;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.CollisionShape;
-import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.font.BitmapText;
@@ -109,7 +108,7 @@ public class Main extends SimpleApplication{
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
         player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS);
-        
+        System.out.println(player.getNode().getName());
 //        ShipControl = new CharacterControl(player.getShipCollisionShape(),1f);
         player.getNode().addControl(player.getShipControl());
         //BAS.getPhysicsSpace().add(player.getShipControl());
@@ -141,7 +140,9 @@ public class Main extends SimpleApplication{
         playerList.printAllPlayers();
         */
         
-        
+        //add collision listeners
+        this.player.getNode().setName("player");
+        BAS.getPhysicsSpace().addCollisionListener(player);
     }
     
     private void runServerSetup(){

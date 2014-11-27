@@ -16,7 +16,7 @@ import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.RigidBodyControl;
 import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.queue.RenderQueue;
-import jme3test.bullet.BombControl;
+import com.spacegame.util.BombControl;
 
 /**
  *
