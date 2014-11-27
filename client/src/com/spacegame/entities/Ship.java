@@ -85,6 +85,15 @@ public class Ship extends Element{
     public void setYawSpeed(float s){
         this.yawSpeed = s;
     }
+    @Override
+    public Vector3f getPosition(){
+        return this.ShipControl.getPhysicsLocation();
+    }
+    
+    @Override
+    public Vector3f getDirection(){
+        return this.getLocalRotation().getRotationColumn(2).normalize();
+    }   
     
     public float getSpeed(){
         return speed;
@@ -174,7 +183,7 @@ public class Ship extends Element{
     }
     
     // Always forward
-    public void keepMoving(){
+    public void keepMoving() {
         
         Vector3f mov = this.getLocalRotation().getRotationColumn(2).normalize();
         this.ShipControl.setWalkDirection(mov.mult(-this.getSpeed()));
@@ -187,17 +196,22 @@ public class Ship extends Element{
         
         bullet = new Sphere(100,100,bulletradius);
         bulletg = new Geometry("bullet", bullet);
+        
         mat = new Material(am,"Common/MatDefs/Misc/Unshaded.j3md");
         mat.setColor("Color", ColorRGBA.Red);
+        
         bulletg.setMaterial(mat);
         bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         //bulletg.setLocalTranslation(0,0,0);
-        bulletg.setLocalTranslation(this.ShipControl.getPhysicsLocation().add(this.getLocalRotation().mult(new Vector3f(0,0,-radius-bulletradius-1))));
+        bulletg.setLocalTranslation(getPosition().add(this.getLocalRotation().mult(new Vector3f(0,0,-radius-bulletradius-1))));
+        
         BulletCS = new SphereCollisionShape(bulletradius);
         BulletControl = new BombControl(am,BulletCS,1f);
-        BulletControl.setLinearVelocity(this.getLocalRotation().getRotationColumn(2).normalize().mult(-bulletspeed));
+        BulletControl.setLinearVelocity(getDirection().mult(-bulletspeed));
+        
         bulletg.addControl(BulletControl);
         this.currentNode.attachChild(bulletg);
+        
         BAS.getPhysicsSpace().add(BulletControl);
         //System.out.println(this.getLocalRotation().getRotationColumn(2));
         //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
@@ -219,9 +233,15 @@ public class Ship extends Element{
                 this.elementData.getDirection().z*tpf)
                 );
                 //spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
+        /*
+         BLACK MAGIC
+         */
         elementData.setPosition(spatial.getLocalTranslation());
+        /*
+          **
+         */
         //this.spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
-        elementData.setPosition(this.getShipControl().getPhysicsLocation());
+        elementData.setPosition(getPosition());
     }
 }
 

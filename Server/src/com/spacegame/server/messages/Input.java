@@ -4,6 +4,7 @@
  */
 package com.spacegame.server.messages;
 
+import com.jme3.math.Vector3f;
 import com.jme3.network.AbstractMessage;
 import com.jme3.network.serializing.Serializable;
 
@@ -13,11 +14,15 @@ import com.jme3.network.serializing.Serializable;
  */
 @Serializable
 public class Input extends AbstractMessage {
-    public char input;
-    public Input(){
-        this.input = 0; //empty constructor for serialization
+    public Vector3f position;
+    public Vector3f direction;
+    
+    public Input(){//Empty
+        
     }
-    public Input(char input){
-        this.input = input;
+    public Input(Vector3f pos, Vector3f dir){
+        this.position = pos;
+        this.direction = dir;
     }
+    
 }

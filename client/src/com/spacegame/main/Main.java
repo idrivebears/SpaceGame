@@ -296,6 +296,8 @@ public class Main extends SimpleApplication{
        updateCamera();
        updateHUD();
        
+       client.send(new Input(player.getPosition(), player.getDirection()));
+       
        
        //get ArrayList<ElementData> serverData for updatePlayerList() from server
        //updatePlayerList()

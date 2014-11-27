@@ -16,9 +16,9 @@ public class ServerListener implements MessageListener<HostedConnection> {
     public void messageReceived(HostedConnection source, Message m) {
         if(m instanceof Input){
             int id = source.getId();
-            char input = ((Input)m).input; //gets the player input, which could be any Object
+            Input clientInput = (Input)m;
             //System.out.println("client["+id+"] :: " + input);
-            StateProcessor.updatePlayer(new KeyData(id, input)); //processes input into database
+            StateProcessor.updatePlayer(new KeyData(id, clientInput)); //processes input into database
         }
         
         if(m instanceof Test)
