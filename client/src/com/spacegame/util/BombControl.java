@@ -29,7 +29,7 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package jme3test.bullet;
+package com.spacegame.util;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.PhysicsSpace;

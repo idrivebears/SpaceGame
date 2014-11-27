@@ -7,6 +7,8 @@ package com.spacegame.entities;
 import com.spacegame.networking.ElementData;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -18,7 +20,7 @@ import com.jme3.math.Vector3f;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
-import jme3test.bullet.BombControl;
+import com.spacegame.util.BombControl;
 
 /**
  *
@@ -208,7 +210,6 @@ public class Ship extends Element{
         //elementData is inherited from Element class, and is private to the object
         //elementData contains direction, position and angle
         //this.elementData.setDirection(this.getShipControl().getWalkDirection());
-        
         this.spatial.move(new Vector3f(
                // this.getShipControl().getPhysicsLocation().x*tpf,
                // this.getShipControl().getPhysicsLocation().y*tpf,

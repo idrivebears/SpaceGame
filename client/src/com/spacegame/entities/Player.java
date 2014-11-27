@@ -2,9 +2,11 @@ package com.spacegame.entities;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.math.Quaternion;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.math.Vector3f;
 import com.spacegame.networking.ElementData;
+
 
 /**
  *
@@ -13,7 +15,7 @@ import com.spacegame.networking.ElementData;
  * The objets for each Player must be instanciated only client-side
  * 
  */
-public class Player extends Ship{
+public class Player extends Ship implements PhysicsCollisionListener{
 
     public final int PLAYER_ID;
       
@@ -68,11 +70,12 @@ public class Player extends Ship{
    @Override
     public void update(float tpf){
         super.update(tpf);
-        
         //Keep moving
         super.keepMoving();
     }
-
-    
-    
+   
+   public void collision(PhysicsCollisionEvent event) {
+       if(event.getNodeA().getName().equals("player"))
+           System.out.println("pum");
+   }
 }
