@@ -1,11 +1,17 @@
 package com.spacegame.main;
 
 import com.spacegame.entities.Player;
+import com.spacegame.entities.Bullet;
 import com.spacegame.util.InputHandler;
 import com.spacegame.util.Terrain;
 import com.jme3.app.SimpleApplication;
 import com.jme3.asset.plugins.FileLocator;
 import com.jme3.audio.AudioNode;
+import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.shapes.CollisionShape;
+import com.jme3.bullet.control.CharacterControl;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.bullet.util.CollisionShapeFactory;
 import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
@@ -41,6 +47,9 @@ public class Main extends SimpleApplication{
     private AudioNode bgMusic;
     private Player player;
     private Terrain terrain;
+    private Bullet bullet;
+    private RigidBodyControl terrainRBC;
+//    private CharacterControl ShipControl;
     private InputHandler inputHandler;
     
     public static Client client; //client was originally private non-static
@@ -76,9 +85,12 @@ public class Main extends SimpleApplication{
         
         game.start();
     }
+    private BulletAppState BAS;
     
     @Override
     public void simpleInitApp(){
+        BAS = new BulletAppState();
+        stateManager.attach(BAS);
         
         //Adding path to assetManager lookup table
         assetManager.registerLocator("assets/Models/", FileLocator.class);
@@ -89,12 +101,19 @@ public class Main extends SimpleApplication{
          * All elements and objects that live in the game should be attached to the
          * current terrains node (terrain.getNode())
          */
+        CollisionShape cs = CollisionShapeFactory.createMeshShape(terrain.getSpatial());
+        terrainRBC = new RigidBodyControl(cs, 0);
+        BAS.getPhysicsSpace().add(terrainRBC);
+        
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player(client.getId(), PLAYER_MODEL, assetManager);
+        player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS);
         
-               
+//        ShipControl = new CharacterControl(player.getShipCollisionShape(),1f);
+        player.getNode().addControl(player.getShipControl());
+        //BAS.getPhysicsSpace().add(player.getShipControl());
+        player.getShipControl().setGravity(0);
         //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
@@ -256,7 +275,9 @@ public class Main extends SimpleApplication{
         }*/
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
         cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
-
+        //cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
+       // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        
         /*
          * ToDo: Implement elastic cam
         float angle = cam.getRotation().mult(Vector3f.UNIT_Z).normalizeLocal().angleBetween(player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)).normalizeLocal());
@@ -286,13 +307,14 @@ public class Main extends SimpleApplication{
     
     //serverData should be recieved from the server (StateProcessor.Elements list)
     //Missing: consider isAlive
+    
     private void updatePlayerList(ArrayList<ElementData> serverData){
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
         for(ElementData e : serverData){
             //If the player is not existant in the playerList
             if(!playerList.contains(e)){
-                Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager);
+                Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager,BAS);
                 playerList.addPlayer(temp);
                 terrain.add(temp.getNode());
             }
