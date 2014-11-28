@@ -53,16 +53,11 @@ public class SpaceServer extends SimpleApplication {
         SpaceServer.server.broadcast(new Update(StateProcessor.elements));
         
         //debugg the server itself
-        if(StateProcessor.elements.isEmpty())
-            System.out.println("Server is empty");
-        else
-        {
+        if(!StateProcessor.elements.isEmpty())
             for(int i=0; i<StateProcessor.elements.size(); i++)
             {
                 System.out.println("["+i+"]-("+StateProcessor.elements.get(i).getID()+") >>" +StateProcessor.elements.get(i).getPosition());
             }
-        }
-                
     }
     
     private void runServerSetup() {
