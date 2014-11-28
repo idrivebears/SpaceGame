@@ -55,7 +55,12 @@ public class SpaceServer extends SimpleApplication {
         if(StateProcessor.elements.isEmpty())
             System.out.println("Server is empty");
         else
-            System.out.println(StateProcessor.elements.size() + "-" + StateProcessor.elements.get(0).getDirection());
+        {
+            for(int i=0; i<StateProcessor.elements.size(); i++)
+            {
+                System.out.println("["+i+"]-("+StateProcessor.elements.get(i).getID()+") >>" +StateProcessor.elements.get(i).getPosition());
+            }
+        }
                 
     }
     
