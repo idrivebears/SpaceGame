@@ -14,58 +14,30 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class StateProcessor {
     
     public static ArrayList<ElementData> elements = new ArrayList<ElementData>();
-    private static ConcurrentLinkedQueue<KeyData> keysPressed = new ConcurrentLinkedQueue<KeyData>();
     
     //updatePlayers will take an input and add it to the Queue
     //the queue is later polled for processing the movements of players
-    public static void updatePlayer(KeyData input){
+    public static void updatePlayers(ElementData elementData) {
         boolean idExists = false;
+        
+        //Here we check for the element in the library with the matching ID and 
+        //then update that player to the new stats.
         for(ElementData ed : elements){
-            if(ed.getID() == input.ID){
+            if(ed.getID() == elementData.getID()){
                 idExists = true;
+                ed.updateData(elementData);
                 break;
             }
         }
-        //If the player already exists, it adds the key to the queue
-        if(idExists){
-            keysPressed.add(input);
-        }
-        //If the player is not registered, it will create a new elementData with its
-        //starting position, direction and angle, with the client-passed ID
-        else{
-            elements.add(new ElementData(input.ID, new Vector3f(), new Vector3f(), new Quaternion()));
-            keysPressed.add(input);
+        //If the player sending the package does not exist in the elements library,
+        //they get addes as a new ElementData
+        if(!idExists){
+            elements.add(new ElementData(elementData));
         }
     }
     
     //This will start getting ElementDatas from the queue and calculate their movements
     public static void update(){
-        KeyData keyPressed = keysPressed.poll();
-        ElementData currentPlayer;
-        //If the queue isnt empty
-        if(keyPressed != null){
-            //Getting the element data for the ID of key pressed
-            //CANDIDATE FOR IMPROVEMENT/OPTIMIZATION
-            for(ElementData e : elements){
-                if(e.getID() == keyPressed.ID){
-                    currentPlayer = e; //sets currentplayer(the one who pressed the key)
-                    break;
-                }
-            }
-            //start processing the movement for the currentPlayer here (InputHandler code)
-            switch(keyPressed.KEY)
-            {
-                case 'w':
-                    break;
-                case 'a':
-                    break;
-                case 's':
-                    break;
-                case 'd':
-                    break;
-            }
-            
-        }
         
     }
 }

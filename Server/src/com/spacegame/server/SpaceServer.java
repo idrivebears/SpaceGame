@@ -33,7 +33,7 @@ public class SpaceServer extends SimpleApplication {
         System.out.println("Server is running.");
         
         Timer timer = new Timer();
-        timer.schedule(display, 0, 3000);
+        timer.schedule(display, 0, 50);
     }
     
     @Override

@@ -54,14 +54,6 @@ public abstract class Element extends PhysicsRigidBody{
         mat = material;
     }
     
-    //Angle methods
-    public Quaternion getAngle(){
-        return elementData.getAngle();
-    }
-    public void setAngle(Quaternion angle){
-        elementData.setAngle(angle);
-    }
-    
     //Node methods
     public void attachToNode(Node node){
         node.attachChild(spatial);

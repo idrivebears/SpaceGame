@@ -265,7 +265,7 @@ public class Main extends SimpleApplication{
         rootNode.addLight(backupLights);
     }
     
-    private void updateCamera(){
+    private void updateCamera() {
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
         /*
         if(!(player.getPitchSpeed() < 0.7 && player.getPitchSpeed() > -0.7)){
@@ -314,21 +314,23 @@ public class Main extends SimpleApplication{
     private void updatePlayerList(ArrayList<ElementData> serverData){
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
-        for(ElementData e : serverData){
-            //If the player is not existant in the playerList
-            if(!playerList.contains(e)){
-                Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager,BAS);
-                playerList.addPlayer(temp);
-                terrain.add(temp.getNode());
-            }
-            else{
-                //If the player exists in the list, it
-                //updates the player with matching id to its new ElementData stats
-                playerList.getPlayer(e.getID()).updateStats(e);
+        if(!serverData.isEmpty()){
+            for(ElementData e : serverData){
+                //If the player is not existant in the playerList
+                if(!playerList.contains(e)){
+                    Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
+                    playerList.addPlayer(temp);
+                    terrain.add(temp.getNode());
+                }
+                else{
+                    //If the player exists in the list, it
+                    //updates the player with matching id to its new ElementData stats
+                    playerList.getPlayer(e.getID()).updateStats(e);
+                }
             }
         }
-        
     }
+    
     private void log(String message){
         System.out.println(message);
         //add writing to log file

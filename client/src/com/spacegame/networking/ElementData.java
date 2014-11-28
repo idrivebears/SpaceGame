@@ -20,11 +20,14 @@ public class ElementData {
     private Vector3f direction;
     private Vector3f position;
     
-    public ElementData(){
+    public ElementData() {
         //constructor for uknown reasons (mainly, the call in client-side Bullet
         //& the call in client-side Ship
     }
-    public ElementData(int id, Vector3f d, Vector3f p){
+    public ElementData(ElementData e) {
+        this.updateData(e);
+    }
+    public ElementData(int id, Vector3f d, Vector3f p) {
         this.id = id;
         this.direction = d;
         this.position = p;
@@ -52,6 +55,11 @@ public class ElementData {
     
     public int getID(){
         return this.id;
+    }
+    
+    public void updateData(ElementData e){
+        this.direction = e.direction;
+        this.position = e.position;
     }
         
     @Override

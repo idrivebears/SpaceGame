@@ -24,7 +24,7 @@ public class Player extends Ship implements PhysicsCollisionListener{
     //Player states
     public boolean isAlive;
     
-    public Player(int id, String model, AssetManager am,BulletAppState BAS){
+    public Player(int id, String model, AssetManager am, BulletAppState BAS){
         super(model, am, BAS);
         this.PLAYER_ID = id;
         isAlive = true;
@@ -62,7 +62,6 @@ public class Player extends Ship implements PhysicsCollisionListener{
     public void updateStats(ElementData e){
         e.setDirection(super.getShipControl().getWalkDirection());
         e.setPosition(super.getShipControl().getPhysicsLocation());
-        this.elementData.setAngle(e.getAngle());
         this.elementData.setDirection(e.getDirection());
         this.elementData.setPosition(e.getPosition());
     }
