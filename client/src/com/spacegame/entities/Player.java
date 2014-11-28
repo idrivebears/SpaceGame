@@ -17,7 +17,7 @@ import com.spacegame.networking.ElementData;
  */
 public class Player extends Ship implements PhysicsCollisionListener{
 
-    public final int PLAYER_ID;
+    //public final int PLAYER_ID;
       
     private int health;
     
@@ -26,7 +26,7 @@ public class Player extends Ship implements PhysicsCollisionListener{
     
     public Player(int id, String model, AssetManager am, BulletAppState BAS){
         super(model, am, BAS);
-        this.PLAYER_ID = id;
+        this.getElementData().setID(id);
         isAlive = true;
         health = 100;
         this.getSpatial().scale(0.25f);
