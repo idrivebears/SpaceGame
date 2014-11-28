@@ -228,7 +228,7 @@ public class Main extends SimpleApplication{
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
         terrain.add(bgMusic);
-        //bgMusic.play();
+        bgMusic.play();
     }
     
     private void initHUD(){
@@ -272,7 +272,7 @@ public class Main extends SimpleApplication{
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
 
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,2,30))));
         
         //cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
        // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
@@ -303,16 +303,17 @@ public class Main extends SimpleApplication{
     //serverData should be recieved from the server (StateProcessor.Elements list)
     //Missing: consider isAlive
     
-    private void updatePlayerList(ArrayList<ElementData> serverData){
+    private void updatePlayerList(ArrayList<ElementData> serverData) {
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
         if(!serverData.isEmpty()){
-            for(ElementData e : serverData){
+            for(ElementData e : serverData) {
                 //If the player is not existant in the playerList
                 if(e.getID() == client.getId())
                 {
                     //dont add duplicate players
                     //dont add code here
+                    boolean thuglife = true;
                 }
                 else if(!playerList.contains(e)){
                     //if its a new player, add it to the list
@@ -334,4 +335,3 @@ public class Main extends SimpleApplication{
         //add writing to log file
     }
 }
-    
