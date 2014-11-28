@@ -313,13 +313,13 @@ public class Main extends SimpleApplication{
                 {
                     //dont add duplicate players
                     //dont add code here
-                    boolean thuglife = true;
                 }
                 else if(!playerList.contains(e)){
                     //if its a new player, add it to the list
                     Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
                     playerList.addPlayer(temp);
-                    terrain.add(temp.getNode());
+                    //terrain.add(temp.getNode());
+                    terrain.add(playerList.getPlayer(e.getID()).getNode());
                 }
                 else{
                     //If the player exists in the list, it
