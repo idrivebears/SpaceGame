@@ -20,10 +20,6 @@ import com.jme3.scene.Geometry;
 import com.jme3.scene.shape.Sphere;
 import com.spacegame.util.BombControl;
 
-/**
- *
- * @author gwAwr
- */
 public class Ship extends Element{
 
     private SphereCollisionShape CShip;
