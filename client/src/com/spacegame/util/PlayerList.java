@@ -78,21 +78,4 @@ public class PlayerList{
     private void printPlayer(Player p){
         System.out.println(p.PLAYER_ID + "|"+ p.getPosition()+ "|" + p.getDirection());
     }
-    
-    
-    public static void main(String args[]){
-        Player p1 = new Player(0);
-        Player p2 = new Player(1);
-        Player p3 = new Player(2);
-        Player p4 = new Player(3);
-        
-        
-        if(playerList.contains(new Player(1))){
-            System.out.println("Contains");
-        }
-        else{
-            System.out.println("Doesnt contain");
-        }
-    }
-    
 }
