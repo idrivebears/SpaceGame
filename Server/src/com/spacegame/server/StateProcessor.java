@@ -13,22 +13,25 @@ public class StateProcessor {
     
     //updatePlayers will take an input and add it to the Queue
     //the queue is later polled for processing the movements of players
-    public static void updatePlayers(ElementData elementData) {
+    public static void updatePlayers(ElementData clientData) {
         boolean idExists = false;
         
         //Here we check for the element in the library with the matching ID and 
         //then update that player to the new stats.
         for(ElementData ed : elements){
-            if(ed.getID() == elementData.getID()){
+            System.out.println("now comparing" + ed.getID() + "=?" + clientData.getID());
+            if(ed.getID() == clientData.getID()){
+                System.out.println("player exists, update him");
                 idExists = true;
-                ed.updateData(elementData);
+                ed.updateData(clientData);
                 break;
             }
         }
         //If the player sending the package does not exist in the elements library,
         //they get addes as a new ElementData
         if(!idExists){
-            elements.add(new ElementData(elementData));
+            System.out.println("new player added");
+            elements.add(new ElementData(clientData));
         }
     }
 }
