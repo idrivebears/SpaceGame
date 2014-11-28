@@ -49,7 +49,6 @@ public class SpaceServer extends SimpleApplication {
     public void simpleUpdate(float tpf){
         //update foo
         SpaceServer.server.broadcast(new Update(StateProcessor.elements));
-        System.out.println(StateProcessor.elements.size());
     }
     
     private void runServerSetup(){

@@ -19,9 +19,7 @@ public class StateProcessor {
         //Here we check for the element in the library with the matching ID and 
         //then update that player to the new stats.
         for(ElementData ed : elements){
-            System.out.println("now comparing" + ed.getID() + "=?" + clientData.getID());
             if(ed.getID() == clientData.getID()){
-                System.out.println("player exists, update him");
                 idExists = true;
                 ed.updateData(clientData);
                 break;
@@ -30,7 +28,6 @@ public class StateProcessor {
         //If the player sending the package does not exist in the elements library,
         //they get addes as a new ElementData
         if(!idExists){
-            System.out.println("new player added");
             elements.add(new ElementData(clientData));
         }
     }

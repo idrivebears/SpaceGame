@@ -26,7 +26,7 @@ public class Update extends AbstractMessage {
         //empty constructor for serializer
     }
     public Update(ArrayList<ElementData>infoPackage){
-        this.infoPackage = (ArrayList<ElementData>) infoPackage.clone(); //typecast?
+        this.infoPackage = infoPackage; //typecast?
     }
     public ArrayList<ElementData> getInfo(){
         //getter for the infoPackage.
