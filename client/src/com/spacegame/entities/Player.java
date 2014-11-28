@@ -34,7 +34,7 @@ public class Player extends Ship implements PhysicsCollisionListener{
         this.PLAYER_ID = id;
         isAlive = true;
         health = 100;
-        this.getSpatial().scale(0.08f);
+        this.getSpatial().scale(0.25f);
     }
     
     //Does the passed attackDamage to the player
