@@ -287,6 +287,8 @@ public class Main extends SimpleApplication{
        updatePlayerList(serverData);
        playerList.printAllPlayers();
        
+       log("Nodes in terrain:>" + terrain.getNode().getChildren().size());
+       
        client.send(new Input(player.getPosition(), player.getDirection()));
        
        
