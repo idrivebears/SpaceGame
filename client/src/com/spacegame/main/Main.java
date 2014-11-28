@@ -191,6 +191,15 @@ public class Main extends SimpleApplication{
             if(m instanceof Update){
                 //log("Update arrived properly");
                 Update update = (Update)m; //typecast m into update
+                System.out.println("players in package:"+update.getInfo().size());
+                if(!update.getInfo().isEmpty()){
+                    System.out.println("p 0:"+update.getInfo().get(0).getID());
+                    if(update.getInfo().size() > 1){
+                    System.out.println("p 1"+update.getInfo().get(1).getID());
+                    System.out.println("pos 0"+update.getInfo().get(0).getDirection());
+                    System.out.println("pos 1"+update.getInfo().get(0).getDirection());
+                    }
+                }
                 serverData = update.getInfo();
             }
         }
