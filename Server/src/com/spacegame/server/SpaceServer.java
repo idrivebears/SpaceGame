@@ -98,7 +98,7 @@ class DisplayInfo extends TimerTask {
         if(info.equals("")){
             //System.out.println("Running on port: " + SpaceServer.getPort());
             if(StateProcessor.elements.size()> 0){
-                System.out.println(StateProcessor.elements.get(0).getDirection());    
+                System.out.println(StateProcessor.elements.get(0).getDirection());
             }
             
             //bootstrap update

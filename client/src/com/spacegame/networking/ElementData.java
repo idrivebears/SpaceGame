@@ -57,6 +57,7 @@ public class ElementData {
     }
     
     public void updateData(ElementData e){
+        this.id = e.id;
         this.direction = e.direction;
         this.position = e.position;
     }
