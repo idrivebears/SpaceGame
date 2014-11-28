@@ -79,7 +79,6 @@ class DisplayInfo extends TimerTask {
         //added test updates
         if(SpaceServer.server != null){
             SpaceServer.server.broadcast(new Update(StateProcessor.elements));
-            System.out.println("Message(Update) sent");
         }
         //end of test updates
     }
@@ -90,8 +89,11 @@ class DisplayInfo extends TimerTask {
     
     private void displayInfo(){
         if(info.equals("")){
-            System.out.println("Running on port: " + SpaceServer.getPort());
-            System.out.println("No information to display yet.");
+            //System.out.println("Running on port: " + SpaceServer.getPort());
+            if(StateProcessor.elements.size()> 0){
+                System.out.println(StateProcessor.elements.get(0).getDirection());    
+            }
+            
             //bootstrap update
         }   
         else
