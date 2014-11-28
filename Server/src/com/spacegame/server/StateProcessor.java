@@ -1,10 +1,6 @@
 package com.spacegame.server;
 
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
-import com.spacegame.data.KeyData;
 import java.util.ArrayList;
-import java.util.concurrent.ConcurrentLinkedQueue;
 /*
  * StateProcessor contains 2 static linked lists, elements and keysPressed
  * elements handles the states of all the players in the server
@@ -34,10 +30,5 @@ public class StateProcessor {
         if(!idExists){
             elements.add(new ElementData(elementData));
         }
-    }
-    
-    //This will start getting ElementDatas from the queue and calculate their movements
-    public static void update(){
-        
     }
 }
