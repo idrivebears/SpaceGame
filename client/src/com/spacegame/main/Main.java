@@ -228,7 +228,7 @@ public class Main extends SimpleApplication{
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
         terrain.add(bgMusic);
-        bgMusic.play();
+        //bgMusic.play();
     }
     
     private void initHUD(){
