@@ -201,7 +201,7 @@ public class Ship extends Element{
                 this.elementData.getDirection().x*tpf, 
                 this.elementData.getDirection().y*tpf,
                 this.elementData.getDirection().z*tpf)
-                );
+       );
                 //spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
         /*
          BLACK MAGIC
