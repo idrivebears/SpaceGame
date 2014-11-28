@@ -209,11 +209,12 @@ public class Main extends SimpleApplication{
         inputManager.addMapping("INPUT_YawRight", new KeyTrigger(KeyInput.KEY_E));
         
         //Arrow keys
+        /*
         inputManager.addMapping("INPUT_PitchUp", new KeyTrigger(KeyInput.KEY_DOWN));
         inputManager.addMapping("INPUT_PitchDown", new KeyTrigger(KeyInput.KEY_UP));
         inputManager.addMapping("INPUT_RollRight", new KeyTrigger(KeyInput.KEY_RIGHT));
         inputManager.addMapping("INPUT_RollLeft", new KeyTrigger(KeyInput.KEY_LEFT));
-        
+        */
         // Shooting
         inputManager.addMapping("INPUT_Shoot", new KeyTrigger(KeyInput.KEY_SPACE));
         
@@ -269,27 +270,13 @@ public class Main extends SimpleApplication{
     
     private void updateCamera() {
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
-        /*
-        if(!(player.getPitchSpeed() < 0.7 && player.getPitchSpeed() > -0.7)){
-            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
-        }
-        else{
-            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,7,30))));
-        }*/
+
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
         cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        
         //cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
        // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
         
-        /*
-         * ToDo: Implement elastic cam
-        float angle = cam.getRotation().mult(Vector3f.UNIT_Z).normalizeLocal().angleBetween(player.getLocalRotation().mult(Vector3f.UNIT_Z.mult(-1)).normalizeLocal());
-        System.out.println(angle + " ANGLE");
-         
-        if(angle > .5){
-            cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
-        }
-        */
     }
 
     @Override

@@ -158,7 +158,7 @@ public class Ship extends Element{
         this.ShipControl.setWalkDirection(mov.mult(-this.getSpeed()));
         //this.setDirection(mov.mult(-this.getSpeed()));
         //this.setDirection(this.ShipControl.getWalkDirection());
-        System.out.println(this.speed);
+        
     }
     
     //Shooting. 
