@@ -24,11 +24,6 @@ public class Player extends Ship implements PhysicsCollisionListener{
     //Player states
     public boolean isAlive;
     
-    //remove this and empty ship constructor
-    public Player(int id){
-        PLAYER_ID = id;
-    }
-    
     public Player(int id, String model, AssetManager am, BulletAppState BAS){
         super(model, am, BAS);
         this.PLAYER_ID = id;
