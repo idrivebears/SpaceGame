@@ -2,6 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
+
 package com.spacegame.entities;
 
 import com.jme3.asset.AssetManager;
@@ -18,10 +20,6 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.renderer.queue.RenderQueue;
 import com.spacegame.util.BombControl;
 
-/**
- *
- * @author Usuario
- */
 public class Bullet extends Element {
     
     private BulletAppState BAS;
@@ -39,8 +37,10 @@ public class Bullet extends Element {
         //elementData = new ElementData();
         bullet = new Sphere(100,100,radius);
         bulletg = new Geometry("bullet", bullet);
+        
         mat = new Material(am,"Common/MatDefs/Misc/Unshaded.j3md");
-        mat.setColor("Color", ColorRGBA.Red);
+        mat.setColor("Color", ColorRGBA.Yellow);
+        
         bulletg.setMaterial(mat);
         bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         bulletg.setLocalTranslation(position);
@@ -49,7 +49,6 @@ public class Bullet extends Element {
         BulletControl = new BombControl(am,BulletCS,1f);
         BulletControl.setLinearVelocity(direction.mult(25));
         bulletg.addControl(BulletControl);
-
 
         this.bullet = new Sphere(100,100,.4f);
         this.bulletg = new Geometry("bullet", bullet);
@@ -66,3 +65,4 @@ public class Bullet extends Element {
         return BulletControl;
     }
 }
+*/

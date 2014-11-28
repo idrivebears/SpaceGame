@@ -1,7 +1,7 @@
 package com.spacegame.main;
 
 import com.spacegame.entities.Player;
-import com.spacegame.entities.Bullet;
+//import com.spacegame.entities.Bullet;
 import com.spacegame.util.InputHandler;
 import com.spacegame.util.Terrain;
 import com.jme3.app.SimpleApplication;
@@ -46,7 +46,7 @@ public class Main extends SimpleApplication{
     private AudioNode bgMusic;
     private Player player;
     private Terrain terrain;
-    private Bullet bullet;
+    //private Bullet bullet;
     private RigidBodyControl terrainRBC;
 //    private CharacterControl ShipControl;
     private InputHandler inputHandler;
