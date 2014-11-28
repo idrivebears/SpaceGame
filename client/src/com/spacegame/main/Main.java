@@ -321,7 +321,13 @@ public class Main extends SimpleApplication{
         if(!serverData.isEmpty()){
             for(ElementData e : serverData){
                 //If the player is not existant in the playerList
-                if(!playerList.contains(e)){
+                if(e.getID() == client.getId())
+                {
+                    //dont add duplicate players
+                    //dont add code here
+                }
+                else if(!playerList.contains(e)){
+                    //if its a new player, add it to the list
                     Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
                     playerList.addPlayer(temp);
                     terrain.add(temp.getNode());
