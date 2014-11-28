@@ -196,8 +196,8 @@ public class Main extends SimpleApplication{
                     System.out.println("p 0:"+update.getInfo().get(0).getID());
                     if(update.getInfo().size() > 1){
                     System.out.println("p 1"+update.getInfo().get(1).getID());
-                    System.out.println("pos 0"+update.getInfo().get(0).getDirection());
-                    System.out.println("pos 1"+update.getInfo().get(0).getDirection());
+                    System.out.println("pos 0"+update.getInfo().get(0).getPosition());
+                    System.out.println("pos 1"+update.getInfo().get(1).getPosition());
                     }
                 }
                 serverData = update.getInfo();
