@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  *
  * @author Cam
  */
+
 public class SpaceServer extends SimpleApplication {
     private static int serverPort;
     protected static Server server = null;
