@@ -143,7 +143,7 @@ public class Main extends SimpleApplication{
         */
         
         //add collision listeners
-        this.player.getNode().setName("player");
+        this.player.getNode().setName("player"+player.PLAYER_ID);
         BAS.getPhysicsSpace().addCollisionListener(player);
     }
     
