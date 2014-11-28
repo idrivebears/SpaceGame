@@ -53,6 +53,8 @@ public class Main extends SimpleApplication{
     
     public static Client client; //client was originally private non-static
     
+    private ArrayList<ElementData> serverData = new ArrayList<ElementData>();
+    
     BitmapText displayText;
     Picture pic;
     
@@ -190,7 +192,7 @@ public class Main extends SimpleApplication{
             if(m instanceof Update){
                 //log("Update arrived properly");
                 Update update = (Update)m; //typecast m into update
-                updatePlayerList(update.getInfo());
+                serverData = update.getInfo();
             }
         }
     }
@@ -296,11 +298,13 @@ public class Main extends SimpleApplication{
        updateCamera();
        updateHUD();
        
+       updatePlayerList(serverData);
+       
        client.send(new Input(player.getPosition(), player.getDirection()));
        
        
        //get ArrayList<ElementData> serverData for updatePlayerList() from server
-       //updatePlayerList()
+       
     }
 
     @Override
