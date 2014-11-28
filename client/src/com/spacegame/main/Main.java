@@ -285,7 +285,7 @@ public class Main extends SimpleApplication{
        updateHUD();
        
        updatePlayerList(serverData);
-       System.out.println("# of players: " + serverData.size());
+       playerList.printAllPlayers();
        
        client.send(new Input(player.getPosition(), player.getDirection()));
        
@@ -315,6 +315,7 @@ public class Main extends SimpleApplication{
                 }
                 else if(!playerList.contains(e)){
                     //if its a new player, add it to the list
+                    System.out.println("new player joined");
                     Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
                     playerList.addPlayer(temp);
                     //terrain.add(temp.getNode());
