@@ -41,9 +41,6 @@ public class Ship extends Element{
     private float yawSpeed;
     
     //Angle between camera and ship
-    private float angleCamX;
-    private float angleCamY;
-    private float angleCamZ;
     
     public Ship(String model, AssetManager am,BulletAppState BAS){
         elementData = new ElementData();
@@ -79,15 +76,6 @@ public class Ship extends Element{
     public void setYawSpeed(float s){
         this.yawSpeed = s;
     }
-    @Override
-    public Vector3f getPosition(){
-        return this.ShipControl.getPhysicsLocation();
-    }
-    
-    @Override
-    public Vector3f getDirection(){
-        return this.getLocalRotation().getRotationColumn(2).normalize();
-    }   
     
     public float getSpeed(){
         return speed;
@@ -105,29 +93,16 @@ public class Ship extends Element{
     }
 
     
-    public float getAngleCamX() {
-        return angleCamX;
+    @Override
+    public Vector3f getPosition(){
+        return this.ShipControl.getPhysicsLocation();
     }
-
-    public float getAngleCamY() {
-        return angleCamY;
-    }
-
-    public float getAngleCamZ() {
-        return angleCamZ;
-    }
-
-    public void setAngleCamX(float angleCamX) {
-        this.angleCamX = angleCamX;
-    }
-
-    public void setAngleCamY(float angleCamY) {
-        this.angleCamY = angleCamY;
-    }
-
-    public void setAngleCamZ(float angleCamZ) {
-        this.angleCamZ = angleCamZ;
-    }
+    
+    @Override
+    public Vector3f getDirection(){
+        return this.getLocalRotation().getRotationColumn(2).normalize();
+    }   
+    
     
     //Modify pitchspeed, up and down. Between interval [-1,1].
     public void modifyPitch(String direction){
@@ -183,6 +158,7 @@ public class Ship extends Element{
         this.ShipControl.setWalkDirection(mov.mult(-this.getSpeed()));
         //this.setDirection(mov.mult(-this.getSpeed()));
         //this.setDirection(this.ShipControl.getWalkDirection());
+        System.out.println(this.speed);
     }
     
     //Shooting. 
