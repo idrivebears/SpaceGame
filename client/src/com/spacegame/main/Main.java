@@ -336,6 +336,7 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     playerList.getPlayer(e.getID()).updateStats(e);
+                    System.out.println("Updated ["+e.getID()+"] has pos >"+e.getPosition());
                     playerList.getPlayer(e.getID()).update(tpf);
                     
                 }

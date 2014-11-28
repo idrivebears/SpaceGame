@@ -60,8 +60,8 @@ public class Player extends Ship implements PhysicsCollisionListener{
     
     //Updates the players Angle, Position and Direction
     public void updateStats(ElementData e){
-        e.setDirection(super.getShipControl().getWalkDirection());
-        e.setPosition(super.getShipControl().getPhysicsLocation());
+//        e.setDirection(super.getShipControl().getWalkDirection());
+//        e.setPosition(super.getShipControl().getPhysicsLocation());
         this.elementData.setDirection(e.getDirection());
         this.elementData.setPosition(e.getPosition());
     }
