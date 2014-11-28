@@ -243,7 +243,7 @@ public class Main extends SimpleApplication{
         displayText = new BitmapText(guiFont, false);
         displayText.setSize(guiFont.getCharSet().getRenderedSize());
         displayText.setColor(ColorRGBA.Green);
-        displayText.setLocalTranslation(10, displayText.getLineHeight()+30,0);
+        displayText.setLocalTranslation(10, displayText.getLineHeight()+40,0);
         
         pic = new Picture("HUD Bar Health");
         pic.setImage(assetManager, "Interface/hpUnit.png", true);
@@ -256,7 +256,7 @@ public class Main extends SimpleApplication{
     }
     
     private void updateHUD(){
-        displayText.setText("ID: " + player.PLAYER_ID + " Health: " + player.getHealth());
+        displayText.setText("ID: " + player.PLAYER_ID + " Health: " + player.getHealth() + "\nPosition: " + player.getPosition());
         //System.out.println((int)(settings.getWidth()/4 * (player.getHealth()/100.)));
         pic.setWidth( (int)(settings.getWidth()/4 * (player.getHealth()/100.)));
     }
