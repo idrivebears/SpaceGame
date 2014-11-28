@@ -299,6 +299,7 @@ public class Main extends SimpleApplication{
        updateHUD();
        
        updatePlayerList(serverData);
+       System.out.println("# of players: " + serverData.size());
        
        client.send(new Input(player.getPosition(), player.getDirection()));
        

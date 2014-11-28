@@ -74,7 +74,8 @@ public class Player extends Ship implements PhysicsCollisionListener{
     }
    
    public void collision(PhysicsCollisionEvent event) {
-       if(event.getNodeA().getName().equals("player"))
-           System.out.println("pum");
+       if(event.getNodeA().getName().equals("player")){
+           //collision action here
+       }
    }
 }
