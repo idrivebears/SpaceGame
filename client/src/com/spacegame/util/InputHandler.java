@@ -3,8 +3,6 @@ package com.spacegame.util;
 import com.jme3.input.controls.ActionListener;
 import com.spacegame.entities.Player;
 import com.jme3.input.controls.AnalogListener;
-import com.spacegame.main.Main;
-import com.spacegame.networking.Input;
 
 /**
  *
