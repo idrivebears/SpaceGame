@@ -285,7 +285,7 @@ public class Main extends SimpleApplication{
        updateHUD();
        
        updatePlayerList(serverData);
-       playerList.printAllPlayers();
+//       playerList.printAllPlayers();
        
        log("Nodes in terrain:>" + terrain.getNode().getChildren().size());
        
