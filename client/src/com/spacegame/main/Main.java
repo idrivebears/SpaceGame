@@ -143,7 +143,7 @@ public class Main extends SimpleApplication{
         */
         
         //add collision listeners
-        this.player.getNode().setName("player"+player.PLAYER_ID);
+        this.player.getNode().setName("player"+player.getElementData().getID());
         BAS.getPhysicsSpace().addCollisionListener(player);
     }
     
@@ -256,7 +256,7 @@ public class Main extends SimpleApplication{
     }
     
     private void updateHUD(){
-        displayText.setText("ID: " + player.PLAYER_ID + " Health: " + player.getHealth() + "\nPosition: " + player.getPosition());
+        displayText.setText("ID: " + player.getElementData().getID() + " Health: " + player.getHealth() + "\nPosition: " + player.getPosition());
         //System.out.println((int)(settings.getWidth()/4 * (player.getHealth()/100.)));
         pic.setWidth( (int)(settings.getWidth()/4 * (player.getHealth()/100.)));
     }

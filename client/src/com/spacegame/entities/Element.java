@@ -19,7 +19,7 @@ import com.jme3.math.Quaternion;
 public abstract class Element extends PhysicsRigidBody{
     protected Spatial spatial;
     protected Material mat;
-    protected ElementData elementData;
+    protected ElementData elementData = new ElementData();
     protected Node currentNode = new Node();
     
     //Direction get and set
@@ -63,12 +63,17 @@ public abstract class Element extends PhysicsRigidBody{
     }
     
     //returns instance of the this node
-    public Node getNode(){
+    public Node getNode() {
         return currentNode;
     }
+    
+    public ElementData getElementData(){
+        return elementData;
+    }
+    
     //Will update all states of the Element when called, this includes position, rotation, yaw, etc.
     
-    public Quaternion getLocalRotation(){
+    public Quaternion getLocalRotation() {
         return spatial.getLocalRotation();
     }
     

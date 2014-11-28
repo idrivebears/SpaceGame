@@ -28,7 +28,7 @@ public class PlayerList{
         if(o instanceof ElementData){
             ElementData e = (ElementData)o;
             for(int i = 0; i < this.size(); i++){
-                if(e.getID() == this.get(i).PLAYER_ID){
+                if(e.getID() == this.get(i).getElementData().getID()){
                     return true;
                 }
             }
@@ -37,7 +37,7 @@ public class PlayerList{
         else if( o instanceof Player){
             Player p = (Player)o;
             for(int i = 0; i < this.size(); i++){
-                if(p.PLAYER_ID == this.get(i).PLAYER_ID){
+                if(p.getElementData().getID() == this.get(i).getElementData().getID()){
                     return true;
                 }
             }
@@ -63,7 +63,7 @@ public class PlayerList{
     
     public Player getPlayer(int id){
         for(Player p : playerList){
-            if(p.PLAYER_ID == id)
+            if(p.getElementData().getID() == id)
                 return p;
         }
         return null;
@@ -76,6 +76,7 @@ public class PlayerList{
     }
     
     private void printPlayer(Player p){
-        System.out.println(p.PLAYER_ID + "|"+ p.getPosition()+ "|" + p.getDirection());
+        System.out.println(p.getElementData().getID() + "|"+ p.getPosition()+ "|" + p.getDirection());
     }
+    
 }

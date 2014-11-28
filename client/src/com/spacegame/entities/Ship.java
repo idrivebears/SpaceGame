@@ -43,7 +43,7 @@ public class Ship extends Element{
     //Angle between camera and ship
     
     public Ship(String model, AssetManager am,BulletAppState BAS){
-        elementData = new ElementData();
+        //elementData = new ElementData();
         
         spatial = am.loadModel(model);
         this.currentNode.attachChild(spatial);
