@@ -133,11 +133,11 @@ public class Main extends SimpleApplication{
         /*
         //Tester for updatePlayerList()
         ArrayList<ElementData> sd = new ArrayList<ElementData>();
-        sd.add(new ElementData(0, new Vector3f(0,0,0), new Vector3f(1,1,1), new Quaternion()));
-        sd.add(new ElementData(1, new Vector3f(0,0,0), new Vector3f(1,1,0), new Quaternion()));
-        sd.add(new ElementData(2, new Vector3f(0,0,0), new Vector3f(0,1,1), new Quaternion()));
-        sd.add(new ElementData(1, new Vector3f(0.2f,0.4f,0.5f), new Vector3f(1,1,0), new Quaternion()));
-        sd.add(new ElementData(3, new Vector3f(0,0,0), new Vector3f(-1,-2,0), new Quaternion()));
+        sd.add(new ElementData(0, new Vector3f(0,0,0), new Vector3f(1,1,1)));
+        sd.add(new ElementData(1, new Vector3f(0,0,0), new Vector3f(1,1,0)));
+        sd.add(new ElementData(2, new Vector3f(0,0,0), new Vector3f(0,1,1)));
+        sd.add(new ElementData(1, new Vector3f(0.2f,0.4f,0.5f), new Vector3f(1,1,0)));
+        sd.add(new ElementData(3, new Vector3f(0,0,0), new Vector3f(-1,-2,0)));
         updatePlayerList(sd);
         playerList.printAllPlayers();
         */
@@ -161,7 +161,6 @@ public class Main extends SimpleApplication{
             //serverPort = (serverPort > 0 && serverPort < 65535) ? serverPort : 2526;
             System.out.println("Attempting to connect to server " + serverAddress + " at port:  "+ serverPort + " ...");
             try {
-                serverAddress = in.nextLine(); //default
                 client = Network.connectToServer(serverAddress, serverPort);
                 //DEVCAM setup
                 client.addMessageListener(new MyClientListener(), Update.class); //adds the listener
