@@ -293,7 +293,7 @@ public class Main extends SimpleApplication{
        updateCamera();
        updateHUD();
        
-       updatePlayerList(serverData);
+       updatePlayerList(serverData, tpf);
 //       playerList.printAllPlayers();
        
        log("Nodes in terrain:>" + terrain.getNode().getChildren().size());
@@ -313,7 +313,7 @@ public class Main extends SimpleApplication{
     //serverData should be recieved from the server (StateProcessor.Elements list)
     //Missing: consider isAlive
     
-    private void updatePlayerList(ArrayList<ElementData> serverData) {
+    private void updatePlayerList(ArrayList<ElementData> serverData, float tpf) {
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
         if(!serverData.isEmpty()){
@@ -336,6 +336,8 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     playerList.getPlayer(e.getID()).updateStats(e);
+                    playerList.getPlayer(e.getID()).update(tpf);
+                    
                 }
             }
         }
