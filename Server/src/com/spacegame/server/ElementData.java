@@ -27,10 +27,10 @@ public class ElementData {
     public ElementData(ElementData e) {
         this.updateData(e);
     }
-    public ElementData(int id, Vector3f d, Vector3f p) {
+    public ElementData(int id, Vector3f position, Vector3f direction) {
         this.id = id;
-        this.direction = d;
-        this.position = p;
+        this.position = position;
+        this.direction = direction;
     }
 
     public Vector3f getDirection() {

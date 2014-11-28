@@ -64,7 +64,7 @@ public class SpaceServer extends SimpleApplication {
                 
     }
     
-    private void runServerSetup(){
+    private void runServerSetup() {
         Scanner in = new Scanner(System.in);
         System.out.println("Super Crazy Space Maniac Game Deluxe 4");
         System.out.print("Please choose an available port to run the server on:> ");
