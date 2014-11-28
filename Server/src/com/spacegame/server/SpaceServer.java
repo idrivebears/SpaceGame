@@ -5,6 +5,7 @@
 package com.spacegame.server;
 
 import com.jme3.app.SimpleApplication;
+import com.jme3.math.Vector3f;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.system.JmeContext;
@@ -49,6 +50,13 @@ public class SpaceServer extends SimpleApplication {
     public void simpleUpdate(float tpf){
         //update foo
         SpaceServer.server.broadcast(new Update(StateProcessor.elements));
+        
+        //debugg the server itself
+        if(StateProcessor.elements.isEmpty())
+            System.out.println("Server is empty");
+        else
+            System.out.println(StateProcessor.elements.size() + "-" + StateProcessor.elements.get(0).getDirection());
+                
     }
     
     private void runServerSetup(){
