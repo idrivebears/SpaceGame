@@ -18,6 +18,7 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
+import com.jme3.math.Quaternion;
 import com.jme3.network.Client;
 import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
@@ -332,6 +333,12 @@ public class Main extends SimpleApplication{
                     //updates the player with matching id to its new ElementData stats
                     //playerList.getPlayer(e.getID()).updateStats(e);
                     playerList.getPlayer(e.getID()).getSpatial().setLocalTranslation(e.getPosition());
+                    
+                    //To see also the ship with the correct direction,
+                    //THIS IS THE WAY IT SHOULD BE:
+                    //playerList.getPlayer(e.getID()).getSpatial().setLocalRotation(e.getRotarion());
+                    // But .. elementData doesn't support 
+                    
                     //Spatial current = playerList.getPlayer(e.getID()).getSpatial();
                     //current.move(e.getDirection().x, e.getDirection().y, e.getDirection().z);
                 }
