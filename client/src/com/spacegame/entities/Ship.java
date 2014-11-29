@@ -195,16 +195,12 @@ public class Ship extends Element{
         //elementData contains direction, position and angle
         //this.elementData.setDirection(this.getShipControl().getWalkDirection());
         this.spatial.move(new Vector3f(
-               // this.getShipControl().getPhysicsLocation().x*tpf,
-               // this.getShipControl().getPhysicsLocation().y*tpf,
-               // this.getShipControl().getPhysicsLocation().z*tpf)
-                
-                this.elementData.getDirection().x*tpf, 
-                this.elementData.getDirection().y*tpf,
-                this.elementData.getDirection().z*tpf
-                )
-       );
-                //spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
+                            this.elementData.getDirection().x*tpf, 
+                            this.elementData.getDirection().y*tpf,
+                            this.elementData.getDirection().z*tpf));
+        
+        
+        //spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
         /*
          BLACK MAGIC
          */
