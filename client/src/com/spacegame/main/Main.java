@@ -143,7 +143,8 @@ public class Main extends SimpleApplication{
         */
         
         //add collision listeners
-        this.player.getNode().setName("player"+player.getElementData().getID());
+        this.player.getNode().setName("player_"+player.getElementData().getID());
+        //System.out.println(this.player.getNode().getName());
         BAS.getPhysicsSpace().addCollisionListener(player);
     }
     
@@ -315,7 +316,7 @@ public class Main extends SimpleApplication{
                     //if its a new player, add it to the list
                     Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
                     
-                    temp.getNode().setName(e.getID()+"");
+                    temp.getNode().setName("player_" + e.getID());
                     temp.getNode().addControl(temp.getShipControl());
                     temp.getShipControl().setGravity(0);
                     temp.setDirection(e.getDirection());
@@ -329,9 +330,10 @@ public class Main extends SimpleApplication{
                 else{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
-                    playerList.getPlayer(e.getID()).updateStats(e);
-                    Spatial current = playerList.getPlayer(e.getID()).getSpatial();
-                    current.move(e.getDirection().x, e.getDirection().y, e.getDirection().z);
+                    //playerList.getPlayer(e.getID()).updateStats(e);
+                    playerList.getPlayer(e.getID()).getSpatial().setLocalTranslation(e.getPosition());
+                    //Spatial current = playerList.getPlayer(e.getID()).getSpatial();
+                    //current.move(e.getDirection().x, e.getDirection().y, e.getDirection().z);
                 }
             }
         }
