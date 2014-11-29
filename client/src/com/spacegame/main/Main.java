@@ -280,7 +280,7 @@ public class Main extends SimpleApplication{
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
 
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,2,30))));
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,3,30))));
         
         //cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
        // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
