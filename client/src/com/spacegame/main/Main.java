@@ -124,7 +124,7 @@ public class Main extends SimpleApplication{
         
         this.setUpLight();
         
-        flyCam.setEnabled(false); 
+        flyCam.setEnabled(false);
         
         this.initKeys();
         this.initAudio();
