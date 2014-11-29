@@ -198,20 +198,22 @@ public class Ship extends Element{
                // this.getShipControl().getPhysicsLocation().x*tpf,
                // this.getShipControl().getPhysicsLocation().y*tpf,
                // this.getShipControl().getPhysicsLocation().z*tpf)
+                
                 this.elementData.getDirection().x*tpf, 
                 this.elementData.getDirection().y*tpf,
-                this.elementData.getDirection().z*tpf)
+                this.elementData.getDirection().z*tpf
+                )
        );
                 //spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
         /*
          BLACK MAGIC
          */
-        elementData.setPosition(spatial.getLocalTranslation());
+        //elementData.setPosition(spatial.getLocalTranslation());
         /*
           **
          */
         //this.spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
-        elementData.setPosition(getPosition());
+        //elementData.setPosition(getPosition());
     }
 }
 

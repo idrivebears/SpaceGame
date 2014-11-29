@@ -54,7 +54,7 @@ public class PlayerList{
     
     //Wrappers for making access to playerlist easier
     public void addPlayer(Player p){
-        playerList.add(p);
+        playerList.add(p); 
     }
     
     public void removePlayer(Player p){
@@ -76,7 +76,7 @@ public class PlayerList{
     }
     
     private void printPlayer(Player p){
-        System.out.println(p.getElementData().getID() + "|"+ p.getPosition()+ "|" + p.getDirection());
+        System.out.println(p.getElementData().getID() + ">"+ p.getElementData().getPosition());
     }
     
 }

@@ -294,15 +294,9 @@ public class Main extends SimpleApplication{
        updateHUD();
        
        updatePlayerList(serverData, tpf);
-//       playerList.printAllPlayers();
        
-       log("Nodes in terrain:>" + terrain.getNode().getChildren().size());
-       
+       playerList.printAllPlayers();
        client.send(new Input(player.getPosition(), player.getDirection()));
-       
-       
-       //get ArrayList<ElementData> serverData for updatePlayerList() from server
-       
     }
 
     @Override
@@ -326,8 +320,9 @@ public class Main extends SimpleApplication{
                 }
                 else if(!playerList.contains(e)){
                     //if its a new player, add it to the list
-                    System.out.println("new player joined");
                     Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
+                    temp.setDirection(e.getDirection());
+                    temp.setPosition(e.getPosition());
                     playerList.addPlayer(temp);
                     //terrain.add(temp.getNode());
                     terrain.add(playerList.getPlayer(e.getID()).getNode());
@@ -336,9 +331,7 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     playerList.getPlayer(e.getID()).updateStats(e);
-                    System.out.println("Updated ["+e.getID()+"] has pos >"+e.getPosition());
                     playerList.getPlayer(e.getID()).update(tpf);
-                    
                 }
             }
         }
