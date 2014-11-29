@@ -23,6 +23,7 @@ import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
+import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
 import com.spacegame.networking.Input;
@@ -110,7 +111,6 @@ public class Main extends SimpleApplication{
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
         player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS);
-        System.out.println(player.getNode().getName());
 //        ShipControl = new CharacterControl(player.getShipCollisionShape(),1f);
         player.getNode().addControl(player.getShipControl());
         //BAS.getPhysicsSpace().add(player.getShipControl());
@@ -191,15 +191,6 @@ public class Main extends SimpleApplication{
             if(m instanceof Update){
                 //log("Update arrived properly");
                 Update update = (Update)m; //typecast m into update
-//                System.out.println("players in package:"+update.getInfo().size());
-//                if(!update.getInfo().isEmpty()){
-//                    System.out.println("p 0:"+update.getInfo().get(0).getID());
-//                    if(update.getInfo().size() > 1){
-//                    System.out.println("p 1"+update.getInfo().get(1).getID());
-//                    System.out.println("pos 0"+update.getInfo().get(0).getPosition());
-//                    System.out.println("pos 1"+update.getInfo().get(1).getPosition());
-//                    }
-//                }
                 serverData = update.getInfo();
             }
         }
@@ -293,9 +284,11 @@ public class Main extends SimpleApplication{
        updateCamera();
        updateHUD();
        
-       updatePlayerList(serverData, tpf);
+       updatePlayerList(serverData);
        
+       //add Nodes to terrain
        playerList.printAllPlayers();
+       
        client.send(new Input(player.getPosition(), player.getDirection()));
     }
 
@@ -307,7 +300,7 @@ public class Main extends SimpleApplication{
     //serverData should be recieved from the server (StateProcessor.Elements list)
     //Missing: consider isAlive
     
-    private void updatePlayerList(ArrayList<ElementData> serverData, float tpf) {
+    private void updatePlayerList(ArrayList<ElementData> serverData) {
         //Checks the ElementData list for any non-existing players
         //and instanciates and adds a new player to the playerList.
         if(!serverData.isEmpty()){
@@ -321,17 +314,24 @@ public class Main extends SimpleApplication{
                 else if(!playerList.contains(e)){
                     //if its a new player, add it to the list
                     Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
+                    
+                    temp.getNode().setName(e.getID()+"");
+                    temp.getNode().addControl(temp.getShipControl());
+                    temp.getShipControl().setGravity(0);
                     temp.setDirection(e.getDirection());
                     temp.setPosition(e.getPosition());
+                    
+                    BAS.getPhysicsSpace().addCollisionListener(temp);
+                    
                     playerList.addPlayer(temp);
-                    //terrain.add(temp.getNode());
-                    terrain.add(playerList.getPlayer(e.getID()).getNode());
+                    terrain.add(temp.getNode());
                 }
                 else{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     playerList.getPlayer(e.getID()).updateStats(e);
-                    playerList.getPlayer(e.getID()).update(tpf);
+                    Spatial current = playerList.getPlayer(e.getID()).getSpatial();
+                    current.move(e.getDirection().x, e.getDirection().y, e.getDirection().z);
                 }
             }
         }
