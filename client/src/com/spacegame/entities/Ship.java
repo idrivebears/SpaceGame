@@ -32,7 +32,7 @@ public class Ship extends Element{
     private BulletAppState BAS;
     
     private float speed = 1f; //default speed
-    private float radius = 5f; // default radius of collision shape
+    private float radius = 3f; // default radius of collision shape
     private float bulletradius = 1f;
     private float bulletspeed = 500f;
     // Speed of rotation, 3 Axes
@@ -163,7 +163,11 @@ public class Ship extends Element{
     
     //Shooting. 
     public void shoot(){
-        
+        this.createBullet(this.getDirection(), this.getPosition());
+        //System.out.println(this.getLocalRotation().getRotationColumn(2));
+        //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
+    }  
+    public void createBullet(Vector3f direction,Vector3f position){
         bullet = new Sphere(100,100,bulletradius);
         bulletg = new Geometry("bullet", bullet);
         
@@ -173,20 +177,38 @@ public class Ship extends Element{
         bulletg.setMaterial(mat);
         bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
         //bulletg.setLocalTranslation(0,0,0);
-        bulletg.setLocalTranslation(getPosition().add(this.getLocalRotation().mult(new Vector3f(0,0,-radius-bulletradius-1))));
+        bulletg.setLocalTranslation(position.add(this.getLocalRotation().mult(new Vector3f(0,0,-radius-bulletradius-1))));
         
         BulletCS = new SphereCollisionShape(bulletradius);
         BulletControl = new BombControl(am,BulletCS,1f);
-        BulletControl.setLinearVelocity(getDirection().mult(-bulletspeed));
+        BulletControl.setLinearVelocity(direction.mult(-bulletspeed));
         
         bulletg.addControl(BulletControl);
         this.currentNode.attachChild(bulletg);
         
         BAS.getPhysicsSpace().add(BulletControl);
-        //System.out.println(this.getLocalRotation().getRotationColumn(2));
-        //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
+    }
+    public void ExplodeEffect(){
+        bullet = new Sphere(100,100,0);
+        bulletg = new Geometry("bullet", bullet);
         
-    }    
+        mat = new Material(am,"Common/MatDefs/Misc/Unshaded.j3md");
+        mat.setColor("Color", ColorRGBA.Red);
+        
+        bulletg.setMaterial(mat);
+        bulletg.setShadowMode(RenderQueue.ShadowMode.CastAndReceive);
+        //bulletg.setLocalTranslation(0,0,0);
+        bulletg.setLocalTranslation(this.getPosition());
+        
+        BulletCS = new SphereCollisionShape(radius);
+        BulletControl = new BombControl(am,BulletCS,1f);
+        BulletControl.setLinearVelocity(this.getDirection());
+        
+        bulletg.addControl(BulletControl);
+        this.currentNode.attachChild(bulletg);
+        
+        BAS.getPhysicsSpace().add(BulletControl);
+    }
     /*update method is automatically called by SimpleAppUpdate method, theres
      no need to call it anywhere*/
     public void update(float tpf){
