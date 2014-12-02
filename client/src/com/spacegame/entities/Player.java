@@ -45,7 +45,7 @@ public class Player extends Ship  implements PhysicsCollisionListener{
         float damageDone = this.health - attackDamage;
         if(damageDone <= 0){
             this.isAlive = false;
-            this.getShipControl().setPhysicsLocation(Vector3f.ZERO);
+            this.getShipControl().setPhysicsLocation(new Vector3f(0,(20*this.elementData.getID()),0));
             this.setLocalRotation(Quaternion.IDENTITY);
             System.out.println("You Died");
             this.isAlive=true;
@@ -78,12 +78,12 @@ public class Player extends Ship  implements PhysicsCollisionListener{
    public void collision(PhysicsCollisionEvent event) {
        if(spatial == null) return;
        if (event.getObjectA() == this.getShipControl() || event.getObjectB() == this.getShipControl()) {
-           if(event.getObjectA() == terrainRBC|| event.getObjectB() == terrainRBC){
-               this.attack(.1f);
-           }
-          else{
+           //if(event.getObjectA() == terrainRBC|| event.getObjectB() == terrainRBC){
+          //    this.attack(.1f);
+         //  }
+         // else{
                this.attack(5);
-           }
+        //   }
        }
    }
 }
