@@ -164,6 +164,7 @@ public class Ship extends Element{
     //Shooting. 
     public void shoot(){
         this.createBullet(this.getDirection(), this.getPosition());
+        this.ExplodeEffect();
         //System.out.println(this.getLocalRotation().getRotationColumn(2));
         //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
     }  

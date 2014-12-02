@@ -6,6 +6,7 @@ import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.math.Vector3f;
 import com.spacegame.networking.ElementData;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 
 /**
@@ -76,6 +77,7 @@ public class Player extends Ship implements PhysicsCollisionListener{
    public void collision(PhysicsCollisionEvent event) {
        if(event.getNodeA().getName().equals("player")){
            //collision action here
+           System.out.println("Algo");
        }
    }
 }

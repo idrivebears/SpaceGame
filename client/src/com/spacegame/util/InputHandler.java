@@ -120,7 +120,7 @@ public class InputHandler implements AnalogListener, ActionListener {
         
         if(isPressed && name.equals("INPUT_Shoot")){
             thisPlayer.shoot();
-            thisPlayer.attack(1); // TESTING HUD Bar Health
+            //thisPlayer.attack(1); // TESTING HUD Bar Health
             System.out.println("PIUM");
         } else if(!isPressed && name.equals("INPUT_Shoot")){
             

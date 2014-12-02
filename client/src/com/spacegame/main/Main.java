@@ -321,8 +321,8 @@ public class Main extends SimpleApplication{
                     temp.getNode().addControl(temp.getShipControl());
                     temp.getShipControl().setGravity(0);
                     temp.setDirection(e.getDirection());
+                    //temp.getShipControl().setPhysicsLocation(e.getPosition());
                     temp.setPosition(e.getPosition());
-                    
                     BAS.getPhysicsSpace().addCollisionListener(temp);
                     
                     playerList.addPlayer(temp);
