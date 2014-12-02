@@ -4,6 +4,8 @@ import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.PhysicsCollisionEvent;
 import com.jme3.bullet.collision.PhysicsCollisionListener;
+import com.jme3.bullet.control.RigidBodyControl;
+import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.spacegame.networking.ElementData;
 import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
@@ -16,47 +18,46 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
  * The objets for each Player must be instanciated only client-side
  * 
  */
-public class Player extends Ship implements PhysicsCollisionListener{
+public class Player extends Ship  implements PhysicsCollisionListener{
 
     //public final int PLAYER_ID;
       
-    private int health;
+    private float health =0f;
+    RigidBodyControl terrainRBC;
     
     //Player states
     public boolean isAlive;
     
-    public Player(int id, String model, AssetManager am, BulletAppState BAS){
+    public Player(int id, String model, AssetManager am, BulletAppState BAS, RigidBodyControl terrainRBC){
         super(model, am, BAS);
         this.getElementData().setID(id);
         isAlive = true;
-        health = 100;
+        
         this.getSpatial().scale(0.25f);
+        BAS.getPhysicsSpace().addCollisionListener(this);
+        health = 100f;
     }
     
     //Does the passed attackDamage to the player
     //If the player has no health left, the player is no
     //longer alive.
-    public void attack(int attackDamage){
-        int damageDone = this.health - attackDamage;
+    public void attack(float attackDamage){
+        float damageDone = this.health - attackDamage;
         if(damageDone <= 0){
             this.isAlive = false;
+            this.getShipControl().setPhysicsLocation(Vector3f.ZERO);
+            this.setLocalRotation(Quaternion.IDENTITY);
+            System.out.println("You Died");
+            this.isAlive=true;
+            this.health=100f;
         }
-        else{
-            this.health = damageDone;
-        }
-    }
-    
-    //Brings the player back to life to a starting position.
-    public void respawn(Vector3f position){
-        if(!this.isAlive){
-            this.elementData.setPosition(position);
-            this.health = 100;
-            this.isAlive = true;
+        else if(this.isAlive){
+            this.health= (damageDone<0)?0:damageDone;    
         }
     }
     
     public int getHealth(){
-        return this.health;
+        return (int)this.health;
     }
     
     //Updates the players Angle, Position and Direction
@@ -65,6 +66,7 @@ public class Player extends Ship implements PhysicsCollisionListener{
 //        e.setPosition(super.getShipControl().getPhysicsLocation());
         this.elementData.setDirection(e.getDirection());
         this.elementData.setPosition(e.getPosition());
+        this.elementData.setRotation(e.getRotation());
     }
     
    @Override
@@ -73,11 +75,15 @@ public class Player extends Ship implements PhysicsCollisionListener{
         //Keep moving
         super.keepMoving();
     }
-   
    public void collision(PhysicsCollisionEvent event) {
-       if(event.getNodeA().getName().equals("player")){
-           //collision action here
-           
-       }System.out.println("Algo");
+       if(spatial == null) return;
+       if (event.getObjectA() == this.getShipControl() || event.getObjectB() == this.getShipControl()) {
+           if(event.getObjectA() == terrainRBC|| event.getObjectB() == terrainRBC){
+               this.attack(.1f);
+           }
+          else{
+               this.attack(5);
+           }
+       }
    }
 }
