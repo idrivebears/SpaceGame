@@ -32,8 +32,8 @@ public class Ship extends Element{
     private BulletAppState BAS;
     
     private float speed = 1f; //default speed
-    private float radius = 3f; // default radius of collision shape
-    private float bulletradius = 1f;
+    private float radius = 10f; // default radius of collision shape
+    private float bulletradius = 10f;
     private float bulletspeed = 500f;
     // Speed of rotation, 3 Axes
     private float pitchSpeed; 
@@ -102,7 +102,9 @@ public class Ship extends Element{
     public Vector3f getDirection(){
         return this.getLocalRotation().getRotationColumn(2).normalize();
     }   
-    
+    public Quaternion getRotadion(){
+        return this.getLocalRotation();
+    }
     
     //Modify pitchspeed, up and down. Between interval [-1,1].
     public void modifyPitch(String direction){
@@ -164,7 +166,7 @@ public class Ship extends Element{
     //Shooting. 
     public void shoot(){
         this.createBullet(this.getDirection(), this.getPosition());
-        this.ExplodeEffect();
+        //this.ExplodeEffect();
         //System.out.println(this.getLocalRotation().getRotationColumn(2));
         //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
     }  

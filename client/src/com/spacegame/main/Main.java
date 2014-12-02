@@ -18,7 +18,6 @@ import com.jme3.light.DirectionalLight;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
 import com.jme3.network.Client;
 import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
@@ -291,7 +290,7 @@ public class Main extends SimpleApplication{
        //add Nodes to terrain
        playerList.printAllPlayers();
        
-       client.send(new Input(player.getPosition(), player.getDirection()));
+       client.send(new Input(player.getPosition(), player.getDirection(),player.getLocalRotation()));
     }
 
     @Override
@@ -321,8 +320,8 @@ public class Main extends SimpleApplication{
                     temp.getNode().addControl(temp.getShipControl());
                     temp.getShipControl().setGravity(0);
                     temp.setDirection(e.getDirection());
-                    //temp.getShipControl().setPhysicsLocation(e.getPosition());
-                    temp.setPosition(e.getPosition());
+                    temp.getShipControl().setPhysicsLocation(e.getPosition());
+                    //temp.setPosition(e.getPosition());
                     BAS.getPhysicsSpace().addCollisionListener(temp);
                     
                     playerList.addPlayer(temp);
@@ -332,8 +331,10 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     //playerList.getPlayer(e.getID()).updateStats(e);
-                    playerList.getPlayer(e.getID()).getSpatial().setLocalTranslation(e.getPosition());
-                    
+                    //playerList.getPlayer(e.getID()).getSpatial().setLocalTranslation(e.getPosition());
+                    playerList.getPlayer(e.getID()).getShipControl().setPhysicsLocation(e.getPosition());
+                    playerList.getPlayer(e.getID()).setLocalRotation(e.getRotation());
+                   // playerList.getPlayer(e.getID()).setDirection(e.getDirection());
                     //To see also the ship with the correct direction,
                     //THIS IS THE WAY IT SHOULD BE:
                     //playerList.getPlayer(e.getID()).getSpatial().setLocalRotation(e.getRotarion());
