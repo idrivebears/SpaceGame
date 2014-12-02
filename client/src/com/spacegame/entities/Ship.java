@@ -7,6 +7,8 @@ package com.spacegame.entities;
 import com.spacegame.networking.ElementData;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
+import com.jme3.bullet.collision.PhysicsCollisionEvent;
+import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -32,8 +34,8 @@ public class Ship extends Element{
     private BulletAppState BAS;
     
     private float speed = 1f; //default speed
-    private float radius = 10f; // default radius of collision shape
-    private float bulletradius = 10f;
+    private float radius = 3f; // default radius of collision shape
+    private float bulletradius = 1f;
     private float bulletspeed = 500f;
     // Speed of rotation, 3 Axes
     private float pitchSpeed; 
@@ -166,7 +168,7 @@ public class Ship extends Element{
     //Shooting. 
     public void shoot(){
         this.createBullet(this.getDirection(), this.getPosition());
-        //this.ExplodeEffect();
+        this.ExplodeEffect();
         //System.out.println(this.getLocalRotation().getRotationColumn(2));
         //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
     }  
@@ -188,7 +190,6 @@ public class Ship extends Element{
         
         bulletg.addControl(BulletControl);
         this.currentNode.attachChild(bulletg);
-        
         BAS.getPhysicsSpace().add(BulletControl);
     }
     public void ExplodeEffect(){

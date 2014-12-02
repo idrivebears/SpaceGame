@@ -48,7 +48,7 @@ public class Main extends SimpleApplication{
     private Player player;
     private Terrain terrain;
     //private Bullet bullet;
-    private RigidBodyControl terrainRBC;
+    public RigidBodyControl terrainRBC;
 //    private CharacterControl ShipControl;
     private InputHandler inputHandler;
     
@@ -110,7 +110,7 @@ public class Main extends SimpleApplication{
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS);
+        player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS,terrainRBC);
 //        ShipControl = new CharacterControl(player.getShipCollisionShape(),1f);
         player.getNode().addControl(player.getShipControl());
         //BAS.getPhysicsSpace().add(player.getShipControl());
@@ -145,7 +145,7 @@ public class Main extends SimpleApplication{
         //add collision listeners
         this.player.getNode().setName("player_"+player.getElementData().getID());
         //System.out.println(this.player.getNode().getName());
-        BAS.getPhysicsSpace().addCollisionListener(player);
+        
     }
     
     private void runServerSetup(){
@@ -314,7 +314,7 @@ public class Main extends SimpleApplication{
                 }
                 else if(!playerList.contains(e)){
                     //if its a new player, add it to the list
-                    Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
+                    Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS,terrainRBC);
                     
                     temp.getNode().setName("player_" + e.getID());
                     temp.getNode().addControl(temp.getShipControl());
