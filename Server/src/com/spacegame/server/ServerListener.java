@@ -15,7 +15,7 @@ public class ServerListener implements MessageListener<HostedConnection> {
     public void messageReceived(HostedConnection source, Message m) {
         if(m instanceof Input){
             Input clientInput = (Input)m;
-            StateProcessor.updatePlayers(new ElementData(source.getId(), clientInput.position, clientInput.direction)); //processes input into database
+            StateProcessor.updatePlayers(new ElementData(source.getId(), clientInput.position, clientInput.direction, clientInput.rotation)); //processes input into database
         }
     }
 }
