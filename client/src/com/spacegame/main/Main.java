@@ -1,7 +1,6 @@
 package com.spacegame.main;
 
 import com.spacegame.entities.Player;
-//import com.spacegame.entities.Bullet;
 import com.spacegame.util.InputHandler;
 import com.spacegame.util.Terrain;
 import com.jme3.app.SimpleApplication;
@@ -23,7 +22,6 @@ import com.jme3.network.Message;
 import com.jme3.network.MessageListener;
 import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
-import com.jme3.scene.Spatial;
 import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
 import com.spacegame.networking.Input;
@@ -47,9 +45,7 @@ public class Main extends SimpleApplication{
     private AudioNode bgMusic;
     private Player player;
     private Terrain terrain;
-    //private Bullet bullet;
     public RigidBodyControl terrainRBC;
-//    private CharacterControl ShipControl;
     private InputHandler inputHandler;
     
     public static Client client; //client was originally private non-static
@@ -111,11 +107,8 @@ public class Main extends SimpleApplication{
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
         player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS,terrainRBC);
-//        ShipControl = new CharacterControl(player.getShipCollisionShape(),1f);
         player.getNode().addControl(player.getShipControl());
-        //BAS.getPhysicsSpace().add(player.getShipControl());
         player.getShipControl().setGravity(0);
-        //player.getSpatial().rotate(0, 0, FastMath.HALF_PI);
         player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
         terrain.add(player.getNode()); //attaching the player to the terrain's node
@@ -272,10 +265,11 @@ public class Main extends SimpleApplication{
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
 
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,3,30))));
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,50))));
         
         //cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
        // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
+        
         
     }
 
@@ -331,17 +325,8 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     //playerList.getPlayer(e.getID()).updateStats(e);
-                    //playerList.getPlayer(e.getID()).getSpatial().setLocalTranslation(e.getPosition());
                     playerList.getPlayer(e.getID()).getShipControl().setPhysicsLocation(e.getPosition());
                     playerList.getPlayer(e.getID()).setLocalRotation(e.getRotation());
-                   // playerList.getPlayer(e.getID()).setDirection(e.getDirection());
-                    //To see also the ship with the correct direction,
-                    //THIS IS THE WAY IT SHOULD BE:
-                    //playerList.getPlayer(e.getID()).getSpatial().setLocalRotation(e.getRotarion());
-                    // But .. elementData doesn't support 
-                    
-                    //Spatial current = playerList.getPlayer(e.getID()).getSpatial();
-                    //current.move(e.getDirection().x, e.getDirection().y, e.getDirection().z);
                 }
             }
         }

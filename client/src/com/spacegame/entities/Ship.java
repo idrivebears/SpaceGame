@@ -4,11 +4,8 @@
  */
 package com.spacegame.entities;
 
-import com.spacegame.networking.ElementData;
 import com.jme3.asset.AssetManager;
 import com.jme3.bullet.BulletAppState;
-import com.jme3.bullet.collision.PhysicsCollisionEvent;
-import com.jme3.bullet.collision.PhysicsCollisionListener;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
 import com.jme3.bullet.control.RigidBodyControl;
@@ -219,23 +216,11 @@ public class Ship extends Element{
         
         //elementData is inherited from Element class, and is private to the object
         //elementData contains direction, position and angle
-        //this.elementData.setDirection(this.getShipControl().getWalkDirection());
         this.spatial.move(new Vector3f(
                             this.elementData.getDirection().x*tpf, 
                             this.elementData.getDirection().y*tpf,
                             this.elementData.getDirection().z*tpf));
-        
-        
-        //spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
-        /*
-         BLACK MAGIC
-         */
-        //elementData.setPosition(spatial.getLocalTranslation());
-        /*
-          **
-         */
-        //this.spatial.setLocalTranslation(this.getShipControl().getPhysicsLocation());
-        //elementData.setPosition(getPosition());
+       
     }
 }
 
