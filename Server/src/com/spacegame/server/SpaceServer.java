@@ -80,7 +80,7 @@ class DisplayInfo extends TimerTask {
     String info = "";
     
     @Override
-    public void run(){
+    public void run() {
         displayInfo();
         
         //added test updates

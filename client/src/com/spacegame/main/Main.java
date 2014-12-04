@@ -242,7 +242,7 @@ public class Main extends SimpleApplication{
         bgMusic = new AudioNode(assetManager, "Sounds/StarWars.ogg", true);
         bgMusic.setLooping(true); 
         bgMusic.setPositional(false);
-        bgMusic.setVolume(2);
+        bgMusic.setVolume(1);
         terrain.add(bgMusic);
         //bgMusic.play();
     }
