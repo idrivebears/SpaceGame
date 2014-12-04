@@ -217,7 +217,7 @@ public class Main extends SimpleApplication{
     }
     
     private void initAudio(){
-        bgMusic = new AudioNode(assetManager, "Sounds/theme.ogg", true);
+        bgMusic = new AudioNode(assetManager, "Sounds/StarWars.ogg", true);
         bgMusic.setLooping(false);
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
