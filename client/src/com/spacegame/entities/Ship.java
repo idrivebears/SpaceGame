@@ -30,7 +30,7 @@ public class Ship extends Element{
     private RigidBodyControl BulletControl;
     private BulletAppState BAS;
     
-    protected float speed = 1f; //default speed
+    protected float speed = 2.0f; //default speed
     private float radius = 3f; // default radius of collision shape
     private float bulletradius = 1f;
     public boolean isAlive;
