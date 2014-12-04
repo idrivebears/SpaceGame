@@ -106,10 +106,11 @@ public class Main extends SimpleApplication{
         terrain.loadTerrainTo(rootNode); //attaching the terrain to the rootNode
         
         // this should change to player = new Player(server.getPlayerID, server.getPlayerSpatial, assetManager);
-        player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS,terrainRBC);
+        player = new Player(client.getId(), PLAYER_MODEL, assetManager,BAS);
         player.getNode().addControl(player.getShipControl());
         player.getShipControl().setGravity(0);
-        player.setPosition(new Vector3f(0,0,0));
+        player.getShipControl().setPhysicsLocation(new Vector3f(0,(player.getElementData().getID()*20),0));
+        //player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
         terrain.add(player.getNode()); //attaching the player to the terrain's node
         
@@ -308,7 +309,7 @@ public class Main extends SimpleApplication{
                 }
                 else if(!playerList.contains(e)){
                     //if its a new player, add it to the list
-                    Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS,terrainRBC);
+                    Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
                     
                     temp.getNode().setName("player_" + e.getID());
                     temp.getNode().addControl(temp.getShipControl());

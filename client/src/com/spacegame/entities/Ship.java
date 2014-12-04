@@ -30,9 +30,10 @@ public class Ship extends Element{
     private RigidBodyControl BulletControl;
     private BulletAppState BAS;
     
-    private float speed = 1f; //default speed
+    protected float speed = 1f; //default speed
     private float radius = 3f; // default radius of collision shape
     private float bulletradius = 1f;
+    public boolean isAlive;
     private float bulletspeed = 500f;
     // Speed of rotation, 3 Axes
     private float pitchSpeed; 
@@ -164,7 +165,13 @@ public class Ship extends Element{
     
     //Shooting. 
     public void shoot(){
-        this.createBullet(this.getDirection(), this.getPosition());
+        if(this.isAlive){
+            this.createBullet(this.getDirection(), this.getPosition());
+        }
+        else{
+            this.isAlive=true;
+            this.speed=1f;
+        }
         //this.ExplodeEffect();
         //System.out.println(this.getLocalRotation().getRotationColumn(2));
         //Bullet bullet = new Bullet(,am,this.getPosition(), this.getLocalRotation().getRotationColumn(2).normalize());
@@ -220,7 +227,12 @@ public class Ship extends Element{
                             this.elementData.getDirection().x*tpf, 
                             this.elementData.getDirection().y*tpf,
                             this.elementData.getDirection().z*tpf));
-       
+       if(FastMath.abs(this.ShipControl.getPhysicsLocation().x) > 1024f || FastMath.abs(this.ShipControl.getPhysicsLocation().z) > 1024f){
+           this.attack(.005f);
+       }
+    }
+    public void attack(float attackDamage){
+        return;
     }
 }
 
