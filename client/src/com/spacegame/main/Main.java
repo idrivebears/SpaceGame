@@ -24,6 +24,7 @@ import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
+import com.jme3.util.SkyFactory;
 import com.spacegame.networking.Input;
 import com.spacegame.networking.Test;
 import com.spacegame.networking.Update;
@@ -135,6 +136,7 @@ public class Main extends SimpleApplication{
         updatePlayerList(sd);
         playerList.printAllPlayers();
         */
+        rootNode.attachChild(SkyFactory.createSky( assetManager, "Textures/BackgroundCube/BackgroundCube.dds", false));
         
         //add collision listeners
         this.player.getNode().setName("player_"+player.getElementData().getID());
