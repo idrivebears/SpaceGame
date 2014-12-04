@@ -22,12 +22,11 @@ public class Player extends Ship  implements PhysicsCollisionListener{
     //public final int PLAYER_ID;
       
     private float health =0f;
-    RigidBodyControl terrainRBC;
     
     //Player states
-    public boolean isAlive;
+    //public boolean isAlive;
     
-    public Player(int id, String model, AssetManager am, BulletAppState BAS, RigidBodyControl terrainRBC){
+    public Player(int id, String model, AssetManager am, BulletAppState BAS){
         super(model, am, BAS);
         this.getElementData().setID(id);
         isAlive = true;
@@ -40,6 +39,7 @@ public class Player extends Ship  implements PhysicsCollisionListener{
     //Does the passed attackDamage to the player
     //If the player has no health left, the player is no
     //longer alive.
+    @Override
     public void attack(float attackDamage){
         float damageDone = this.health - attackDamage;
         if(damageDone <= 0){
@@ -47,7 +47,8 @@ public class Player extends Ship  implements PhysicsCollisionListener{
             this.getShipControl().setPhysicsLocation(new Vector3f(0,(20*this.elementData.getID()),0));
             this.setLocalRotation(Quaternion.IDENTITY);
             System.out.println("You Died");
-            this.isAlive=true;
+            //this.isAlive=true;
+            this.speed =0f;
             this.health=100f;
         }
         else if(this.isAlive){
