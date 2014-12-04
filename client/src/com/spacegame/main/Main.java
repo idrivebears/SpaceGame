@@ -24,6 +24,7 @@ import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
+import com.jme3.util.SkyFactory;
 import com.spacegame.networking.Input;
 import com.spacegame.networking.Test;
 import com.spacegame.networking.Update;
@@ -43,6 +44,9 @@ import java.util.Scanner;
  */
 public class Main extends SimpleApplication{
     private AudioNode bgMusic;
+    private AudioNode audio_gun;
+    private AudioNode audio_vehicleLaunch;
+    
     private Player player;
     private Terrain terrain;
     public RigidBodyControl terrainRBC;
@@ -77,8 +81,8 @@ public class Main extends SimpleApplication{
         AppSettings settings = new AppSettings(true);
         settings.setTitle("Super Crazy Space Maniac Game Deluxe 4"); //5 star name
         settings.setSettingsDialogImage("Interface/nave.jpg");
-        settings.setWidth(640);
-        settings.setHeight(400);
+        settings.setWidth(1200);
+        settings.setHeight(800);
         game.setSettings(settings);
         
         game.start();
@@ -135,6 +139,7 @@ public class Main extends SimpleApplication{
         updatePlayerList(sd);
         playerList.printAllPlayers();
         */
+        rootNode.attachChild(SkyFactory.createSky( assetManager, "Textures/BackgroundCube/BackgroundCube.dds", false));
         
         //add collision listeners
         this.player.getNode().setName("player_"+player.getElementData().getID());
@@ -218,6 +223,21 @@ public class Main extends SimpleApplication{
     
     private void initAudio(){
         bgMusic = new AudioNode(assetManager, "Sounds/StarWars.ogg", true);
+
+        /*gun shot*/
+        /*audio_gun = new AudioNode(assetManager, "Sound/Effects/ShotGun.wav", false);
+        audio_gun.setPositional(false);
+        audio_gun.setLooping(false);
+        audio_gun.setVolume(2);
+        rootNode.attachChild(audio_gun);
+        */
+        /*launch space vehicle*/
+      /*  audio_vehicleLaunch = new AudioNode(assetManager, "Sound/Effects/SpaceVehicleLaunch.wav", false);
+        audio_vehicleLaunch.setPositional(false);
+        audio_vehicleLaunch.setLooping(false);
+        audio_vehicleLaunch.setVolume(2);
+        rootNode.attachChild(audio_vehicleLaunch);*/
+
         bgMusic.setLooping(false);
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
