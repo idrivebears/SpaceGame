@@ -222,8 +222,6 @@ public class Main extends SimpleApplication{
     }
     
     private void initAudio(){
-        bgMusic = new AudioNode(assetManager, "Sounds/StarWars.ogg", true);
-
         /*gun shot*/
         audio_gun = new AudioNode(assetManager, "Sounds/Effects/ShotGun.ogg", false);
         audio_gun.setPositional(false);
@@ -238,17 +236,11 @@ public class Main extends SimpleApplication{
         audio_vehicleLaunch.setPositional(false);
         audio_vehicleLaunch.setLooping(false);
         audio_vehicleLaunch.setVolume(2);
-<<<<<<< HEAD
         player.setAudioLaunch(audio_vehicleLaunch);
         rootNode.attachChild(audio_vehicleLaunch);
         
-        bgMusic = new AudioNode(assetManager, "Sounds/theme.ogg", true);
-        bgMusic.setLooping(true);
-=======
-        rootNode.attachChild(audio_vehicleLaunch);*/
-
-        bgMusic.setLooping(false);
->>>>>>> 3e45aca8791ef6dd2c51bbc2be2023ab4fa2702b
+        bgMusic = new AudioNode(assetManager, "Sounds/StarWars.ogg", true);
+        bgMusic.setLooping(true); 
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
         terrain.add(bgMusic);

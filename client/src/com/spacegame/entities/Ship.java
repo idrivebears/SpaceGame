@@ -33,15 +33,12 @@ public class Ship extends Element{
     private RigidBodyControl BulletControl;
     private BulletAppState BAS;
     
-<<<<<<< HEAD
     //Sounds
     private AudioNode audio_gun;
     private AudioNode audio_vehicleLaunch;
-    
-    protected float speed = 1f; //default speed
-=======
+
     protected float speed = FINAL_SPEED; //default speed
->>>>>>> 3e45aca8791ef6dd2c51bbc2be2023ab4fa2702b
+
     private float radius = 3f; // default radius of collision shape
     private float bulletradius = 1f;
     public boolean isAlive;
