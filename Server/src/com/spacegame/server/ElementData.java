@@ -8,10 +8,6 @@ import com.jme3.math.Quaternion;
 import com.jme3.math.Vector3f;
 import com.jme3.network.serializing.Serializable;
 
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
-import com.jme3.network.serializing.Serializable;
-
 /**
  *
  * @author awalls
@@ -77,6 +73,7 @@ public class ElementData {
         this.direction = e.direction;
         this.position = e.position;
         this.rotation = e.rotation;
+        this.isShooting = e.isShooting;
     }
     
     public void setShooting(boolean isShooting){

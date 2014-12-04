@@ -73,6 +73,7 @@ public class ElementData {
         this.direction = e.direction;
         this.position = e.position;
         this.rotation = e.rotation;
+        this.isShooting = e.isShooting;
     }
     
     public void setShooting(boolean isShooting){
