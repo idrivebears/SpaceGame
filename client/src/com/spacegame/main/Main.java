@@ -44,6 +44,9 @@ import java.util.Scanner;
  */
 public class Main extends SimpleApplication{
     private AudioNode bgMusic;
+    private AudioNode audio_gun;
+    private AudioNode audio_vehicleLaunch;
+    
     private Player player;
     private Terrain terrain;
     public RigidBodyControl terrainRBC;
@@ -219,6 +222,20 @@ public class Main extends SimpleApplication{
     }
     
     private void initAudio(){
+        /*gun shot*/
+        /*audio_gun = new AudioNode(assetManager, "Sound/Effects/ShotGun.wav", false);
+        audio_gun.setPositional(false);
+        audio_gun.setLooping(false);
+        audio_gun.setVolume(2);
+        rootNode.attachChild(audio_gun);
+        */
+        /*launch space vehicle*/
+      /*  audio_vehicleLaunch = new AudioNode(assetManager, "Sound/Effects/SpaceVehicleLaunch.wav", false);
+        audio_vehicleLaunch.setPositional(false);
+        audio_vehicleLaunch.setLooping(false);
+        audio_vehicleLaunch.setVolume(2);
+        rootNode.attachChild(audio_vehicleLaunch);*/
+        
         bgMusic = new AudioNode(assetManager, "Sounds/theme.ogg", true);
         bgMusic.setLooping(false);
         bgMusic.setPositional(false);
