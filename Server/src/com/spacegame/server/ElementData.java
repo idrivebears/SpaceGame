@@ -20,6 +20,7 @@ public class ElementData {
     private Vector3f direction;
     private Vector3f position;
     private Quaternion rotation;
+    private boolean isShooting = false;
     
     public ElementData() {
         //constructor for uknown reasons (mainly, the call in client-side Bullet
@@ -28,11 +29,11 @@ public class ElementData {
     public ElementData(ElementData e) {
         this.updateData(e);
     }
-    public ElementData(int id, Vector3f position, Vector3f direction,Quaternion rotation) {
+    public ElementData(int id, Vector3f d, Vector3f p,Quaternion r) {
         this.id = id;
-        this.position = position;
-        this.direction = direction;
-        this.rotation = rotation;
+        this.direction = d;
+        this.position = p;
+        this.rotation = r;
     }
 
     public Vector3f getDirection() {
@@ -42,6 +43,7 @@ public class ElementData {
     public Vector3f getPosition() {
         return position;
     }
+    
     public Quaternion getRotation(){
         return rotation;
     }
@@ -54,8 +56,8 @@ public class ElementData {
         this.position = position;
     }
     
-     public void setRotation(Quaternion rotation){
-        this.rotation= rotation;
+    public void setRotation(Quaternion rotation) {
+        this.rotation = rotation;
     }
 
     public void setID(int id){
@@ -70,7 +72,17 @@ public class ElementData {
         this.id = e.id;
         this.direction = e.direction;
         this.position = e.position;
-        this.rotation= e.rotation;
+        this.rotation = e.rotation;
+        this.isShooting = e.isShooting;
+    }
+    
+    public void setShooting(boolean isShooting){
+        this.isShooting = isShooting;
+    
+    }
+    
+    public boolean isShooting(){
+        return isShooting;
     }
         
     @Override

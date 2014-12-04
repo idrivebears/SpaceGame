@@ -20,6 +20,7 @@ public class ElementData {
     private Vector3f direction;
     private Vector3f position;
     private Quaternion rotation;
+    private boolean isShooting = false;
     
     public ElementData() {
         //constructor for uknown reasons (mainly, the call in client-side Bullet
@@ -72,6 +73,16 @@ public class ElementData {
         this.direction = e.direction;
         this.position = e.position;
         this.rotation = e.rotation;
+        this.isShooting = e.isShooting;
+    }
+    
+    public void setShooting(boolean isShooting){
+        this.isShooting = isShooting;
+    
+    }
+    
+    public boolean isShooting(){
+        return isShooting;
     }
         
     @Override

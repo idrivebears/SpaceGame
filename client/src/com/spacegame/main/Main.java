@@ -81,7 +81,7 @@ public class Main extends SimpleApplication{
         AppSettings settings = new AppSettings(true);
         settings.setTitle("Super Crazy Space Maniac Game Deluxe 4"); //5 star name
         settings.setSettingsDialogImage("Interface/nave.jpg");
-        settings.setWidth(640);
+        settings.setWidth(600);
         settings.setHeight(400);
         game.setSettings(settings);
         
@@ -222,6 +222,8 @@ public class Main extends SimpleApplication{
     }
     
     private void initAudio(){
+        bgMusic = new AudioNode(assetManager, "Sounds/StarWars.ogg", true);
+
         /*gun shot*/
         audio_gun = new AudioNode(assetManager, "Sounds/Effects/ShotGun.ogg", false);
         audio_gun.setPositional(false);
@@ -236,11 +238,17 @@ public class Main extends SimpleApplication{
         audio_vehicleLaunch.setPositional(false);
         audio_vehicleLaunch.setLooping(false);
         audio_vehicleLaunch.setVolume(2);
+<<<<<<< HEAD
         player.setAudioLaunch(audio_vehicleLaunch);
         rootNode.attachChild(audio_vehicleLaunch);
         
         bgMusic = new AudioNode(assetManager, "Sounds/theme.ogg", true);
         bgMusic.setLooping(true);
+=======
+        rootNode.attachChild(audio_vehicleLaunch);*/
+
+        bgMusic.setLooping(false);
+>>>>>>> 3e45aca8791ef6dd2c51bbc2be2023ab4fa2702b
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
         terrain.add(bgMusic);
@@ -289,7 +297,7 @@ public class Main extends SimpleApplication{
        // Camera location is updated according to player's rotation, plus a vector. Difference between cam location and shape location
 
         cam.lookAt(player.getPosition(), Vector3f.UNIT_Y);
-        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,0,50))));
+        cam.setLocation(player.getPosition().add(player.getLocalRotation().mult( new Vector3f(0,8,55))));
         
         //cam.lookAt(player.getShipControl().getPhysicsLocation(), Vector3f.UNIT_Y);
        // cam.setLocation(player.getShipControl().getPhysicsLocation().add(player.getLocalRotation().mult( new Vector3f(0,0,30))));
@@ -309,6 +317,7 @@ public class Main extends SimpleApplication{
        playerList.printAllPlayers();
        
        client.send(new Input(player.getPosition(), player.getDirection(),player.getLocalRotation()));
+       player.getElementData().setShooting(false);
     }
 
     @Override
@@ -349,8 +358,14 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     //playerList.getPlayer(e.getID()).updateStats(e);
-                    playerList.getPlayer(e.getID()).getShipControl().setPhysicsLocation(e.getPosition());
-                    playerList.getPlayer(e.getID()).setLocalRotation(e.getRotation());
+                    Player temp = playerList.getPlayer(e.getID());
+                    temp.getShipControl().setPhysicsLocation(e.getPosition());
+                    temp.setLocalRotation(e.getRotation());
+                    
+                    if(temp.getElementData().isShooting()){
+                        temp.shoot();
+                        temp.getElementData().setShooting(false);
+                    }
                 }
             }
         }
