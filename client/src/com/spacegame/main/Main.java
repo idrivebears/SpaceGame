@@ -253,8 +253,9 @@ public class Main extends SimpleApplication{
         DirectionalLight sun = new DirectionalLight();
         DirectionalLight backupLights = new DirectionalLight();
         
-        sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
-        backupLights.setDirection(new Vector3f(-0.1f, 0.7f, -1.0f));
+        //sun.setDirection(new Vector3f(-0.1f, -0.7f, -1.0f));
+        sun.setDirection(new Vector3f(-.1f, -1,-1));
+        backupLights.setDirection(new Vector3f(100, 0.7f, -1.0f));
         
         viewPort.setBackgroundColor(ColorRGBA.Gray);
              
