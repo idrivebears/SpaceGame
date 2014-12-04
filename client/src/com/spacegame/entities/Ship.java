@@ -20,6 +20,8 @@ import com.jme3.scene.shape.Sphere;
 import com.spacegame.util.BombControl;
 
 public class Ship extends Element{
+    
+    private final float FINAL_SPEED = 2.0f;
 
     private SphereCollisionShape CShip;
     private CharacterControl ShipControl;
@@ -30,7 +32,7 @@ public class Ship extends Element{
     private RigidBodyControl BulletControl;
     private BulletAppState BAS;
     
-    protected float speed = 2.0f; //default speed
+    protected float speed = FINAL_SPEED; //default speed
     private float radius = 3f; // default radius of collision shape
     private float bulletradius = 1f;
     public boolean isAlive;
@@ -109,27 +111,27 @@ public class Ship extends Element{
     //Modify pitchspeed, up and down. Between interval [-1,1].
     public void modifyPitch(String direction){
         if(direction.equals("up")){
-            if(pitchSpeed < 1) pitchSpeed += .1;
+            if(pitchSpeed < 1) pitchSpeed += .5;
         } else if(direction.equals("down")){
-            if(pitchSpeed > -1) pitchSpeed -= .1;
+            if(pitchSpeed > -1) pitchSpeed -= .5;
         }
     }
     
     //Modify rollspeed, up and down. Between interval [-1,1].
     public void modifyRoll(String direction){
         if(direction.equals("left")){
-            if(rollSpeed < 1) rollSpeed += .05;
+            if(rollSpeed < 1) rollSpeed += .1;
         } else if(direction.equals("right")){
-            if(rollSpeed > -1) rollSpeed -= .05;
+            if(rollSpeed > -1) rollSpeed -= .1;
         }
     }
     
     //Modify yawSpeed, up and down. Between interval [-1,1].
      public void modifyYaw(String direction){
         if(direction.equals("left")){
-            if(yawSpeed < 1) yawSpeed += .01;
+            if(yawSpeed < 1) yawSpeed += .05;
         } else if(direction.equals("right")){
-            if(yawSpeed > -1) yawSpeed -= .01;
+            if(yawSpeed > -1) yawSpeed -= .05;
         }
     }
 
@@ -167,10 +169,14 @@ public class Ship extends Element{
     public void shoot(){
         if(this.isAlive){
             this.createBullet(this.getDirection(), this.getPosition());
+            
+            if(!this.elementData.isShooting()){
+                this.elementData.setShooting(true);
+            }
         }
         else{
             this.isAlive=true;
-            this.speed=1f;
+            this.speed=FINAL_SPEED;
         }
         //this.ExplodeEffect();
         //System.out.println(this.getLocalRotation().getRotationColumn(2));

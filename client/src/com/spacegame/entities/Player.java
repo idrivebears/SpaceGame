@@ -42,7 +42,7 @@ public class Player extends Ship  implements PhysicsCollisionListener{
     @Override
     public void attack(float attackDamage){
         float damageDone = this.health - attackDamage;
-        if(damageDone <= 0){
+        if(damageDone <= 0) {
             this.isAlive = false;
             this.getShipControl().setPhysicsLocation(new Vector3f(0,(20*this.elementData.getID()),0));
             this.setLocalRotation(Quaternion.IDENTITY);

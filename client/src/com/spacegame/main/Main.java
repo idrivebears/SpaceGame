@@ -81,8 +81,8 @@ public class Main extends SimpleApplication{
         AppSettings settings = new AppSettings(true);
         settings.setTitle("Super Crazy Space Maniac Game Deluxe 4"); //5 star name
         settings.setSettingsDialogImage("Interface/nave.jpg");
-        settings.setWidth(1200);
-        settings.setHeight(800);
+        settings.setWidth(600);
+        settings.setHeight(400);
         game.setSettings(settings);
         
         game.start();
@@ -242,7 +242,7 @@ public class Main extends SimpleApplication{
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
         terrain.add(bgMusic);
-        bgMusic.play();
+        //bgMusic.play();
     }
     
     private void initHUD(){
@@ -307,6 +307,7 @@ public class Main extends SimpleApplication{
        playerList.printAllPlayers();
        
        client.send(new Input(player.getPosition(), player.getDirection(),player.getLocalRotation()));
+       player.getElementData().setShooting(false);
     }
 
     @Override
@@ -347,8 +348,14 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     //playerList.getPlayer(e.getID()).updateStats(e);
-                    playerList.getPlayer(e.getID()).getShipControl().setPhysicsLocation(e.getPosition());
-                    playerList.getPlayer(e.getID()).setLocalRotation(e.getRotation());
+                    Player temp = playerList.getPlayer(e.getID());
+                    temp.getShipControl().setPhysicsLocation(e.getPosition());
+                    temp.setLocalRotation(e.getRotation());
+                    
+                    if(temp.getElementData().isShooting()){
+                        temp.shoot();
+                        temp.getElementData().setShooting(false);
+                    }
                 }
             }
         }
