@@ -5,6 +5,7 @@
 package com.spacegame.entities;
 
 import com.jme3.asset.AssetManager;
+import com.jme3.audio.AudioNode;
 import com.jme3.bullet.BulletAppState;
 import com.jme3.bullet.collision.shapes.SphereCollisionShape;
 import com.jme3.bullet.control.CharacterControl;
@@ -29,6 +30,10 @@ public class Ship extends Element{
     private SphereCollisionShape BulletCS;
     private RigidBodyControl BulletControl;
     private BulletAppState BAS;
+    
+    //Sounds
+    private AudioNode audio_gun;
+    private AudioNode audio_vehicleLaunch;
     
     protected float speed = 1f; //default speed
     private float radius = 3f; // default radius of collision shape
@@ -165,6 +170,7 @@ public class Ship extends Element{
     
     //Shooting. 
     public void shoot(){
+        audio_gun.playInstance();
         if(this.isAlive){
             this.createBullet(this.getDirection(), this.getPosition());
         }
@@ -228,11 +234,20 @@ public class Ship extends Element{
                             this.elementData.getDirection().y*tpf,
                             this.elementData.getDirection().z*tpf));
        if(FastMath.abs(this.ShipControl.getPhysicsLocation().x) > 1024f || FastMath.abs(this.ShipControl.getPhysicsLocation().z) > 1024f){
-           this.attack(.005f);
+           this.attack(.01f);
        }
     }
     public void attack(float attackDamage){
         return;
+    }
+    
+    //Sounds
+    public void setAudioGun(AudioNode aud){
+        this.audio_gun = aud;
+    }
+    
+    public void setAudioLaunch(AudioNode aud){
+        this.audio_vehicleLaunch = aud;
     }
 }
 

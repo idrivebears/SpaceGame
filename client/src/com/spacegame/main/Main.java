@@ -24,6 +24,7 @@ import com.jme3.network.Network;
 import com.jme3.network.serializing.Serializer;
 import com.jme3.system.AppSettings;
 import com.jme3.ui.Picture;
+import com.jme3.util.SkyFactory;
 import com.spacegame.networking.Input;
 import com.spacegame.networking.Test;
 import com.spacegame.networking.Update;
@@ -43,6 +44,9 @@ import java.util.Scanner;
  */
 public class Main extends SimpleApplication{
     private AudioNode bgMusic;
+    private AudioNode audio_gun;
+    private AudioNode audio_vehicleLaunch;
+    
     private Player player;
     private Terrain terrain;
     public RigidBodyControl terrainRBC;
@@ -135,6 +139,7 @@ public class Main extends SimpleApplication{
         updatePlayerList(sd);
         playerList.printAllPlayers();
         */
+        rootNode.attachChild(SkyFactory.createSky( assetManager, "Textures/BackgroundCube/BackgroundCube.dds", false));
         
         //add collision listeners
         this.player.getNode().setName("player_"+player.getElementData().getID());
@@ -217,8 +222,25 @@ public class Main extends SimpleApplication{
     }
     
     private void initAudio(){
+        /*gun shot*/
+        audio_gun = new AudioNode(assetManager, "Sounds/Effects/ShotGun.ogg", false);
+        audio_gun.setPositional(false);
+        audio_gun.setLooping(false);
+        audio_gun.setVolume(2);
+        player.setAudioGun(audio_gun);
+        rootNode.attachChild(audio_gun);
+        
+        
+        /*launch space vehicle*/
+        audio_vehicleLaunch = new AudioNode(assetManager, "Sounds/Effects/SpaceVehicleLaunch.ogg", false);
+        audio_vehicleLaunch.setPositional(false);
+        audio_vehicleLaunch.setLooping(false);
+        audio_vehicleLaunch.setVolume(2);
+        player.setAudioLaunch(audio_vehicleLaunch);
+        rootNode.attachChild(audio_vehicleLaunch);
+        
         bgMusic = new AudioNode(assetManager, "Sounds/theme.ogg", true);
-        bgMusic.setLooping(false);
+        bgMusic.setLooping(true);
         bgMusic.setPositional(false);
         bgMusic.setVolume(2);
         terrain.add(bgMusic);

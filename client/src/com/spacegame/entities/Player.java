@@ -50,6 +50,7 @@ public class Player extends Ship  implements PhysicsCollisionListener{
             //this.isAlive=true;
             this.speed =0f;
             this.health=100f;
+            
         }
         else if(this.isAlive){
             this.health= (damageDone<0)?0:damageDone;    
