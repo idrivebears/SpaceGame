@@ -223,17 +223,20 @@ public class Main extends SimpleApplication{
     
     private void initAudio(){
         /*gun shot*/
-        audio_gun = new AudioNode(assetManager, "Sound/Effects/ShotGun.ogg", false);
+        audio_gun = new AudioNode(assetManager, "Sounds/Effects/ShotGun.ogg", false);
         audio_gun.setPositional(false);
         audio_gun.setLooping(false);
         audio_gun.setVolume(2);
+        player.setAudioGun(audio_gun);
         rootNode.attachChild(audio_gun);
         
+        
         /*launch space vehicle*/
-        audio_vehicleLaunch = new AudioNode(assetManager, "Sound/Effects/SpaceVehicleLaunch.ogg", false);
+        audio_vehicleLaunch = new AudioNode(assetManager, "Sounds/Effects/SpaceVehicleLaunch.ogg", false);
         audio_vehicleLaunch.setPositional(false);
         audio_vehicleLaunch.setLooping(false);
         audio_vehicleLaunch.setVolume(2);
+        player.setAudioLaunch(audio_vehicleLaunch);
         rootNode.attachChild(audio_vehicleLaunch);
         
         bgMusic = new AudioNode(assetManager, "Sounds/theme.ogg", true);
