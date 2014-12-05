@@ -74,15 +74,15 @@ public class Main extends SimpleApplication{
         Main game = new Main();
         game.setDisplayFps(true);
         game.setDisplayStatView(false); //removes default show of text stats
-        game.setShowSettings(false);
+        game.setShowSettings(true);
         game.runServerSetup();
         
         // Title and image
         AppSettings settings = new AppSettings(true);
         settings.setTitle("Super Crazy Space Maniac Game Deluxe 4"); //5 star name
         settings.setSettingsDialogImage("Interface/nave.jpg");
-        settings.setWidth(600);
-        settings.setHeight(400);
+        //settings.setWidth(800);
+        //settings.setHeight(600);
         game.setSettings(settings);
         
         game.start();
@@ -240,11 +240,11 @@ public class Main extends SimpleApplication{
         rootNode.attachChild(audio_vehicleLaunch);
         
         bgMusic = new AudioNode(assetManager, "Sounds/StarWars.ogg", true);
-        bgMusic.setLooping(true); 
+        bgMusic.setLooping(false);
         bgMusic.setPositional(false);
         bgMusic.setVolume(1);
         terrain.add(bgMusic);
-        //bgMusic.play();
+        bgMusic.play();
     }
     
     private void initHUD(){

@@ -83,7 +83,7 @@ public class Player extends Ship  implements PhysicsCollisionListener{
           //    this.attack(.1f);
          //  }
          // else{
-               this.attack(5);
+               this.attack(100);
         //   }
        }
    }
