@@ -14,6 +14,7 @@ import com.jme3.font.BitmapText;
 import com.jme3.input.KeyInput;
 import com.jme3.input.controls.KeyTrigger;
 import com.jme3.light.DirectionalLight;
+import com.jme3.material.Material;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.RenderManager;
 import com.jme3.math.ColorRGBA;
@@ -32,6 +33,7 @@ import com.spacegame.networking.ElementData;
 import com.spacegame.util.PlayerList;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -116,6 +118,15 @@ public class Main extends SimpleApplication{
         player.getShipControl().setPhysicsLocation(new Vector3f(0,(player.getElementData().getID()*20),0));
         //player.setPosition(new Vector3f(0,0,0));
         player.setDirection(new Vector3f(0,0,0));
+        
+        //setting materials
+        Material mat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+        mat.setBoolean("UseMaterialColors", true);
+        mat.setColor("Diffuse", getColorById(client.getId()));
+        
+        player.setMaterial(mat);
+        
+        
         terrain.add(player.getNode()); //attaching the player to the terrain's node
         
         inputHandler = new InputHandler(player); //Loads a new InputHandler instance with instanced player
@@ -335,6 +346,7 @@ public class Main extends SimpleApplication{
                     //if its a new player, add it to the list
                     Player temp = new Player(e.getID(), PLAYER_MODEL, assetManager, BAS);
                     
+                    
                     temp.getNode().setName("player_" + e.getID());
                     temp.getNode().addControl(temp.getShipControl());
                     temp.getShipControl().setGravity(0);
@@ -342,6 +354,13 @@ public class Main extends SimpleApplication{
                     temp.getShipControl().setPhysicsLocation(e.getPosition());
                     //temp.setPosition(e.getPosition());
                     BAS.getPhysicsSpace().addCollisionListener(temp);
+                    
+                    //setting materials
+                    Material mat = new Material(assetManager, "Common/MatDefs/Light/Lighting.j3md");
+                    mat.setBoolean("UseMaterialColors", true);
+                    mat.setColor("Diffuse", getColorById(e.getID()));
+
+                    temp.setMaterial(mat);
                     
                     playerList.addPlayer(temp);
                     terrain.add(temp.getNode());
@@ -363,6 +382,23 @@ public class Main extends SimpleApplication{
                     }
                 }
             }
+        }
+    }
+    
+    private ColorRGBA getColorById(int id){
+        ColorRGBA color;
+        float alpha = 1.0f;
+        
+        switch(id){
+                case 0: return new ColorRGBA(0.3f,0.8f,0.1f, alpha);
+                case 1: return new ColorRGBA(0.9f,0.2f,0.7f, alpha); 
+                case 2: return new ColorRGBA(0.4f,0.4f,0.2f, alpha);
+                case 3: return new ColorRGBA(0.2f,0.1f,0.9f, alpha); 
+                case 4: return new ColorRGBA(0.0f,0.8f,0.4f, alpha);
+                case 5: return new ColorRGBA(0.6f,0.5f,0.4f, alpha);
+                case 6: return new ColorRGBA(0.1f,0.2f,0.5f, alpha); 
+                case 7: return new ColorRGBA(0.7f,0.3f,0.6f, alpha);
+                default: return new ColorRGBA(new Random().nextFloat(),new Random().nextFloat(),new Random().nextFloat(), 0.6f);
         }
     }
     

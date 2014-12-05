@@ -44,6 +44,7 @@ public abstract class Element extends PhysicsRigidBody{
     }
     public void setSpatial(Spatial spatial){
         this.spatial = spatial;
+        
     }
     
     //Material get and set
@@ -52,6 +53,7 @@ public abstract class Element extends PhysicsRigidBody{
     }
     public void setMaterial(Material material){
         mat = material;
+        spatial.setMaterial(mat);
     }
     
     //Node methods
