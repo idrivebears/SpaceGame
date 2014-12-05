@@ -22,7 +22,7 @@ import com.spacegame.util.BombControl;
 
 public class Ship extends Element{
     
-    private final float FINAL_SPEED = 2.0f;
+    private final float FINAL_SPEED = 1.0f;
 
     private SphereCollisionShape CShip;
     private CharacterControl ShipControl;
