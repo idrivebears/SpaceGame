@@ -368,6 +368,11 @@ public class Main extends SimpleApplication{
     
     private void log(String message){
         System.out.println(message);
-        //add writing to log file
+    }
+    
+    @Override
+    public void destroy() {
+        client.close();
+        super.destroy();
     }
 }

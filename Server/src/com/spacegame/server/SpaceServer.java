@@ -6,6 +6,7 @@ package com.spacegame.server;
 
 import com.jme3.app.SimpleApplication;
 import com.jme3.math.Vector3f;
+import com.jme3.network.HostedConnection;
 import com.jme3.network.Network;
 import com.jme3.network.Server;
 import com.jme3.system.JmeContext;

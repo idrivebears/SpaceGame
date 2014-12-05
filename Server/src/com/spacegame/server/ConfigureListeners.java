@@ -29,5 +29,6 @@ public class ConfigureListeners {
         server.addMessageListener(new ServerListener(), Update.class);
         server.addMessageListener(new ServerListener(), Input.class);
         server.addMessageListener(new ServerListener(), Test.class);
+        server.addConnectionListener(new Disconnector()); //added listener for disconector
     }
 }

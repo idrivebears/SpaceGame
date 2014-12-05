@@ -8,7 +8,6 @@ import java.util.ArrayList;
  */
 
 public class StateProcessor {
-    
     public static ArrayList<ElementData> elements = new ArrayList<ElementData>();
     
     //updatePlayers will take an input and add it to the Queue
