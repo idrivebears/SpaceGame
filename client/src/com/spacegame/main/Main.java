@@ -308,7 +308,7 @@ public class Main extends SimpleApplication{
        //add Nodes to terrain
        playerList.printAllPlayers();
        
-       client.send(new Input(player.getPosition(), player.getDirection(),player.getLocalRotation()));
+       client.send(new Input(player.getPosition(), player.getDirection(),player.getLocalRotation(), player.getElementData().isShooting()));
        player.getElementData().setShooting(false);
     }
 
@@ -354,7 +354,8 @@ public class Main extends SimpleApplication{
                     playerList.getPlayer(e.getID()).getShipControl().setPhysicsLocation(e.getPosition());
                     playerList.getPlayer(e.getID()).setLocalRotation(e.getRotation());
                     
-                    if(playerList.getPlayer(e.getID()).getElementData().isShooting()){
+                    if(playerList.getPlayer(e.getID()).getElementData().isShooting())
+                    {
                         playerList.getPlayer(e.getID()).shoot();
                         playerList.getPlayer(e.getID()).getElementData().setShooting(false);
                     }

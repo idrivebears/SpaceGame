@@ -18,14 +18,16 @@ public class Input extends AbstractMessage {
     public Vector3f position;
     public Vector3f direction;
     public Quaternion rotation;
+    public boolean isShooting;
     
     public Input(){//Empty
         
     }
-    public Input(Vector3f pos, Vector3f dir,Quaternion rot){
+    public Input(Vector3f pos, Vector3f dir,Quaternion rot, boolean isShooting){
         this.position = pos;
         this.direction = dir;
-        this.rotation=rot;
+        this.rotation = rot;
+        this.isShooting = isShooting;
     }
     
 }

@@ -40,7 +40,7 @@ public class Ship extends Element{
     protected float speed = FINAL_SPEED; //default speed
 
     private float radius = 3f; // default radius of collision shape
-    private float bulletradius = 1f;
+    private float bulletradius = 2.0f;
     public boolean isAlive;
     private float bulletspeed = 500f;
     // Speed of rotation, 3 Axes

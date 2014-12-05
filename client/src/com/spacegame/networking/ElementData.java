@@ -29,11 +29,12 @@ public class ElementData {
     public ElementData(ElementData e) {
         this.updateData(e);
     }
-    public ElementData(int id, Vector3f p, Vector3f d, Quaternion r) {
+    public ElementData(int id, Vector3f p, Vector3f d, Quaternion r, boolean isShooting) {
         this.id = id;
         this.direction = d;
         this.position = p;
         this.rotation = r;
+        this.isShooting = isShooting;
     }
 
     public Vector3f getDirection() {
