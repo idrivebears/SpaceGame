@@ -29,7 +29,7 @@ public class ElementData {
     public ElementData(ElementData e) {
         this.updateData(e);
     }
-    public ElementData(int id, Vector3f d, Vector3f p,Quaternion r) {
+    public ElementData(int id, Vector3f p, Vector3f d, Quaternion r) {
         this.id = id;
         this.direction = d;
         this.position = p;
