@@ -350,13 +350,13 @@ public class Main extends SimpleApplication{
                     //If the player exists in the list, it
                     //updates the player with matching id to its new ElementData stats
                     //playerList.getPlayer(e.getID()).updateStats(e);
-                    Player temp = playerList.getPlayer(e.getID());
-                    temp.getShipControl().setPhysicsLocation(e.getPosition());
-                    temp.setLocalRotation(e.getRotation());
+//                    Player temp = playerList.getPlayer(e.getID());
+                    playerList.getPlayer(e.getID()).getShipControl().setPhysicsLocation(e.getPosition());
+                    playerList.getPlayer(e.getID()).setLocalRotation(e.getRotation());
                     
-                    if(temp.getElementData().isShooting()){
-                        temp.shoot();
-                        temp.getElementData().setShooting(false);
+                    if(playerList.getPlayer(e.getID()).getElementData().isShooting()){
+                        playerList.getPlayer(e.getID()).shoot();
+                        playerList.getPlayer(e.getID()).getElementData().setShooting(false);
                     }
                 }
             }
