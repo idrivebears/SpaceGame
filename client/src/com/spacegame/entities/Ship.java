@@ -173,7 +173,7 @@ public class Ship extends Element{
     
     //Shooting. 
     public void shoot(){
-        audio_gun.playInstance();
+        //audio_gun.playInstance();
         if(this.isAlive){
             this.createBullet(this.getDirection(), this.getPosition());
             

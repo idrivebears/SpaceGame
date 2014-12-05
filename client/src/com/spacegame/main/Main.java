@@ -353,10 +353,12 @@ public class Main extends SimpleApplication{
 //                    Player temp = playerList.getPlayer(e.getID());
                     playerList.getPlayer(e.getID()).getShipControl().setPhysicsLocation(e.getPosition());
                     playerList.getPlayer(e.getID()).setLocalRotation(e.getRotation());
+                    playerList.getPlayer(e.getID()).getElementData().setShooting(e.isShooting()); 
                     
                     if(playerList.getPlayer(e.getID()).getElementData().isShooting())
                     {
                         playerList.getPlayer(e.getID()).shoot();
+                        System.out.println("omg player ["+e.getID()+"] is shooting");
                         playerList.getPlayer(e.getID()).getElementData().setShooting(false);
                     }
                 }
