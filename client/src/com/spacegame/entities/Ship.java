@@ -241,7 +241,7 @@ public class Ship extends Element{
                             this.elementData.getDirection().y*tpf,
                             this.elementData.getDirection().z*tpf));
        if(FastMath.abs(this.ShipControl.getPhysicsLocation().x) > 1024f || FastMath.abs(this.ShipControl.getPhysicsLocation().z) > 1024f){
-           this.attack(.1f);
+           this.attack(5.0f);
        }
     }
     public void attack(float attackDamage){
