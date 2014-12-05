@@ -117,27 +117,27 @@ public class Ship extends Element{
     //Modify pitchspeed, up and down. Between interval [-1,1].
     public void modifyPitch(String direction){
         if(direction.equals("up")){
-            if(pitchSpeed < 1) pitchSpeed += .5;
+            if(pitchSpeed < 2) pitchSpeed += .1;
         } else if(direction.equals("down")){
-            if(pitchSpeed > -1) pitchSpeed -= .5;
+            if(pitchSpeed > -2) pitchSpeed -= .1;
         }
     }
     
     //Modify rollspeed, up and down. Between interval [-1,1].
     public void modifyRoll(String direction){
         if(direction.equals("left")){
-            if(rollSpeed < 1) rollSpeed += .1;
+            if(rollSpeed < 2) rollSpeed += .08;
         } else if(direction.equals("right")){
-            if(rollSpeed > -1) rollSpeed -= .1;
+            if(rollSpeed > -2) rollSpeed -= .08;
         }
     }
     
     //Modify yawSpeed, up and down. Between interval [-1,1].
      public void modifyYaw(String direction){
         if(direction.equals("left")){
-            if(yawSpeed < 1) yawSpeed += .05;
+            if(yawSpeed < 2) yawSpeed += .05;
         } else if(direction.equals("right")){
-            if(yawSpeed > -1) yawSpeed -= .05;
+            if(yawSpeed > -2) yawSpeed -= .05;
         }
     }
 
